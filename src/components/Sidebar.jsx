@@ -24,15 +24,51 @@ const Sidebar = () => {
 
   const pages = [
     { icon: <DashboardIcon />, name: "Dashboard", route: "/" },
-    { icon: <ReportsIcon />, name: "Courses", route: "/deposits" },
-    { icon: <GroupIcon />, name: "Earnings", route: "/users" },
     {
-      icon: <PublishedWithChangesIcon />,
+      icon: (
+        <>
+          <img src="/teacher.svg" alt="teacher.svg" />
+        </>
+      ),
+      name: "Courses",
+      route: "/deposits"
+    },
+    {
+      icon: (
+        <>
+          <img src="/insert_chart.svg" alt="insert_chart.svg" />
+        </>
+      ),
+      name: "Earnings",
+      route: "/users"
+    },
+    {
+      icon: (
+        <>
+          <img src="/shield_person.svg" alt="shield_person.svg" />
+        </>
+      ),
       name: "Profile",
       route: "/reports"
     },
-    { icon: <NetworkIcon />, name: "Report", route: "/network" },
-    { icon: <NetworkIcon />, name: "UltraLive", route: "/network" }
+    {
+      icon: (
+        <>
+          <img src="/request_quote.svg" alt="request_quote.svg" />
+        </>
+      ),
+      name: "Report",
+      route: "/network"
+    },
+    {
+      icon: (
+        <>
+          <img src="/video-square.svg" alt="video-square.svg" />
+        </>
+      ),
+      name: "UltraLive",
+      route: "/network"
+    }
   ]
 
   return (
