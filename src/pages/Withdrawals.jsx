@@ -1,20 +1,30 @@
-import { useEffect, useMemo, useState, useCallback } from "react";
-import useAuth from "../hooks/useAuth";
-import useConfig from "../hooks/useConfig";
-import useSession from "../hooks/useSession";
-import FormRow from "../components/FormRow";
-import ModalG2Fa from "../components/ModalG2Fa";
-import ModalAuth from "../components/ModalAuth";
-import AuthService from "../services/auth.service";
-import UserService from "../services/user.service";
-import PageWrapper from "../components/PageWrapper";
-import EnhancedTable from "../components/EnhancedTable";
-import ModalErrorGeneral from "../components/ModalErrorGeneral";
-import ModalSucessGeneral from "../components/ModalSucessGeneral";
-import SubscriptionService from "../services/subscription.service";
-import ModalDepositFinancity from "../components/ModalDepositFinancity";
-import { Grid, Box, Button, TextField, Typography, Checkbox, Select, MenuItem, Divider } from "@mui/material";
-import { Link } from "react-router-dom";
+import { useEffect, useMemo, useState, useCallback } from "react"
+import useAuth from "../hooks/useAuth"
+import useConfig from "../hooks/useConfig"
+import useSession from "../hooks/useSession"
+import FormRow from "../components/FormRow"
+import ModalG2Fa from "../components/ModalG2Fa"
+import ModalAuth from "../components/ModalAuth"
+import AuthService from "../services/auth.service"
+import UserService from "../services/user.service"
+import PageWrapper from "../components/PageWrapper"
+import EnhancedTable from "../components/EnhancedTable"
+import ModalErrorGeneral from "../components/ModalErrorGeneral"
+import ModalSucessGeneral from "../components/ModalSucessGeneral"
+import SubscriptionService from "../services/subscription.service"
+import ModalDepositFinancity from "../components/ModalDepositFinancity"
+import {
+  Grid,
+  Box,
+  Button,
+  TextField,
+  Typography,
+  Checkbox,
+  Select,
+  MenuItem,
+  Divider
+} from "@mui/material"
+import { Link } from "react-router-dom"
 
 const headCells = [
   {
@@ -23,7 +33,7 @@ const headCells = [
     align: "left",
     width: "20%",
     disablePadding: false,
-    format: (value) => value,
+    format: (value) => value
   },
   {
     id: "date_withdrawal",
@@ -31,7 +41,7 @@ const headCells = [
     align: "left",
     width: "20%",
     disablePadding: false,
-    format: (value) => new Date(value).toLocaleDateString(),
+    format: (value) => new Date(value).toLocaleDateString()
   },
   {
     id: "status",
@@ -39,7 +49,8 @@ const headCells = [
     align: "left",
     width: "20%",
     disablePadding: false,
-    format: (value) => (value == 0 ? "PENDIENTE" : (value == 1 ? "PAGADO" : "RECHAZADO")),
+    format: (value) =>
+      value == 0 ? "PENDIENTE" : value == 1 ? "PAGADO" : "RECHAZADO"
   },
   {
     id: "date_payment",
@@ -47,7 +58,7 @@ const headCells = [
     align: "left",
     width: "20%",
     disablePadding: false,
-    format: (value) => (value ? new Date(value).toLocaleDateString() : "-"),
+    format: (value) => (value ? new Date(value).toLocaleDateString() : "-")
   },
   {
     id: "hash_payment",
@@ -57,17 +68,19 @@ const headCells = [
     disablePadding: false,
     format: (value) =>
       value ? (
-        <Link to={"https://tronscan.org/#/transaction/" + value.split("-")[0]} target="_BLANK">
+        <Link
+          to={"https://tronscan.org/#/transaction/" + value.split("-")[0]}
+          target="_BLANK">
           {value.split("-")[0]}
         </Link>
       ) : (
         "-"
-      ),
-  },
-];
+      )
+  }
+]
 
-var paymentsApproved = [];
-var totalPaymentsApproved = 0;
+var paymentsApproved = []
+var totalPaymentsApproved = 0
 
 const headCellsAdmin = [
   {
@@ -75,14 +88,14 @@ const headCellsAdmin = [
     label: "Usuario",
     width: "20%",
     disablePadding: false,
-    format: (value) => value,
+    format: (value) => value
   },
   {
     id: "user_email",
     label: "Usuario Email",
     width: "20%",
     disablePadding: false,
-    format: (value) => value,
+    format: (value) => value
   },
   {
     id: "amount_withdrawal",
@@ -90,7 +103,7 @@ const headCellsAdmin = [
     align: "left",
     width: "20%",
     disablePadding: false,
-    format: (value) => value,
+    format: (value) => value
   },
   {
     id: "date_withdrawal",
@@ -98,7 +111,7 @@ const headCellsAdmin = [
     align: "left",
     width: "20%",
     disablePadding: false,
-    format: (value) => new Date(value).toLocaleDateString(),
+    format: (value) => new Date(value).toLocaleDateString()
   },
   {
     id: "id",
@@ -110,206 +123,217 @@ const headCellsAdmin = [
         value={value}
         amount={row.amount_withdrawal}
         onChange={(val) => {
-          let newPayments = paymentsApproved;
-          let t = val.target;
+          let newPayments = paymentsApproved
+          let t = val.target
 
           if (t.checked) {
-            newPayments.push(t.value);
+            newPayments.push(t.value)
           } else if (newPayments.indexOf(t.value) >= 0) {
-            newPayments = newPayments.splice(newPayments.indexOf(t.value), 1);
+            newPayments = newPayments.splice(newPayments.indexOf(t.value), 1)
           }
 
-          paymentsApproved = newPayments;
+          paymentsApproved = newPayments
         }}
       />
-    ),
-  },
-];
+    )
+  }
+]
 
 function Withdrawals() {
-  const [auth] = useAuth();
-  const [session] = useSession();
-  const [, { setLoading }] = useConfig();
-  const [reports, setReports] = useState([]);
-  const [reportsAdmin, setReportsAdmin] = useState(null);
-  const $User = useMemo(() => new UserService(auth), [auth]);
-  const $Auth = useMemo(() => new AuthService(auth), [auth]);
-  const $Subscription = useMemo(() => new SubscriptionService(auth), [auth]);
+  const [auth] = useAuth()
+  const [session] = useSession()
+  const [, { setLoading }] = useConfig()
+  const [reports, setReports] = useState([])
+  const [reportsAdmin, setReportsAdmin] = useState(null)
+  const $User = useMemo(() => new UserService(auth), [auth])
+  const $Auth = useMemo(() => new AuthService(auth), [auth])
+  const $Subscription = useMemo(() => new SubscriptionService(auth), [auth])
 
-  const [withdrawalsTotal, setWithdrawalsTotal] = useState(false);
-  const [withdrawalsBalanceTrx, setWithdrawalsBalanceTrx] = useState(0);
-  const [withdrawalsBalanceUSDT, setWithdrawalsBalanceUSDT] = useState(0);
-  const [modalDepositFinancity, setModalDepositFinancity] = useState(false);
+  const [withdrawalsTotal, setWithdrawalsTotal] = useState(false)
+  const [withdrawalsBalanceTrx, setWithdrawalsBalanceTrx] = useState(0)
+  const [withdrawalsBalanceUSDT, setWithdrawalsBalanceUSDT] = useState(0)
+  const [modalDepositFinancity, setModalDepositFinancity] = useState(false)
 
-  const [modalConfirmReInvest, setModalConfirmReInvest] = useState(false);
-  const [modalConfirm2Fa, setModalConfirm2Fa] = useState(false);
-  const [modalConfirmAuth, setModalConfirmAuth] = useState(false);
-  const [modalConfirmAuthSplit, setModalConfirmAuthSplit] = useState(false);
-  const [modalConfirmRejectSplit, setModalConfirmRejectSplit] = useState(false);
-  const [modalErrorWithdrawal, setModalErrorWithdrawal] = useState(false);
-  const [modalSuccessWithdrawal, setModalSuccessWithdrawal] = useState(false);
-  const [originWithdrawal, setOriginWithdrawal] = useState(4);
+  const [modalConfirmReInvest, setModalConfirmReInvest] = useState(false)
+  const [modalConfirm2Fa, setModalConfirm2Fa] = useState(false)
+  const [modalConfirmAuth, setModalConfirmAuth] = useState(false)
+  const [modalConfirmAuthSplit, setModalConfirmAuthSplit] = useState(false)
+  const [modalConfirmRejectSplit, setModalConfirmRejectSplit] = useState(false)
+  const [modalErrorWithdrawal, setModalErrorWithdrawal] = useState(false)
+  const [modalSuccessWithdrawal, setModalSuccessWithdrawal] = useState(false)
+  const [originWithdrawal, setOriginWithdrawal] = useState(4)
 
   useEffect(() => {
-    setLoading(true);
+    setLoading(true)
 
-    (async () => {
-      const { status, data } = await $User.getWithdrawals();
+    ;(async () => {
+      const { status, data } = await $User.getWithdrawals()
 
       if (status) {
-        setReports(data.data);
+        setReports(data.data)
       }
 
-      const respAll = await $User.getWithdrawalsAll();
+      const respAll = await $User.getWithdrawalsAll()
 
       if (respAll.status) {
-        setWithdrawalsBalanceTrx(respAll.data.trxBalanceVault);
-        setWithdrawalsBalanceUSDT(respAll.data.usdtBalanceVault);
-        setWithdrawalsTotal(respAll.data.total);
-        setWithdrawalsTotal(respAll.data.total);
-        setReportsAdmin(respAll.data.data);
+        setWithdrawalsBalanceTrx(respAll.data.trxBalanceVault)
+        setWithdrawalsBalanceUSDT(respAll.data.usdtBalanceVault)
+        setWithdrawalsTotal(respAll.data.total)
+        setWithdrawalsTotal(respAll.data.total)
+        setReportsAdmin(respAll.data.data)
       }
-    })();
+    })()
 
     setTimeout(() => {
-      setLoading(false);
-    }, 500);
-  }, [$Auth]);
+      setLoading(false)
+    }, 500)
+  }, [$Auth])
 
   const startWithdrawal = async () => {
-    if(session.wallet_address_pay_commission==''){
-      setModalErrorWithdrawal("Configura la wallet antes de retirar desde tu perfil.");
-    }else if (Number(withdrawal.amount) >= 10) {
-      setLoading(true);
+    if (session.wallet_address_pay_commission == "") {
+      setModalErrorWithdrawal(
+        "Configura la wallet antes de retirar desde tu perfil."
+      )
+    } else if (Number(withdrawal.amount) >= 10) {
+      setLoading(true)
 
       let { status, data } = await $User.withdrawal({
         amount: withdrawal.amount,
         origin: originWithdrawal
-      });
+      })
 
-      setLoading(false);
+      setLoading(false)
 
       if (status) {
-        await $Auth.validate();
-        const { status, data } = await $User.getWithdrawals();
+        await $Auth.validate()
+        const { status, data } = await $User.getWithdrawals()
 
         if (status) {
-          setReports(data.data);
+          setReports(data.data)
         }
 
-        setModalSuccessWithdrawal("La solicitud de retiro ha sido enviada y en los próximos días será procesada.");
+        setModalSuccessWithdrawal(
+          "La solicitud de retiro ha sido enviada y en los próximos días será procesada."
+        )
       } else {
-
-        setLoading(false);
-        setModalErrorWithdrawal(data.response.data.message);
+        setLoading(false)
+        setModalErrorWithdrawal(data.response.data.message)
       }
     }
-  };
+  }
 
   const startReinvest = async () => {
     if (Number(withdrawal.amount) >= 100) {
-      setLoading(true);
+      setLoading(true)
 
       let { status, data } = await $User.reinvest({
         amount: withdrawal.amount,
         origin: originWithdrawal
-      });
+      })
 
-      setLoading(false);
+      setLoading(false)
 
       if (status) {
-        await $Auth.validate();
-        const { status, data } = await $User.getWithdrawals();
+        await $Auth.validate()
+        const { status, data } = await $User.getWithdrawals()
 
         if (status) {
-          setReports(data.data);
+          setReports(data.data)
         }
 
-        setModalSuccessWithdrawal("La reinversión ha sido generada correctamente");
+        setModalSuccessWithdrawal(
+          "La reinversión ha sido generada correctamente"
+        )
       } else {
-        setModalErrorWithdrawal(data.response.data.message);
+        setModalErrorWithdrawal(data.response.data.message)
       }
-    }else{
-      setLoading(false);
-      setModalErrorWithdrawal("El monto mínimo de reinversión es de 100 USDT");
+    } else {
+      setLoading(false)
+      setModalErrorWithdrawal("El monto mínimo de reinversión es de 100 USDT")
     }
-  };
+  }
 
   const startSplit = async (pass) => {
     if (paymentsApproved.length) {
-      setLoading(true);
+      setLoading(true)
 
       let { status, data } = await $Subscription.splitWithdrawal({
         splits: paymentsApproved.join(","),
-        password: pass,
-      });
+        password: pass
+      })
 
-      setLoading(false);
+      setLoading(false)
 
       if (status) {
-        await $Auth.validate();
-        const respAll = await $User.getWithdrawalsAll();
+        await $Auth.validate()
+        const respAll = await $User.getWithdrawalsAll()
 
         if (respAll.status) {
-          setWithdrawalsTotal(respAll.data.total);
-          setReportsAdmin(respAll.data.data);
+          setWithdrawalsTotal(respAll.data.total)
+          setReportsAdmin(respAll.data.data)
         }
 
-        if(data.error){
-          setModalErrorWithdrawal(data.error);
-        }else{
-          setModalSuccessWithdrawal("Las solicitudes de retiro marcadas han sido ejecutadas.");
+        if (data.error) {
+          setModalErrorWithdrawal(data.error)
+        } else {
+          setModalSuccessWithdrawal(
+            "Las solicitudes de retiro marcadas han sido ejecutadas."
+          )
         }
-
       } else {
-        setModalErrorWithdrawal(data.response.data.message);
+        setModalErrorWithdrawal(data.response.data.message)
       }
     }
-  };
-  
+  }
+
   const startRejectSplit = async (pass) => {
     if (paymentsApproved.length) {
-      setLoading(true);
+      setLoading(true)
 
       let { status, data } = await $Subscription.rejectWithdrawal({
         splits: paymentsApproved.join(","),
-        password: pass,
-      });
+        password: pass
+      })
 
-      setLoading(false);
+      setLoading(false)
 
       if (status) {
-        await $Auth.validate();
-        const respAll = await $User.getWithdrawalsAll();
+        await $Auth.validate()
+        const respAll = await $User.getWithdrawalsAll()
 
         if (respAll.status) {
-          setWithdrawalsTotal(respAll.data.total);
-          setReportsAdmin(respAll.data.data);
+          setWithdrawalsTotal(respAll.data.total)
+          setReportsAdmin(respAll.data.data)
         }
 
-        if(data.error){
-          setModalErrorWithdrawal(data.error);
-        }else{
-          setModalSuccessWithdrawal("Las solicitudes de retiro marcadas han sido rechazadas.");
+        if (data.error) {
+          setModalErrorWithdrawal(data.error)
+        } else {
+          setModalSuccessWithdrawal(
+            "Las solicitudes de retiro marcadas han sido rechazadas."
+          )
         }
-
       } else {
-        setModalErrorWithdrawal(data.response.data.message);
+        setModalErrorWithdrawal(data.response.data.message)
       }
     }
-  };
+  }
 
   const [withdrawal, setWithdrawal] = useState({
-    amount: (parseFloat(session?.balance_roi_available||0)+parseFloat(session?.balance_binary_available||0)+parseFloat(session?.balance_direct_available||0)).toFixed(2),
-  });
+    amount: (
+      parseFloat(session?.balance_roi_available || 0) +
+      parseFloat(session?.balance_binary_available || 0) +
+      parseFloat(session?.balance_direct_available || 0)
+    ).toFixed(2)
+  })
 
   const handleInputChange = useCallback((event) => {
-    const { name, value } = event.target;
-    setWithdrawal((prev) => ({ ...prev, [name]: value }));
-  }, []);
+    const { name, value } = event.target
+    setWithdrawal((prev) => ({ ...prev, [name]: value }))
+  }, [])
 
   return (
-    <PageWrapper sx={{ padding: 2 }}>
+    <PageWrapper sx={{ padding: 2 }} expanded>
       <Grid display="flex" flexDirection="column" gap={2}>
         <Grid display="flex" flexDirection="column" gap={2}>
           <Box
@@ -322,17 +346,22 @@ function Withdrawals() {
             sx={(t) => ({
               backgroundColor: "white",
               [t.breakpoints.down("md")]: {
-                flexDirection: "column",
-              },
-            })}
-          >
+                flexDirection: "column"
+              }
+            })}>
             <Grid display="flex" flexDirection="column" flexGrow={1}>
               <Typography fontSize={24} fontWeight={700} color="primary">
-                {`Monto a Retirar - Balance Total ${(parseFloat(session?.balance_roi_available||0)+parseFloat(session?.balance_binary_available||0)+parseFloat(session?.balance_direct_available||0)).toFixed(2)} USDT`}
+                {`Monto a Retirar - Balance Total ${(
+                  parseFloat(session?.balance_roi_available || 0) +
+                  parseFloat(session?.balance_binary_available || 0) +
+                  parseFloat(session?.balance_direct_available || 0)
+                ).toFixed(2)} USDT`}
               </Typography>
               <Typography>
                 {"Fecha Último Retiro: " +
-                  (reports.length ? new Date(reports[0]?.date_withdrawal).toLocaleDateString() : "-")}
+                  (reports.length
+                    ? new Date(reports[0]?.date_withdrawal).toLocaleDateString()
+                    : "-")}
               </Typography>
             </Grid>
             <Grid
@@ -342,46 +371,73 @@ function Withdrawals() {
               sx={(t) => ({
                 [t.breakpoints.down("md")]: {
                   flexDirection: "column",
-                  width: "100%",
-                },
-              })}
-            >
+                  width: "100%"
+                }
+              })}>
               <Select
                 value={originWithdrawal}
                 label=""
-                onChange={(a)=>{ 
-                  setOriginWithdrawal(a.target.value);
-                  if(a.target.value==4){
+                onChange={(a) => {
+                  setOriginWithdrawal(a.target.value)
+                  if (a.target.value == 4) {
                     handleInputChange({
                       target: {
-                        name: 'amount',
-                        value: (parseFloat(session?.balance_roi_available||0)+parseFloat(session?.balance_binary_available||0)+parseFloat(session?.balance_direct_available||0)).toFixed(2)
+                        name: "amount",
+                        value: (
+                          parseFloat(session?.balance_roi_available || 0) +
+                          parseFloat(session?.balance_binary_available || 0) +
+                          parseFloat(session?.balance_direct_available || 0)
+                        ).toFixed(2)
                       }
                     })
-                  }else{
+                  } else {
                     handleInputChange({
                       target: {
-                        name: 'amount',
+                        name: "amount",
                         value: 0
                       }
                     })
                   }
                 }}>
-                <MenuItem value={4}>Total - Disponible: {(parseFloat(session?.balance_roi_available||0)+parseFloat(session?.balance_binary_available||0)+parseFloat(session?.balance_direct_available||0)).toFixed(2)} USDT</MenuItem>
-                <MenuItem value={1}>ROI - Disponible: {parseFloat(session?.balance_roi_available||0).toFixed(2)} USDT</MenuItem>
-                <MenuItem value={2}>Binario - Disponible: {parseFloat(session?.balance_binary_available||0).toFixed(2)} USDT</MenuItem>
-                <MenuItem value={3}>Directo - Disponible: {parseFloat(session?.balance_direct_available||0).toFixed(2)} USDT</MenuItem>
+                <MenuItem value={4}>
+                  Total - Disponible:{" "}
+                  {(
+                    parseFloat(session?.balance_roi_available || 0) +
+                    parseFloat(session?.balance_binary_available || 0) +
+                    parseFloat(session?.balance_direct_available || 0)
+                  ).toFixed(2)}{" "}
+                  USDT
+                </MenuItem>
+                <MenuItem value={1}>
+                  ROI - Disponible:{" "}
+                  {parseFloat(session?.balance_roi_available || 0).toFixed(2)}{" "}
+                  USDT
+                </MenuItem>
+                <MenuItem value={2}>
+                  Binario - Disponible:{" "}
+                  {parseFloat(session?.balance_binary_available || 0).toFixed(
+                    2
+                  )}{" "}
+                  USDT
+                </MenuItem>
+                <MenuItem value={3}>
+                  Directo - Disponible:{" "}
+                  {parseFloat(session?.balance_direct_available || 0).toFixed(
+                    2
+                  )}{" "}
+                  USDT
+                </MenuItem>
               </Select>
               <TextField
                 name="amount"
                 value={withdrawal.amount}
-                disabled={(originWithdrawal==4 ? true : false)}
+                disabled={originWithdrawal == 4 ? true : false}
                 type="number"
                 size="small"
                 inputProps={{
                   step: "1", // Incremento o decremento de los valores permitidos
                   pattern: "[0-9]+([.,][0-9]+)?", // Patrón para permitir números enteros y decimales
-                  min: "10", // Valor mínimo permitido
+                  min: "10" // Valor mínimo permitido
                 }}
                 fullWidth
                 onChange={handleInputChange}
@@ -391,30 +447,28 @@ function Withdrawals() {
                 size="large"
                 color={"warning"}
                 onClick={() => {
-                  setModalConfirmReInvest(true);
+                  setModalConfirmReInvest(true)
                   if (session.exist_2fa_auth == 1) {
-                    setModalConfirm2Fa(true);
+                    setModalConfirm2Fa(true)
                   } else {
-                    setModalConfirmAuth(true);
+                    setModalConfirmAuth(true)
                   }
                 }}
-                fullWidth
-              >
+                fullWidth>
                 Reinventir
               </Button>
               <Button
                 variant="contained"
                 size="large"
                 onClick={() => {
-                  setModalConfirmReInvest(false);
+                  setModalConfirmReInvest(false)
                   if (session.exist_2fa_auth == 1) {
-                    setModalConfirm2Fa(true);
+                    setModalConfirm2Fa(true)
                   } else {
-                    setModalConfirmAuth(true);
+                    setModalConfirmAuth(true)
                   }
                 }}
-                fullWidth
-              >
+                fullWidth>
                 Solicitar Retiro
               </Button>
             </Grid>
@@ -431,12 +485,30 @@ function Withdrawals() {
                     <Typography fontWeight={600} color="primary">
                       Total Pendiente:
                     </Typography>
-                    <Typography>{(parseFloat(session?.balance_roi_available||0)+parseFloat(session?.balance_binary_available||0)+parseFloat(session?.balance_direct_available||0)).toFixed(2).toLocaleString()} USDT</Typography>
+                    <Typography>
+                      {(
+                        parseFloat(session?.balance_roi_available || 0) +
+                        parseFloat(session?.balance_binary_available || 0) +
+                        parseFloat(session?.balance_direct_available || 0)
+                      )
+                        .toFixed(2)
+                        .toLocaleString()}{" "}
+                      USDT
+                    </Typography>
                     {"-"}
                     <Typography fontWeight={600} color="primary">
                       Total Pagado:
                     </Typography>
-                    <Typography>{(parseFloat(session?.balance_roi_payed||0)+parseFloat(session?.balance_binary_payed||0)+parseFloat(session?.balance_direct_payed||0)).toFixed(2).toLocaleString()} USDT</Typography>
+                    <Typography>
+                      {(
+                        parseFloat(session?.balance_roi_payed || 0) +
+                        parseFloat(session?.balance_binary_payed || 0) +
+                        parseFloat(session?.balance_direct_payed || 0)
+                      )
+                        .toFixed(2)
+                        .toLocaleString()}{" "}
+                      USDT
+                    </Typography>
                   </Grid>
                 </>
               }
@@ -446,163 +518,166 @@ function Withdrawals() {
 
         <Divider />
 
-          {reportsAdmin && session.rol == 1 && (
-            <Grid display="flex" flexDirection="column" gap={2}>
-              <Box
+        {reportsAdmin && session.rol == 1 && (
+          <Grid display="flex" flexDirection="column" gap={2}>
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+              gap={1}
+              padding={2}
+              borderRadius={4}
+              sx={(t) => ({
+                backgroundColor: "white",
+                [t.breakpoints.down("md")]: {
+                  flexDirection: "column"
+                }
+              })}>
+              <Grid display="flex" flexDirection="column" flexGrow={1}>
+                <Typography fontSize={24} fontWeight={700} color="primary">
+                  {`Monto a aprobar para retiro`}
+                </Typography>
+                <Typography fontSize={15} color="primary">
+                  {`Balance Financity TRX: ${withdrawalsBalanceTrx
+                    .toFixed(2)
+                    .toLocaleString()} TRX`}
+                </Typography>
+                <Typography fontSize={15} color="primary">
+                  {`Balance Financity USDT: ${withdrawalsBalanceUSDT
+                    .toFixed(2)
+                    .toLocaleString()} USDT`}
+                </Typography>
+              </Grid>
+              <Grid
                 display="flex"
-                justifyContent="space-between"
                 alignItems="center"
-                gap={1}
-                padding={2}
-                borderRadius={4}
+                gap={2}
                 sx={(t) => ({
-                  backgroundColor: "white",
                   [t.breakpoints.down("md")]: {
                     flexDirection: "column",
-                  },
-                })}
-              >
-                <Grid display="flex" flexDirection="column" flexGrow={1}>
-                  <Typography fontSize={24} fontWeight={700} color="primary">
-                    {`Monto a aprobar para retiro`}
-                  </Typography>
-                  <Typography fontSize={15} color="primary">
-                    {`Balance Financity TRX: ${withdrawalsBalanceTrx.toFixed(2).toLocaleString()} TRX`}
-                  </Typography>
-                  <Typography fontSize={15} color="primary">
-                    {`Balance Financity USDT: ${withdrawalsBalanceUSDT.toFixed(2).toLocaleString()} USDT`}
-                  </Typography>
-                </Grid>
-                <Grid
-                  display="flex"
-                  alignItems="center"
-                  gap={2}
+                    width: "100%"
+                  }
+                })}>
+                <Button
+                  variant="contained"
+                  size="large"
+                  onClick={() => {
+                    setModalDepositFinancity(true)
+                  }}
                   sx={(t) => ({
                     [t.breakpoints.down("md")]: {
-                      flexDirection: "column",
-                      width: "100%",
-                    },
-                  })}
-                >
-                  <Button
-                    variant="contained"
-                    size="large"
-                    onClick={() => {
-                      setModalDepositFinancity(true);
-                    }}
-                    sx={(t) => ({
-                      [t.breakpoints.down("md")]: {
-                        width: "100%",
-                      },
-                    })}
-                  >
-                    Cargar wallet Financity
-                  </Button>
+                      width: "100%"
+                    }
+                  })}>
+                  Cargar wallet Financity
+                </Button>
 
-                  <Button
-                    variant="contained"
-                    size="large"
-                    onClick={() => {
-                      setModalConfirmAuth(true);
-                      setModalConfirmRejectSplit(true);
-                    }}
-                    sx={(t) => ({
-                      [t.breakpoints.down("md")]: {
-                        width: "100%",
-                      },
-                    })}
-                  >
-                    Rechazar retiros marcados
-                  </Button>
-                  
-                  <Button
-                    variant="contained"
-                    size="large"
-                    color={"warning"}
-                    onClick={() => {
-                      setModalConfirmAuth(true);
-                      setModalConfirmAuthSplit(true);
-                    }}
-                    sx={(t) => ({
-                      [t.breakpoints.down("md")]: {
-                        width: "100%",
-                      },
-                    })}
-                  >
-                    Aprobar retiros marcados
-                  </Button>
-                </Grid>
-              </Box>
-              <EnhancedTable
-                title="Histórico de los retiros pendientes de todos los usuarios"
-                headCells={headCellsAdmin}
-                rows={reportsAdmin}
-                footer={
-                  <>
-                    <Grid display="flex" gap={1}>
-                      <Typography fontWeight={600} color="primary">
-                        Total Pendiente:
-                      </Typography>
-                      <Typography>{withdrawalsTotal?.toFixed(2).toLocaleString()} USDT</Typography>
-                    </Grid>
-                  </>
-                }
-              />
-            </Grid>
-          )}
+                <Button
+                  variant="contained"
+                  size="large"
+                  onClick={() => {
+                    setModalConfirmAuth(true)
+                    setModalConfirmRejectSplit(true)
+                  }}
+                  sx={(t) => ({
+                    [t.breakpoints.down("md")]: {
+                      width: "100%"
+                    }
+                  })}>
+                  Rechazar retiros marcados
+                </Button>
+
+                <Button
+                  variant="contained"
+                  size="large"
+                  color={"warning"}
+                  onClick={() => {
+                    setModalConfirmAuth(true)
+                    setModalConfirmAuthSplit(true)
+                  }}
+                  sx={(t) => ({
+                    [t.breakpoints.down("md")]: {
+                      width: "100%"
+                    }
+                  })}>
+                  Aprobar retiros marcados
+                </Button>
+              </Grid>
+            </Box>
+            <EnhancedTable
+              title="Histórico de los retiros pendientes de todos los usuarios"
+              headCells={headCellsAdmin}
+              rows={reportsAdmin}
+              footer={
+                <>
+                  <Grid display="flex" gap={1}>
+                    <Typography fontWeight={600} color="primary">
+                      Total Pendiente:
+                    </Typography>
+                    <Typography>
+                      {withdrawalsTotal?.toFixed(2).toLocaleString()} USDT
+                    </Typography>
+                  </Grid>
+                </>
+              }
+            />
+          </Grid>
+        )}
       </Grid>
 
       {modalConfirm2Fa && (
         <ModalG2Fa
           open={modalConfirm2Fa}
           handleClose={() => {
-            setModalConfirm2Fa(false);
+            setModalConfirm2Fa(false)
           }}
           handleAuth={async () => {
             if (session.exist_2fa_auth == 1) {
-              setModalConfirm2Fa(false);
-              setModalConfirmAuth(true);
+              setModalConfirm2Fa(false)
+              setModalConfirmAuth(true)
             }
           }}
         />
       )}
-      
+
       {modalDepositFinancity && (
         <ModalDepositFinancity
           open={modalDepositFinancity}
           handleClose={() => {
-            setModalDepositFinancity(false);
+            setModalDepositFinancity(false)
           }}
         />
       )}
 
-      {modalConfirmAuth&&(<ModalAuth
-        open={modalConfirmAuth}
-        handleClose={() => {
-          setModalConfirmAuth(false);
-        }}
-        handleAuth={(pass) => {
-          setLoading(true);
-          if (modalConfirmAuthSplit) {
-            startSplit(pass);
-          }else if (modalConfirmRejectSplit) {
-            startRejectSplit(pass);
-          } else if(modalConfirmReInvest) {
-            setModalConfirmReInvest(false);
-            startReinvest();
-          }else{
-            startWithdrawal();
-          }
+      {modalConfirmAuth && (
+        <ModalAuth
+          open={modalConfirmAuth}
+          handleClose={() => {
+            setModalConfirmAuth(false)
+          }}
+          handleAuth={(pass) => {
+            setLoading(true)
+            if (modalConfirmAuthSplit) {
+              startSplit(pass)
+            } else if (modalConfirmRejectSplit) {
+              startRejectSplit(pass)
+            } else if (modalConfirmReInvest) {
+              setModalConfirmReInvest(false)
+              startReinvest()
+            } else {
+              startWithdrawal()
+            }
 
-          setModalConfirmAuth(false);
-        }}
-      />)}
+            setModalConfirmAuth(false)
+          }}
+        />
+      )}
 
       <ModalErrorGeneral
         open={modalErrorWithdrawal ? true : false}
         error={modalErrorWithdrawal}
         handleClose={() => {
-          setModalErrorWithdrawal(false);
+          setModalErrorWithdrawal(false)
         }}
       />
 
@@ -610,11 +685,11 @@ function Withdrawals() {
         open={modalSuccessWithdrawal ? true : false}
         message={modalSuccessWithdrawal}
         handleClose={() => {
-          setModalSuccessWithdrawal(false);
+          setModalSuccessWithdrawal(false)
         }}
       />
     </PageWrapper>
-  );
+  )
 }
 
-export default Withdrawals;
+export default Withdrawals
