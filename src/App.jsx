@@ -48,7 +48,6 @@ function App() {
       <Loader show={config.loading} />
       <BrowserRouter>
         <Header />
-
         <Router />
       </BrowserRouter>
     </ThemeProvider>

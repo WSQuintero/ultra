@@ -31,7 +31,7 @@ const Sidebar = () => {
         </>
       ),
       name: "Courses",
-      route: "/deposits"
+      route: "/courses"
     },
     {
       icon: (
@@ -40,7 +40,7 @@ const Sidebar = () => {
         </>
       ),
       name: "Earnings",
-      route: "/users"
+      route: "/earnings"
     },
     {
       icon: (
@@ -49,7 +49,7 @@ const Sidebar = () => {
         </>
       ),
       name: "Profile",
-      route: "/reports"
+      route: "/profile"
     },
     {
       icon: (
@@ -58,7 +58,7 @@ const Sidebar = () => {
         </>
       ),
       name: "Report",
-      route: "/network"
+      route: "/report"
     },
     {
       icon: (
@@ -67,7 +67,7 @@ const Sidebar = () => {
         </>
       ),
       name: "UltraLive",
-      route: "/network"
+      route: "/ultralive"
     }
   ]
 
