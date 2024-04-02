@@ -1,5 +1,6 @@
 import { AppBar, Toolbar, Box, Avatar } from "@mui/material"
 import { useLocation, useNavigate } from "react-router"
+import SlugInvitation from "./slugInvitation"
 
 function Header() {
   const location = useLocation()
@@ -27,7 +28,8 @@ function Header() {
             onClick={() => navigate("/")}
           />
         </Box>
-        {/* Aquí se agrega el Avatar */}
+        <SlugInvitation />
+
         <Avatar
           alt="Profile"
           src="/profile.webp"

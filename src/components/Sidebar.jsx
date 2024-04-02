@@ -91,7 +91,7 @@ const Sidebar = () => {
                 component={NavLink}
                 to={route}
                 sx={{
-                  "&.active": { color: "primary.main" },
+                  "&.active": { color: "primary.main", bgcolor: "#30160c" },
                   "&:hover": {
                     bgcolor: "#30160c"
                   }
