@@ -5,12 +5,13 @@ import {
   CardActions,
   CardActionArea,
   Typography,
-  Card
+  Card,
+  Box
 } from "@mui/material"
 
 function CourseCard() {
   return (
-    <Card sx={{ width: "350px", height: "300px", borderRadius: 5 }}>
+    <Card sx={{ width: "420px", height: "350px", borderRadius: 5 }}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -18,24 +19,77 @@ function CourseCard() {
           image="/card-course.png"
           title="Contemplative Reptile"
         />
-        <CardContent sx={{ backgroundColor: "#010a1e" }}>
-          <Typography gutterBottom variant="h5" component="h2">
-            Lizard
+        <CardContent sx={{ backgroundColor: "#010a1e", paddingBottom: 5 }}>
+          <div style={{ display: "flex", gap: "5px" }}>
+            <Box
+              sx={{
+                backgroundColor: "rgba(255,255,255,0.4)",
+                padding: "5px",
+                paddingX: "10px",
+                borderRadius: 2
+              }}>
+              <Typography sx={{ color: "rgba(255,255,255,0.7)" }}>
+                <span>
+                  <img
+                    src="/clock.svg"
+                    alt="vector"
+                    style={{ width: "15px" }}
+                  />
+                </span>{" "}
+                24 hours
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                backgroundColor: "rgba(255,255,255,0.4)",
+                padding: "5px",
+                paddingX: "10px",
+                borderRadius: 2,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center"
+              }}>
+              <Typography
+                sx={{
+                  color: "rgba(255,255,255,0.7)"
+                }}>
+                <span>
+                  <img
+                    src="/clock.svg"
+                    alt="vector"
+                    style={{ width: "15px" }}
+                  />
+                </span>{" "}
+                8 videos
+              </Typography>
+            </Box>
+          </div>
+          <Typography
+            variant="h5"
+            component="h2"
+            marginLeft={1}
+            marginTop={1}
+            sx={{ color: "white" }}>
+            Forex
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
-          </Typography>
+          <div
+            style={{
+              display: "flex",
+              height: "10px",
+              alignItems: "center",
+              gap: "10px"
+            }}>
+            <img
+              src="/charge.png"
+              alt="charge"
+              style={{ marginLeft: "10px", width: "90%" }}
+            />
+            <span>
+              <Typography>25%</Typography>
+            </span>
+          </div>
         </CardContent>
       </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
-        </Button>
-      </CardActions>
     </Card>
   )
 }
