@@ -177,7 +177,7 @@ export default function Signin() {
     <Grid container minHeight="100vh" display={"flex"}>
       <ContainerItem
         sx={{
-          backgroundColor: "#9a8034",
+          backgroundColor: "#010a1e",
           height: "100vh",
           width: "50%",
           position: "relative"
@@ -192,7 +192,7 @@ export default function Signin() {
           justifyContent="center"
           alignItems="center"
           sx={{
-            backgroundColor: "#9a8034",
+            backgroundColor: "#010a1e",
             height: "100%",
             width: "100%",
             position: "relative"

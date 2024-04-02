@@ -174,7 +174,7 @@ function ForgotPassword() {
       alignItems="center"
       minHeight="100vh"
       sx={{
-        backgroundColor: "#9a8034",
+        backgroundColor: "#010a1e",
         backgroundPosition: "center",
         backgroundSize: "cover",
         position: "relative"
@@ -201,8 +201,11 @@ function ForgotPassword() {
         gap={4}
         bgcolor="#010a1e"
         padding={4}
-        borderRadius={4}
-        width={10 * 70}>
+        sx={{
+          boxShadow: "0px 0px 10px 0px rgba(255, 255, 255, 0.5)", // Añadiendo sombra
+          borderRadius: 4,
+          width: 10 * 70
+        }}>
         <Typography variant="h2" color="white" fontSize={48} textAlign="center">
           Ultra
         </Typography>
