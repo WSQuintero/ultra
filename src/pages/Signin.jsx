@@ -270,7 +270,11 @@ export default function Signin() {
               justifyContent: "center",
               alignItems: "center"
             }}>
-            <Grid display="flex" flexDirection="column" gap={2}>
+            <Grid
+              display="flex"
+              flexDirection="column"
+              gap={2}
+              sx={{ marginTop: 10 }}>
               <Typography
                 variant="h2"
                 textAlign="center"
