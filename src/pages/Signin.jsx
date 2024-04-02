@@ -174,10 +174,21 @@ export default function Signin() {
   }, [])
 
   return (
-    <Grid container minHeight="100vh" display={"flex"}>
+    <Grid container display="flex" sx={{ display: "flex" }}>
+      {/* <img
+        src="/imageLoginTwo.jpg"
+        alt="imageLoginTwo"
+        style={{
+          width: "100%",
+          height: "100%",
+          zIndex: 10,
+          position: "absolute",
+          top: 0,
+          left: 0
+        }}
+      /> */}
       <ContainerItem
         sx={{
-          backgroundColor: "#010a1e",
           height: "100vh",
           width: "50%",
           position: "relative"
@@ -192,22 +203,51 @@ export default function Signin() {
           justifyContent="center"
           alignItems="center"
           sx={{
-            backgroundColor: "#010a1e",
             height: "100%",
             width: "100%",
-            position: "relative"
+            position: "relative",
+            backgroundColor: "black"
           }}>
           <img
-            src="/shape.png"
-            alt="Login"
-            style={{ maxWidth: "80%", position: "absolute", top: 0, right: 0 }}
+            src="/stars.jpg"
+            alt="stars"
+            style={{
+              objectFit: "cover",
+              width: "100%",
+              height: "100vh",
+              position: "absolute",
+              mixBlendMode: "darken"
+            }}
           />
-          <img
-            src="/imageLogin.png"
-            alt="Login"
-            style={{ maxWidth: "60%", zIndex: 50 }}
-          />
-          <img
+          <div style={{ position: "relative", maxWidth: "70%", zIndex: 50 }}>
+            <video
+              src="/FONDO-PRINCIPAL-VIDEO.mp4"
+              style={{
+                width: "100%",
+                height: "auto",
+                boxShadow:
+                  "10px 10px 20px #ab8e3a, -10px -10px 20px #ab8e3a, 10px -10px 20px #ab8e3a, -10px 10px 20px #ab8e3a"
+              }}
+              autoPlay
+              loop
+              muted
+              type="video/mp4"
+            />
+            <img
+              src="/logo-principal.png"
+              alt="Imagen"
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                zIndex: 100,
+                width: "30%"
+              }}
+            />
+          </div>
+
+          {/* <img
             src="/shape1.png"
             alt="Login"
             style={{
@@ -216,7 +256,7 @@ export default function Signin() {
               bottom: 0,
               left: 0
             }}
-          />
+          /> */}
           <Typography
             sx={{
               position: "absolute",
@@ -242,175 +282,175 @@ export default function Signin() {
         </Box>
       </ContainerItem>
 
-      <ContainerItem>
-        <Container
+      <Box
+        display="flex"
+        flexDirection="column"
+        padding={4}
+        overflow
+        alignItems="center"
+        justifyContent="center"
+        sx={{
+          height: "100vh",
+          justifyContent: "center",
+          alignItems: "center",
+          zIndex: 30,
+          width: "50%",
+          backgroundColor: "rgba(0,0,0,0.9)",
+          position: "relative"
+        }}>
+        <Grid
+          flexGrow={1}
           display="flex"
           flexDirection="column"
-          padding={4}
-          overflow
           alignItems="center"
           justifyContent="center"
+          gap={3}
+          maxWidth={550}
+          marginX="auto"
           sx={{
-            backgroundColor: "#010a1e",
-            height: "100vh",
             justifyContent: "center",
             alignItems: "center"
           }}>
           <Grid
-            flexGrow={1}
             display="flex"
             flexDirection="column"
-            alignItems="center"
-            justifyContent="center"
-            gap={3}
-            maxWidth={550}
-            marginX="auto"
-            sx={{
-              backgroundColor: "#010a1e",
-              justifyContent: "center",
-              alignItems: "center"
-            }}>
-            <Grid
-              display="flex"
-              flexDirection="column"
-              gap={2}
-              sx={{ marginTop: 10, width: "100%" }}>
-              <Typography
-                variant="h2"
-                textAlign="start"
-                sx={{ color: "white", marginTop: 5 }}>
-                Log in to your account
-              </Typography>
-              <Typography textAlign="start">
-                Welcome! Please enter your details.
-              </Typography>
-            </Grid>
-            <Box
-              component="form"
-              width="100%"
-              onSubmit={handlePreSubmit}
-              noValidate>
-              <Grid display="flex" flexDirection="column" gap={2}>
-                <Grid display="flex" flexDirection="column" gap={1}>
-                  <InputLabel sx={{ color: "white" }}>Email Address</InputLabel>
-                  <TextField
-                    name="email"
-                    placeholder="Ingresa tu correo"
-                    required
-                    fullWidth
-                    placeholderColor="white"
-                    onChange={handleChangeUser}
-                    InputProps={{
-                      style: {
-                        backgroundColor: "#010a1e",
-                        border: "1px solid white",
-                        color: "white"
-                      },
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <IconButton
-                            aria-label="toggle password visibility"
-                            onClick={() => setShowPassword((prev) => !prev)}>
-                            <EmailIcon style={{ color: "white" }} />
-                          </IconButton>
-                        </InputAdornment>
-                      )
-                    }}
-                  />
-                </Grid>
+            gap={2}
+            sx={{ marginTop: 10, width: "100%" }}>
+            <Typography
+              variant="h2"
+              textAlign="start"
+              sx={{ color: "white", marginTop: 5 }}>
+              Log in to your account
+            </Typography>
+            <Typography textAlign="start">
+              Welcome! Please enter your details.
+            </Typography>
+          </Grid>
+          <Box
+            component="form"
+            width="100%"
+            onSubmit={handlePreSubmit}
+            noValidate>
+            <Grid display="flex" flexDirection="column" gap={2}>
+              <Grid display="flex" flexDirection="column" gap={1}>
+                <InputLabel sx={{ color: "white" }}>Email Address</InputLabel>
+                <TextField
+                  name="email"
+                  placeholder="Ingresa tu correo"
+                  required
+                  fullWidth
+                  placeholderColor="white"
+                  onChange={handleChangeUser}
+                  InputProps={{
+                    style: {
+                      backgroundColor: "black",
+                      border: "1px solid white",
+                      color: "white"
+                    },
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={() => setShowPassword((prev) => !prev)}>
+                          <EmailIcon style={{ color: "white" }} />
+                        </IconButton>
+                      </InputAdornment>
+                    )
+                  }}
+                />
+              </Grid>
 
-                <Grid
-                  display="flex"
-                  flexDirection="column"
-                  gap={1}
-                  justifyContent={"center"}>
-                  <InputLabel sx={{ color: "white" }}>
-                    <span style={{ color: theme.palette.custom.required }}>
-                      <img src="/lock.svg" alt="lock.svg" />
-                    </span>{" "}
-                    Password{" "}
-                  </InputLabel>
-                  <TextField
-                    name="password"
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Ingresa tu contraseña"
-                    required
-                    fullWidth
-                    onChange={handleChangeUser}
-                    InputProps={{
-                      style: {
-                        backgroundColor: "#010a1e",
-                        border: "1px solid white",
-                        color: "white"
-                      },
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <IconButton
-                            aria-label="toggle password visibility"
-                            onClick={() => setShowPassword((prev) => !prev)}>
-                            <LockOpenIcon style={{ color: "white" }} />
-                          </IconButton>
-                        </InputAdornment>
-                      ),
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <IconButton
-                            aria-label="toggle password visibility"
-                            onClick={() => setShowPassword((prev) => !prev)}>
-                            {showPassword ? (
-                              <VisibilityIcon style={{ color: "white" }} />
-                            ) : (
-                              <VisibilityOffIcon style={{ color: "white" }} />
-                            )}
-                          </IconButton>
-                        </InputAdornment>
-                      )
-                    }}
-                  />
-                </Grid>
+              <Grid
+                display="flex"
+                flexDirection="column"
+                gap={1}
+                justifyContent={"center"}>
+                <InputLabel sx={{ color: "white" }}>
+                  <span style={{ color: theme.palette.custom.required }}>
+                    <img src="/lock.svg" alt="lock.svg" />
+                  </span>{" "}
+                  Password{" "}
+                </InputLabel>
+                <TextField
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Ingresa tu contraseña"
+                  required
+                  fullWidth
+                  onChange={handleChangeUser}
+                  InputProps={{
+                    style: {
+                      backgroundColor: "black",
+                      border: "1px solid white",
+                      color: "white"
+                    },
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={() => setShowPassword((prev) => !prev)}>
+                          <LockOpenIcon style={{ color: "white" }} />
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={() => setShowPassword((prev) => !prev)}>
+                          {showPassword ? (
+                            <VisibilityIcon style={{ color: "white" }} />
+                          ) : (
+                            <VisibilityOffIcon style={{ color: "white" }} />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    )
+                  }}
+                />
+              </Grid>
 
-                <Grid container alignItems="center">
-                  <Grid item md={12} lg={6} textAlign="start">
-                    <Link
-                      to="/forgot-password"
-                      component={RouterLink}
-                      color={"#ab8e3a"}>
-                      Forgot Password?
-                    </Link>
-                  </Grid>
+              <Grid container alignItems="center">
+                <Grid item md={12} lg={6} textAlign="start">
+                  <Link
+                    to="/forgot-password"
+                    component={RouterLink}
+                    color={"#ab8e3a"}>
+                    Forgot Password?
+                  </Link>
                 </Grid>
               </Grid>
-              <Button
-                type="submit"
-                variant="contained"
-                size="large"
-                sx={{ mt: 2, backgroundColor: "#ab8e3a", color: "#010a1e" }}
-                fullWidth>
-                Log in
-              </Button>
-
-              <ReCAPTCHA
-                style={{ display: "inline-block" }}
-                theme="dark"
-                size="invisible"
-                onChange={(token) => {
-                  handleSubmit(token)
-                }}
-                ref={reCaptchaRef}
-                sitekey={import.meta.env.VITE_RECAPCHA}
-              />
-            </Box>
-            <Grid>
-              <Typography>
-                ¿No tienes cuenta?{" "}
-                <Link to="/signup" component={RouterLink} color={"#ab8e3a"}>
-                  Registrarme
-                </Link>
-              </Typography>
             </Grid>
+            <Button
+              type="submit"
+              variant="contained"
+              size="large"
+              sx={{ mt: 2, backgroundColor: "#ab8e3a", color: "#010a1e" }}
+              fullWidth>
+              Log in
+            </Button>
+
+            <ReCAPTCHA
+              style={{ display: "inline-block" }}
+              theme="dark"
+              size="invisible"
+              onChange={(token) => {
+                handleSubmit(token)
+              }}
+              ref={reCaptchaRef}
+              sitekey={import.meta.env.VITE_RECAPCHA}
+            />
+          </Box>
+          <Grid>
+            <Typography>
+              ¿No tienes cuenta?{" "}
+              <Link to="/signup" component={RouterLink} color={"#ab8e3a"}>
+                Registrarme
+              </Link>
+            </Typography>
           </Grid>
-        </Container>
-      </ContainerItem>
+        </Grid>
+      </Box>
 
       <Snackbar
         open={alert.show}
