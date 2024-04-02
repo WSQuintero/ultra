@@ -46,9 +46,10 @@ function SlugInvitation() {
           }}
           size="small"
           color="secondary"
-          value={`${import.meta.env.VITE_APP_URL}/signup/${
-            session?.slug_invitation
-          }`}
+          // value={`${import.meta.env.VITE_APP_URL}/signup/${
+          //   session?.slug_invitation
+          // }`}
+          value={"https://Ultra/signup/Jhon67"}
           disabled
           InputProps={{
             endAdornment: (

@@ -118,7 +118,7 @@ function Reports() {
     <PageWrapper
       expanded
       sx={{ display: "flex", flexDirection: "column", gap: 2, padding: 2 }}>
-      <Grid display="flex" flexDirection="column" gap={2}>
+      {/* <Grid display="flex" flexDirection="column" gap={2}>
         {profits && (
           <>
             <EnhancedTable
@@ -167,7 +167,11 @@ function Reports() {
             }
           />
         )}
-      </Grid>
+      </Grid> */}
+
+      <Typography sx={{ fontSize: 50, textAlign: "center" }}>
+        Earnings
+      </Typography>
     </PageWrapper>
   )
 }

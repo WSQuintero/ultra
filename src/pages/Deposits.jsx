@@ -100,7 +100,6 @@ function Deposits() {
 
   useEffect(() => {
     setLoading(true)
-
     ;(async () => {
       const { status, data } = await $Auth.validate()
       let errorDeposit = true
@@ -164,7 +163,7 @@ function Deposits() {
 
   return (
     <PageWrapper sx={{ padding: 2 }} expanded>
-      <Grid display="flex" flexDirection="column" gap={2}>
+      {/* <Grid display="flex" flexDirection="column" gap={2}>
         <Box
           display="flex"
           justifyContent="space-between"
@@ -235,7 +234,10 @@ function Deposits() {
           setModalcurrentPlan(false)
         }}
       />
-      <ModalErrorDeposit open={modalErrorDeposit} />
+      <ModalErrorDeposit open={modalErrorDeposit} /> */}
+      <Typography sx={{ fontSize: 50, textAlign: "center" }}>
+        UltraLive
+      </Typography>
     </PageWrapper>
   )
 }

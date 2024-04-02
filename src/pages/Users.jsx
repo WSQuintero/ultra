@@ -8,7 +8,14 @@ import UserService from "../services/user.service"
 import EnhancedTable from "../components/EnhancedTable"
 import PageWrapper from "../components/PageWrapper"
 import SubscriptionService from "../services/subscription.service"
-import { Button, Snackbar, Alert, Select, MenuItem } from "@mui/material"
+import {
+  Button,
+  Snackbar,
+  Alert,
+  Select,
+  MenuItem,
+  Typography
+} from "@mui/material"
 import ModalNewPass from "../components/ModalNewPass"
 import ModalChangeTree from "../components/ModalChangeTree"
 import ModalGiveDeposit from "../components/ModalGiveDeposit"
@@ -206,7 +213,6 @@ function Users() {
   useEffect(() => {
     if ($User.token) {
       setLoading(true)
-
       ;(async () => {
         const { status, data } = await $User.get()
         if (status) {
@@ -223,7 +229,7 @@ function Users() {
 
   return (
     <PageWrapper expanded>
-      {users && (
+      {/* {users && (
         <EnhancedTable
           title="Usuarios"
           headCells={headCells}
@@ -574,7 +580,10 @@ function Users() {
         <Alert severity={alert.status} sx={{ width: "100%" }}>
           {alert.message}
         </Alert>
-      </Snackbar>
+      </Snackbar> */}
+      <Typography sx={{ fontSize: 50, textAlign: "center" }}>
+        Courses
+      </Typography>
     </PageWrapper>
   )
 }

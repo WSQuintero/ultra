@@ -165,7 +165,6 @@ function Withdrawals() {
 
   useEffect(() => {
     setLoading(true)
-
     ;(async () => {
       const { status, data } = await $User.getWithdrawals()
 
@@ -334,7 +333,7 @@ function Withdrawals() {
 
   return (
     <PageWrapper sx={{ padding: 2 }} expanded>
-      <Grid display="flex" flexDirection="column" gap={2}>
+      {/* <Grid display="flex" flexDirection="column" gap={2}>
         <Grid display="flex" flexDirection="column" gap={2}>
           <Box
             display="flex"
@@ -687,7 +686,8 @@ function Withdrawals() {
         handleClose={() => {
           setModalSuccessWithdrawal(false)
         }}
-      />
+      /> */}
+      <Typography sx={{ fontSize: 50, textAlign: "center" }}>Report</Typography>
     </PageWrapper>
   )
 }
