@@ -1,6 +1,6 @@
 import { AppBar, Toolbar, Box, Avatar } from "@mui/material"
 import { useLocation, useNavigate } from "react-router"
-import SlugInvitation from "./slugInvitation"
+import SlugInvitation from "./SlugInvitation"
 
 function Header() {
   const location = useLocation()
