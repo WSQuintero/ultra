@@ -17,13 +17,15 @@ import {
   InputLabel,
   IconButton,
   Typography,
-  InputAdornment
+  InputAdornment,
+  Avatar
 } from "@mui/material"
 
 import styled from "@emotion/styled"
 import { useTheme } from "@emotion/react"
 import {
   Https as HttpsIcon,
+  Image,
   VisibilityOutlined as VisibilityIcon,
   VisibilityOffOutlined as VisibilityOffIcon
 } from "@mui/icons-material"
@@ -174,17 +176,69 @@ export default function Signin() {
   return (
     <Grid container minHeight="100vh" display={"flex"}>
       <ContainerItem
-        sx={{ backgroundColor: "#9a8034", height: "100vh", width: "50%" }}>
+        sx={{
+          backgroundColor: "#9a8034",
+          height: "100vh",
+          width: "50%",
+          position: "relative"
+        }}>
+        <img
+          src="/logoLogin.png"
+          alt="logoLogin"
+          style={{ position: "absolute", zIndex: 50, top: 20, left: 80 }}
+        />
         <Box
           display="flex"
           justifyContent="center"
           alignItems="center"
           sx={{
             backgroundColor: "#9a8034",
-            height: "100vh",
-            width: "100%"
+            height: "100%",
+            width: "100%",
+            position: "relative"
           }}>
-          <img src="/imageLogin.png"></img>
+          <img
+            src="/shape.png"
+            alt="Login"
+            style={{ maxWidth: "80%", position: "absolute", top: 0, right: 0 }}
+          />
+          <img
+            src="/imageLogin.png"
+            alt="Login"
+            style={{ maxWidth: "60%", zIndex: 50 }}
+          />
+          <img
+            src="/shape1.png"
+            alt="Login"
+            style={{
+              maxWidth: "80%",
+              position: "absolute",
+              bottom: 0,
+              left: 0
+            }}
+          />
+          <Typography
+            sx={{
+              position: "absolute",
+              zIndex: 50,
+              bottom: 60,
+              left: 80,
+              color: "white",
+              fontSize: 25
+            }}>
+            Welcome Back !
+          </Typography>
+          <Typography
+            sx={{
+              position: "absolute",
+              zIndex: 50,
+              bottom: 40,
+              left: 80,
+              color: "white",
+              fontSize: 15
+            }}>
+            Watch your data grow from anywhere with remote analytics.{" "}
+          </Typography>
         </Box>
       </ContainerItem>
 
@@ -194,7 +248,14 @@ export default function Signin() {
           flexDirection="column"
           padding={4}
           overflow
-          sx={{ backgroundColor: "#010a1e" }}>
+          alignItems="center"
+          justifyContent="center"
+          sx={{
+            backgroundColor: "#010a1e",
+            height: "100vh",
+            justifyContent: "center",
+            alignItems: "center"
+          }}>
           <Grid
             flexGrow={1}
             display="flex"
@@ -204,23 +265,20 @@ export default function Signin() {
             gap={3}
             maxWidth={550}
             marginX="auto"
-            sx={{ backgroundColor: "#010a1e" }}>
-            <Grid marginBottom={3}>
-              <Typography
-                variant="h1"
-                fontSize={56}
-                fontWeight={700}
-                color={theme.palette.primary.main}>
-                FinanCity
-              </Typography>
-            </Grid>
+            sx={{
+              backgroundColor: "#010a1e",
+              justifyContent: "center",
+              alignItems: "center"
+            }}>
             <Grid display="flex" flexDirection="column" gap={2}>
-              <Typography variant="h2" textAlign="center">
-                ¡Bienvenido!
+              <Typography
+                variant="h2"
+                textAlign="center"
+                sx={{ color: "white", marginTop: 5 }}>
+                Log in to your account
               </Typography>
               <Typography textAlign="center">
-                Inicie sesión en su cuenta completando el formulario de inicio
-                de sesión con su información personal.
+                Welcome! Please enter your details.
               </Typography>
             </Grid>
             <Box
@@ -230,28 +288,29 @@ export default function Signin() {
               noValidate>
               <Grid display="flex" flexDirection="column" gap={2}>
                 <Grid display="flex" flexDirection="column" gap={1}>
-                  <InputLabel>
-                    Correo{" "}
-                    <span style={{ color: theme.palette.custom.required }}>
-                      *
-                    </span>
-                  </InputLabel>
+                  <InputLabel sx={{ color: "white" }}>Email Address</InputLabel>
                   <TextField
                     name="email"
                     placeholder="Ingresa tu correo"
                     required
                     fullWidth
+                    placeholderColor="white"
                     onChange={handleChangeUser}
                     InputProps={{
+                      style: {
+                        backgroundColor: "#010a1e",
+                        border: "1px solid white",
+                        color: "white"
+                      },
                       endAdornment: (
                         <InputAdornment position="start">
                           <IconButton
                             aria-label="toggle password visibility"
                             onClick={() => setShowPassword((prev) => !prev)}>
                             {showPassword ? (
-                              <VisibilityIcon />
+                              <VisibilityIcon style={{ color: "white" }} />
                             ) : (
-                              <VisibilityOffIcon />
+                              <VisibilityOffIcon style={{ color: "white" }} />
                             )}
                           </IconButton>
                         </InputAdornment>
@@ -260,12 +319,16 @@ export default function Signin() {
                   />
                 </Grid>
 
-                <Grid display="flex" flexDirection="column" gap={1}>
-                  <InputLabel>
-                    Contraseña{" "}
+                <Grid
+                  display="flex"
+                  flexDirection="column"
+                  gap={1}
+                  justifyContent={"center"}>
+                  <InputLabel sx={{ color: "white" }}>
                     <span style={{ color: theme.palette.custom.required }}>
-                      *
-                    </span>
+                      <img src="/lock.svg" alt="lock.svg" />
+                    </span>{" "}
+                    Password{" "}
                   </InputLabel>
                   <TextField
                     name="password"
@@ -275,15 +338,20 @@ export default function Signin() {
                     fullWidth
                     onChange={handleChangeUser}
                     InputProps={{
+                      style: {
+                        backgroundColor: "#010a1e",
+                        border: "1px solid white",
+                        color: "white"
+                      },
                       endAdornment: (
                         <InputAdornment position="end">
                           <IconButton
                             aria-label="toggle password visibility"
                             onClick={() => setShowPassword((prev) => !prev)}>
                             {showPassword ? (
-                              <VisibilityIcon />
+                              <VisibilityIcon style={{ color: "white" }} />
                             ) : (
-                              <VisibilityOffIcon />
+                              <VisibilityOffIcon style={{ color: "white" }} />
                             )}
                           </IconButton>
                         </InputAdornment>
@@ -293,9 +361,12 @@ export default function Signin() {
                 </Grid>
 
                 <Grid container alignItems="center">
-                  <Grid item md={12} lg={6} textAlign="end">
-                    <Link to="/forgot-password" component={RouterLink}>
-                      ¿Olvidaste tu contraseña?
+                  <Grid item md={12} lg={6} textAlign="start">
+                    <Link
+                      to="/forgot-password"
+                      component={RouterLink}
+                      color={"#ab8e3a"}>
+                      Forgot Password?
                     </Link>
                   </Grid>
                 </Grid>
@@ -304,9 +375,9 @@ export default function Signin() {
                 type="submit"
                 variant="contained"
                 size="large"
-                sx={{ mt: 2 }}
+                sx={{ mt: 2, backgroundColor: "#ab8e3a" }}
                 fullWidth>
-                Iniciar sesión
+                Log in
               </Button>
 
               <ReCAPTCHA
