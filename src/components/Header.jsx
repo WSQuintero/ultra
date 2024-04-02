@@ -12,7 +12,9 @@ function Header() {
         backgroundColor: "#1e293b",
         justifyCenter: "center",
         display:
-          location.pathname === "/signin" || location.pathname === "/signup"
+          location.pathname === "/signin" ||
+          location.pathname === "/signup" ||
+          location.pathname === "/forgot-password"
             ? "none"
             : "flex"
       }}>

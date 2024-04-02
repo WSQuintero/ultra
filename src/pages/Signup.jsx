@@ -253,7 +253,8 @@ export default function Signup() {
             justifyContent="center"
             gap={3}
             maxWidth={550}
-            marginX="auto">
+            marginX="auto"
+            paddingBottom={5}>
             <Grid marginBottom={3}></Grid>
             <Grid display="flex" flexDirection="column" gap={2}>
               <Typography
@@ -473,7 +474,8 @@ export default function Signup() {
                         <Link
                           to="/termsAndConditions.pdf"
                           component={RouterLink}
-                          target="_blank">
+                          target="_blank"
+                          color={"#ab8e3a"}>
                           Térmimos, condiciones y políticas de privacidad
                         </Link>
                       </>
@@ -485,7 +487,7 @@ export default function Signup() {
                 type="submit"
                 variant="contained"
                 size="large"
-                sx={{ mt: 2, backgroundColor: "#ab8e3a" }}
+                sx={{ mt: 2, backgroundColor: "#ab8e3a", color: "#010a1e" }}
                 fullWidth>
                 Create account
               </Button>
@@ -493,7 +495,7 @@ export default function Signup() {
             <Grid>
               <Typography>
                 ¿Ya tienes una cuenta?{" "}
-                <Link to="/signin" component={RouterLink}>
+                <Link to="/signin" component={RouterLink} color={"#ab8e3a"}>
                   Iniciar sesión
                 </Link>
               </Typography>

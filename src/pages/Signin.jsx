@@ -5,7 +5,7 @@ import {
   useSearchParams,
   Link as RouterLink
 } from "react-router-dom"
-
+import EmailIcon from "@mui/icons-material/Email"
 import {
   Box,
   Grid,
@@ -46,7 +46,7 @@ import imageSlider2 from "../assets/img/slider/auth/group_2.svg"
 import imageSlider3 from "../assets/img/slider/auth/group_3.svg"
 import AuthService from "../services/auth.service"
 import { Container } from "@mui/system"
-
+import LockOpenIcon from "@mui/icons-material/LockOpen"
 const sliderOptions = [
   {
     title: "TRANSFORMA TUS IDEAS EN REALIDAD.",
@@ -274,14 +274,14 @@ export default function Signin() {
               display="flex"
               flexDirection="column"
               gap={2}
-              sx={{ marginTop: 10 }}>
+              sx={{ marginTop: 10, width: "100%" }}>
               <Typography
                 variant="h2"
-                textAlign="center"
+                textAlign="start"
                 sx={{ color: "white", marginTop: 5 }}>
                 Log in to your account
               </Typography>
-              <Typography textAlign="center">
+              <Typography textAlign="start">
                 Welcome! Please enter your details.
               </Typography>
             </Grid>
@@ -306,16 +306,12 @@ export default function Signin() {
                         border: "1px solid white",
                         color: "white"
                       },
-                      endAdornment: (
+                      startAdornment: (
                         <InputAdornment position="start">
                           <IconButton
                             aria-label="toggle password visibility"
                             onClick={() => setShowPassword((prev) => !prev)}>
-                            {showPassword ? (
-                              <VisibilityIcon style={{ color: "white" }} />
-                            ) : (
-                              <VisibilityOffIcon style={{ color: "white" }} />
-                            )}
+                            <EmailIcon style={{ color: "white" }} />
                           </IconButton>
                         </InputAdornment>
                       )
@@ -347,6 +343,15 @@ export default function Signin() {
                         border: "1px solid white",
                         color: "white"
                       },
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={() => setShowPassword((prev) => !prev)}>
+                            <LockOpenIcon style={{ color: "white" }} />
+                          </IconButton>
+                        </InputAdornment>
+                      ),
                       endAdornment: (
                         <InputAdornment position="end">
                           <IconButton
@@ -379,7 +384,7 @@ export default function Signin() {
                 type="submit"
                 variant="contained"
                 size="large"
-                sx={{ mt: 2, backgroundColor: "#ab8e3a" }}
+                sx={{ mt: 2, backgroundColor: "#ab8e3a", color: "#010a1e" }}
                 fullWidth>
                 Log in
               </Button>
@@ -398,7 +403,7 @@ export default function Signin() {
             <Grid>
               <Typography>
                 ¿No tienes cuenta?{" "}
-                <Link to="/signup" component={RouterLink}>
+                <Link to="/signup" component={RouterLink} color={"#ab8e3a"}>
                   Registrarme
                 </Link>
               </Typography>
