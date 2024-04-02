@@ -174,19 +174,23 @@ export default function Signin() {
   }, [])
 
   return (
-    <Grid container display="flex" sx={{ display: "flex" }}>
-      {/* <img
-        src="/imageLoginTwo.jpg"
-        alt="imageLoginTwo"
+    <Grid
+      container
+      display="flex"
+      sx={{ display: "flex", backgroundColor: "black" }}>
+      <img
+        src="/star.png"
+        alt="stars"
         style={{
+          objectFit: "cover",
           width: "100%",
-          height: "100%",
-          zIndex: 10,
+          height: "100vh",
           position: "absolute",
           top: 0,
-          left: 0
+          opacity: "9%",
+          zIndex: 35
         }}
-      /> */}
+      />
       <ContainerItem
         sx={{
           height: "100vh",
@@ -198,6 +202,7 @@ export default function Signin() {
           alt="logoLogin"
           style={{ position: "absolute", zIndex: 50, top: 20, left: 80 }}
         />
+
         <Box
           display="flex"
           justifyContent="center"
@@ -208,17 +213,6 @@ export default function Signin() {
             position: "relative",
             backgroundColor: "black"
           }}>
-          <img
-            src="/stars.jpg"
-            alt="stars"
-            style={{
-              objectFit: "cover",
-              width: "100%",
-              height: "100vh",
-              position: "absolute",
-              mixBlendMode: "darken"
-            }}
-          />
           <div style={{ position: "relative", maxWidth: "70%", zIndex: 50 }}>
             <video
               src="/FONDO-PRINCIPAL-VIDEO.mp4"
@@ -293,9 +287,9 @@ export default function Signin() {
           height: "100vh",
           justifyContent: "center",
           alignItems: "center",
-          zIndex: 30,
+          zIndex: 50,
           width: "50%",
-          backgroundColor: "rgba(0,0,0,0.9)",
+          backgroundColor: "rgba(255,255,255,0.05)",
           position: "relative"
         }}>
         <Grid
