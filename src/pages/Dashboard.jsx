@@ -208,37 +208,108 @@ function Dashboard() {
     return <></>
   }
 
-  const buyPlanIBWithUSDT = async () => {
-    setLoading(true)
-
-    let { status, data } = await $Subscription.generateWallet({
-      body: {
-        idProduct: 4
-      },
-      network: "TRON"
-    })
-
-    setWalletAddressPlan(data[0].product_wallet_address)
-
-    setCurrentPlan({
-      isMostPopular: false,
-      name: "Membresía IB",
-      price: 15,
-      features: []
-    })
-
-    setLoading(false)
-    setModalcurrentPlan(true)
-  }
-
   return (
     <PageWrapper expanded>
-      <Container sx={{ paddingY: 1, width: "100%" }}>
+      <Box sx={{ paddingY: 1, width: "100%", padding: 5 }}>
         <Typography variant="h2" color="white" marginBottom={5}>
-          All courses
+          Good Morning! Juan👋
         </Typography>
-        <CourseCard />
-      </Container>
+        <Box sx={{ display: "flex", gap: 1 }}>
+          <Container
+            sx={{
+              backgroundColor: "#010714",
+              width: "400px",
+              height: "250px",
+              borderRadius: 3
+            }}>
+            <img
+              src="/frame.png"
+              alt="frame"
+              style={{ marginTop: "25px", width: "50px" }}
+            />
+            <Typography sx={{ fontSize: 25, marginTop: 5, color: "white" }}>
+              Total Earning
+            </Typography>
+            <Typography
+              sx={{ fontSize: 40, color: "white", fontWeight: "bold" }}>
+              $230.00
+            </Typography>
+          </Container>
+          <Container
+            sx={{
+              backgroundColor: "#010714",
+              width: "400px",
+              height: "250px",
+              borderRadius: 3
+            }}>
+            <img
+              src="/frametwo.png"
+              alt="frametwo"
+              style={{ marginTop: "25px", width: "50px" }}
+            />
+            <Typography sx={{ fontSize: 25, marginTop: 5, color: "white" }}>
+              Matatrader Balance
+            </Typography>
+            <Typography
+              sx={{ fontSize: 40, color: "white", fontWeight: "bold" }}>
+              $230.00
+            </Typography>
+          </Container>
+          <Container
+            sx={{
+              backgroundColor: "#010714",
+              width: "400px",
+              height: "250px",
+              borderRadius: 3,
+              display: "flex"
+            }}>
+            <Box sx={{ height: "100%", display: "flex", alignItems: "center" }}>
+              <img src="/torta.png" alt="torta" style={{ width: "100%" }} />
+            </Box>
+            <Box>
+              <Container
+                sx={{
+                  display: "flex",
+                  width: "100%",
+                  paddingX: 5,
+                  paddingY: 3,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderBottom: "1px solid white"
+                }}>
+                <Box>
+                  <img src="/tortatwo.png" alt="tortatwo" />
+                </Box>
+                <Box>
+                  <Typography sx={{ fontSize: 25, color: "white" }}>
+                    6%
+                  </Typography>
+                  <Typography>In Inactive</Typography>
+                </Box>
+              </Container>
+              <Container
+                sx={{
+                  display: "flex",
+                  width: "100%",
+                  paddingX: 5,
+                  paddingY: 3,
+                  justifyContent: "center",
+                  alignItems: "center"
+                }}>
+                <Box>
+                  <img src="/tortatwo.png" alt="tortatwo" />
+                </Box>
+                <Box>
+                  <Typography sx={{ fontSize: 25, color: "white" }}>
+                    5%
+                  </Typography>
+                  <Typography>Due Issuee</Typography>
+                </Box>
+              </Container>
+            </Box>
+          </Container>
+        </Box>
+      </Box>
     </PageWrapper>
   )
 }
