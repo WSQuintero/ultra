@@ -15,7 +15,8 @@ function Header() {
         display:
           location.pathname === "/signin" ||
           location.pathname === "/signup" ||
-          location.pathname === "/forgot-password"
+          location.pathname === "/forgot-password" ||
+          location.pathname === "/landing"
             ? "none"
             : "flex"
       }}>

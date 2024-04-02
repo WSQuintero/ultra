@@ -13,6 +13,7 @@ import ForgotPassword from "../pages/ForgotPassword"
 import ResetPassword from "../pages/ResetPassword"
 import useAuth from "../hooks/useAuth"
 import { useMemo } from "react"
+import Landing from "../pages/Landing"
 
 const META = {
   REQUIRES_AUTH: Symbol("REQUIRES_AUTH"),
@@ -28,7 +29,7 @@ function PrivateRoute({ component: Component, meta = [], ...props }) {
   }
 
   if (meta.includes(META.REQUIRES_AUTH) && !isAuthenticated) {
-    return <Navigate to="/signin" />
+    return <Navigate to="/landing" />
   }
   if (meta.includes(META.HIDE_FOR_AUTH) && isAuthenticated) {
     return <Navigate to="/" />
@@ -44,6 +45,10 @@ function Router() {
       element: (
         <PrivateRoute component={Dashboard} meta={[META.REQUIRES_AUTH]} />
       )
+    },
+    {
+      path: "/landing",
+      element: <PrivateRoute component={Landing} />
     },
     {
       path: "/courses",
