@@ -5,6 +5,12 @@ export default createTheme({
     primary: {
       main: "#054477",
     },
+    primary2: {
+      main: '#DBBB6F',
+      light: '#DBBB6F',
+      dark: '#8F5F25',
+      contrastText: '#FFF',
+    },
     secondary: {
       main: "#5D5FEF",
     },
