@@ -34,6 +34,7 @@ import {
 import { useTheme } from "@emotion/react"
 import background from "../assets/img/pageWrapper/background.svg"
 import CourseCard from "../components/CourseCard"
+import Timer from "../components/Timer"
 
 const data = []
 
@@ -210,8 +211,22 @@ function Dashboard() {
 
   return (
     <PageWrapper expanded>
-      <Box sx={{ paddingY: 1, width: "100%", padding: 5 }}>
-        <Typography variant="h2" color="white" marginBottom={5}>
+      <Box
+        sx={{
+          paddingY: 1,
+          width: "100%",
+          padding: 5,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: 1
+        }}>
+        <Typography
+          variant="h2"
+          color="white"
+          marginBottom={5}
+          sx={{ width: "100%" }}>
           Good Morning! Juan👋
         </Typography>
         <Box sx={{ display: "flex", gap: 1 }}>
@@ -308,6 +323,52 @@ function Dashboard() {
               </Container>
             </Box>
           </Container>
+        </Box>
+        <Box
+          sx={{
+            backgroundColor: "#131006",
+            width: "82%",
+            height: "250px",
+            borderRadius: 3,
+            border: "1px solid #6e5c25",
+            display: "flex",
+            justifyContent: "space-around",
+            alignItems: "center"
+          }}>
+          <Box sx={{ padding: 4 }}>
+            <Typography sx={{ fontSize: 25, color: "white" }}>
+              Upcoming Payment
+            </Typography>
+            <Box
+              display={"flex"}
+              sx={{
+                marginTop: 4,
+                gap: 5,
+                justifyConten: "center",
+                alignItems: "center"
+              }}>
+              <Box display={"flex"} sx={{ gap: 2 }}>
+                <Box>
+                  <img src="/avatar.png" alt="avatar" />
+                </Box>
+                <Box>
+                  <Typography sx={{ color: "white" }}>Catalog</Typography>
+                  <Typography>catalogapp.io</Typography>
+                </Box>
+              </Box>
+              <Button
+                sx={{
+                  backgroundColor: "#ab8e3a",
+                  width: "200px",
+                  height: "50px",
+                  color: "white"
+                }}>
+                Pay Now
+              </Button>
+            </Box>
+          </Box>
+
+          <Timer />
         </Box>
       </Box>
     </PageWrapper>
