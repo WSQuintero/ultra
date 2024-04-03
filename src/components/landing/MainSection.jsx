@@ -13,7 +13,7 @@ const MainSection = () => {
     >
       <img src="/Ultra_files/main_stars_bg.png" alt="Background" style={{ position: 'absolute', width: '50%' }} />
       <img src="/Ultra_files/Group_2.png" alt="Background" style={{ position: 'absolute', bottom: "0px", width: '100%' }} />
-      <img src="/Ultra_files/main_eclipse_bg.png" alt="Background" style={{ position: 'absolute', width: '100%', height: '100%'}} />
+      <img src="/Ultra_files/main_eclipse_bg.png" alt="Background" style={{ position: 'absolute', width: '100%', height: '100%', opacity: '0.8'}} />
       <Box 
         width="70%" 
         textAlign="center" 
