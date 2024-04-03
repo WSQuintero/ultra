@@ -11,7 +11,9 @@ const MainSection = () => {
       flexDirection="column"
       position="relative"
     >
+      <img src="/Ultra_files/main_stars_bg.png" alt="Background" style={{ position: 'absolute', width: '50%' }} />
       <img src="/Ultra_files/Group_2.png" alt="Background" style={{ position: 'absolute', bottom: "0px", width: '100%' }} />
+      <img src="/Ultra_files/main_eclipse_bg.png" alt="Background" style={{ position: 'absolute', width: '100%', height: '100%'}} />
       <Box 
         width="70%" 
         textAlign="center" 
@@ -58,7 +60,7 @@ const MainSection = () => {
             fontWeight: 500,
             fontSize: '20px',
             lineHeight: '28px',
-            color: 'rgba(215, 215, 215, 1)',
+            color: 'white',
             marginBottom: '20px',
           }}
         >
