@@ -11,9 +11,15 @@ const MainSection = () => {
       flexDirection="column"
       position="relative"
     >
-      <img src="/Ultra_files/main_stars_bg.png" alt="Background" style={{ position: 'absolute', width: '50%' }} />
-      <img src="/Ultra_files/Group_2.png" alt="Background" style={{ position: 'absolute', bottom: "0px", width: '100%' }} />
-      <img src="/Ultra_files/main_eclipse_bg.png" alt="Background" style={{ position: 'absolute', width: '100%', height: '100%', opacity: '0.8'}} />
+      <video src="/FONDO-PRINCIPAL-VIDEO.mp4" autoPlay muted  loop alt="Background" style={{ position: 'absolute', bottom: "0px", width: '100%',zIndex: 0 }} />
+      <Box
+        position="absolute"
+        bottom="0"
+        width="100%"
+        height="100px"  
+        background="linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0))"
+        zIndex="1"
+      />
       <Box 
         width="70%" 
         textAlign="center" 
@@ -23,6 +29,7 @@ const MainSection = () => {
         flexDirection="column"
         style={{color: "white"}} 
       >
+      <Box></Box>
         <Typography
           variant="h1"
           component="div"
@@ -36,6 +43,7 @@ const MainSection = () => {
             backgroundClip: 'text',
             color: 'transparent',
             marginBottom: '20px',
+            zIndex: 1,
           }}
         >
           WELCOME TO ULTRA
@@ -49,6 +57,8 @@ const MainSection = () => {
             fontSize: '56px',
             lineHeight: '61.6px',
             marginBottom: '20px',
+            zIndex: 1,
+
           }}
         >
           Ready to Take Your Trading to The Next Level Without Additional Cost?
@@ -62,6 +72,8 @@ const MainSection = () => {
             lineHeight: '28px',
             color: 'white',
             marginBottom: '20px',
+            zIndex: 1,
+
           }}
         >
           En Ultra Vip te ofrecemos acceso exclusivo a recursos de élite sin ningún cargo.
