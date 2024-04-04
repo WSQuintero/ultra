@@ -2,6 +2,13 @@ import { Box, Button, Typography } from "@mui/material";
 import { GoldButton } from "./GoldButton";
 
 const MainSection = () => {
+  const handleSignInClick = () => {
+    window.location.href = '/signin'; 
+  };
+  
+  const handleRegisterClick = () => {
+    window.location.href = '/signup'; 
+  };
   return (
     <Box
       height="100vh"
@@ -79,8 +86,9 @@ const MainSection = () => {
           En Ultra Vip te ofrecemos acceso exclusivo a recursos de élite sin ningún cargo.
         </Typography>
         <Box>
-          <GoldButton variant="contained" color="primary2">INICIAR SESIÓN</GoldButton>
+          <GoldButton onClick={handleSignInClick} variant="contained" color="primary2">INICIAR SESIÓN</GoldButton>
           <Button
+          onClick={handleRegisterClick}
             variant="contained" 
             style={{
               borderRadius: '7px',
