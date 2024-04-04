@@ -1,17 +1,55 @@
-import { Image } from "@mui/icons-material";
-import { Box } from "@mui/material";
+import  { useEffect } from 'react';
 
-const LogosSection = () => {
+const TradingViewWidget = () => {
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.async = true;
+    script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js';
+    script.innerHTML = JSON.stringify({
+      symbols: [
+        {
+          description: 'Gold',
+          proName: 'OANDA:XAUUSD'
+        },
+        {
+          description: 'Bitcoin',
+          proName: 'BITSTAMP:BTCUSD'
+        },
+        {
+          description: '',
+          proName: 'FX:EURUSD'
+        },
+        {
+          description: 'Petrol',
+          proName: 'NYSE:OXY'
+        }
+      ],
+      showSymbolLogo: true,
+      isTransparent: false,
+      displayMode: 'regular',
+      colorTheme: 'dark',
+      locale: 'en'
+    });
+
+    const container = document.querySelector('.tradingview-widget-container__widget');
+    container.appendChild(script);
+
+    return () => {
+      container.removeChild(script);
+    };
+  }, []);
+
   return (
-    <Box display="flex" justifyContent="center" style={{height: 70, backgroundColor: 'rgba(22, 23, 27, 1)'}}>
-      <img src="/Ultra_files/logos/proline.svg"/>
-      <img src="/Ultra_files/logos/octopus.svg"/>
-      <img src="/Ultra_files/logos/flash.svg"/>
-      <img src="/Ultra_files/logos/hitech.svg"/>
-      <img src="/Ultra_files/logos/invert.svg"/>
-      <img src="/Ultra_files/logos/snowflake.svg"/>
-    </Box>
-  )  
-}
+    <div className="tradingview-widget-container">
+      <div className="tradingview-widget-container__widget"></div>
+      <div className="tradingview-widget-copyright">
+        <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
+          
+        </a>
+      </div>
+    </div>
+  );
+};
 
-export default LogosSection;
+export default TradingViewWidget;

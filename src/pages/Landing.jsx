@@ -1,5 +1,5 @@
 import MainSection from "../components/landing/MainSection"
-import LogosSection from "../components/landing/LogosSection"
+import TradingViewWidget from "../components/landing/LogosSection"
 import Navbar from "../components/landing/NavBar"
 import OurMissionSection from "../components/landing/OurMissionSection"
 import OurServicesSection from "../components/landing/OurServicesSection"
@@ -12,7 +12,7 @@ function Landing() {
     <div style={{background: "rgba(16, 17, 21, 1)"}} >
       <Navbar />
       <MainSection/>
-      <LogosSection/>
+      <TradingViewWidget/>
       <OurMissionSection/>
       <OurServicesSection/>
       <PricingSection/>
