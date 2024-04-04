@@ -10,7 +10,7 @@ const OurMissionSection = () => {
         <Typography
           variant="h1"
           component="div"
-          style={{
+          sx={{
             fontFamily: 'Hubot Sans Expanded, sans-serif',
             fontWeight: 700,
             fontSize: '24px',
@@ -25,7 +25,7 @@ const OurMissionSection = () => {
           OUR MISSION
         </Typography>
         <Typography
-          style={{
+          sx={{
             fontFamily: 'Bricolage Grotesque, sans-serif',
             fontWeight: 600,
             fontSize: '48px',
@@ -38,7 +38,7 @@ const OurMissionSection = () => {
         </Typography>
         <Box width="70%">
           <Typography
-            style={{
+            sx={{
               fontFamily: 'Inter, sans-serif',
               fontWeight: 400,
               fontSize: '16px',
@@ -50,22 +50,29 @@ const OurMissionSection = () => {
             En Ultra VIP, nuestra misión es simple: ayudarte a alcanzar tus metas financieras a través del trading. No importa si eres un principiante o un trader experimentado, aquí encontrarás los recursos y el apoyo que necesitas para triunfar en los mercados financieros de manera efectiva y accesible.
           </Typography>
         </Box>
-        <Box display={'flex'}>
-      <StatsCard>
-        <MicrosoftCartView />
-      </StatsCard>
-      <StatsCard>
-        <BitcoinCartView />
-      </StatsCard>
-    </Box>
+        <Box display="flex">
+          <StyledStatsCard>
+            <BitcoinCartView />
+          </StyledStatsCard>
+          <StyledStatsCard>
+            <MicrosoftCartView />
+          </StyledStatsCard>
+          <Box>
+            <img src="/Ultra_files/pig_bg_img.png" alt="Background" style={{ position: 'absolute', width: '10%' }} />
+          </Box>
+        </Box>
       </Box>
     </Box>
   );
 };
 
-const StatsCard = styled(Box)({
+const StyledStatsCard = styled(Box)({
   display: 'absolute',
-  border: '1px solid'
+  border: '1px solid',
+  margin: '5px',
+  borderRadius: '12px',
+  padding: '5px',
+  color: '#DBBB6F',
 });
 
 export default OurMissionSection;

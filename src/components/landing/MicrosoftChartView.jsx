@@ -18,7 +18,7 @@ const MicrosoftCartView = () => {
         "trendLineColor": "rgba(191, 144, 0, 1)",
         "underLineColor": "rgba(127, 96, 0, 1)",
         "underLineBottomColor": "rgba(0, 0, 0, 0)",
-        "isTransparent": false,
+        "isTransparent": true,
         "autosize": true,
         "largeChartUrl": ""
       }
