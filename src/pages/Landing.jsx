@@ -9,15 +9,17 @@ import Footer from "../components/landing/Footer"
 
 function Landing() {
   return (
-    <div style={{background: "rgba(16, 17, 21, 1)"}} >
+    <div style={{ background: 'rgba(16, 17, 21, 1)' }}>
       <Navbar />
-      <MainSection/>
-      <TradingViewWidget/>
-      <OurMissionSection/>
-      <OurServicesSection/>
-      <PricingSection/>
-      <KeepUpdatedSection/>
-      <Footer/>
+      <MainSection />
+      <div >
+        <TradingViewWidget />
+      </div>
+      <OurMissionSection />
+      <OurServicesSection />
+      <PricingSection />
+      <KeepUpdatedSection />
+      <Footer />
     </div>
   )
 }

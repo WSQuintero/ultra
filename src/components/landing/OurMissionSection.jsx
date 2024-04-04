@@ -1,4 +1,6 @@
 import { Box, Typography, styled } from '@mui/material';
+import MicrosoftCartView from './MicrosoftChartView';
+import BitcoinCartView from './BitcoinChartView';
 
 const OurMissionSection = () => {
   return (
@@ -49,35 +51,20 @@ const OurMissionSection = () => {
           </Typography>
         </Box>
         <Box display={'flex'}>
-          <StatsCard>
-            <Box>
-              <Typography>Total Transactions</Typography>
-              <Typography>60M +</Typography>
-            </Box>
-            <Box>
-              <img src='/Ultra_files/Graph.svg' />
-              <Typography>2.11%</Typography>
-            </Box>
-          </StatsCard>
-          <StatsCard>
-            <Box>
-              <Typography>Active Project</Typography>
-              <Typography>1000+</Typography>
-            </Box>
-            <Box>
-              <img src='/Ultra_files/Graph.svg' />
-              <Typography>2.11%</Typography>
-            </Box>
-          </StatsCard>
-        </Box>
+      <StatsCard>
+        <MicrosoftCartView />
+      </StatsCard>
+      <StatsCard>
+        <BitcoinCartView />
+      </StatsCard>
+    </Box>
       </Box>
     </Box>
   );
 };
 
 const StatsCard = styled(Box)({
-  display: 'flex',
-  width: 300,
+  display: 'absolute',
   border: '1px solid'
 });
 
