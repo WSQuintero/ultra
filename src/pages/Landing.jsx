@@ -2,6 +2,10 @@ import MainSection from "../components/landing/MainSection"
 import LogosSection from "../components/landing/LogosSection"
 import Navbar from "../components/landing/NavBar"
 import OurMissionSection from "../components/landing/OurMissionSection"
+import OurServicesSection from "../components/landing/OurServicesSection"
+import PricingSection from "../components/landing/PricingSection"
+import KeepUpdatedSection from "../components/landing/KeepUpdatedSection"
+import Footer from "../components/landing/Footer"
 
 function Landing() {
   return (
@@ -10,6 +14,10 @@ function Landing() {
       <MainSection/>
       <LogosSection/>
       <OurMissionSection/>
+      <OurServicesSection/>
+      <PricingSection/>
+      <KeepUpdatedSection/>
+      <Footer/>
     </div>
   )
 }
