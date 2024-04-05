@@ -2,6 +2,12 @@ import { createTheme } from "@mui/material/styles";
 
 export default createTheme({
   palette: {
+    purple3: {
+      main: "#000",
+      light: '#000',
+      dark: '#000',
+      contrastText: '#000'
+    },
     primary: {
       main: "#054477",
     },
