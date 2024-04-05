@@ -276,15 +276,32 @@ export default function Signup() {
               <Grid display="flex" flexDirection="column" gap={2}>
                 <Grid display="flex" flexDirection="column" gap={1}>
                   <InputLabel sx={{ color: "white" }}>
+                    Slug de invitación
+                  </InputLabel>
+                  <TextField
+                    name="slugInvitation"
+                    fullWidth
+                    defaultValue={user.slugInvitation}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <StarIcon />
+                        </InputAdornment>
+                      )
+                    }}
+                  />
+                </Grid>
+                <Grid display="flex" flexDirection="column" gap={1}>
+                  <InputLabel sx={{ color: "white" }}>
                     Name{" "}
                     <span style={{ color: theme.palette.custom.required }}>
                       *
                     </span>
                   </InputLabel>
                   <TextField
-                    name="fullName"
-                    defaultValue={user.fullName}
-                    placeholder="Ingresa tu nombre completo"
+                    name="firstName"
+                    defaultValue={user.firstName}
+                    placeholder="Ingresa tu nombre"
                     required
                     fullWidth
                     onChange={handleChangeUser}
@@ -301,6 +318,84 @@ export default function Signup() {
                           <AccountCircleIcon />
                         </InputAdornment>
                       )
+                    }}
+                  />
+                </Grid>
+                <Grid display="flex" flexDirection="column" gap={1}>
+                  <InputLabel sx={{ color: "white" }}>
+                    Apellidos{" "}
+                    <span style={{ color: theme.palette.custom.required }}>
+                      *
+                    </span>
+                  </InputLabel>
+                  <TextField
+                    name="lastName"
+                    defaultValue={user.lastName}
+                    placeholder="Ingresa tus apellidos"
+                    required
+                    fullWidth
+                    onChange={handleChangeUser}
+                    InputProps={{
+                      style: {
+                        backgroundColor: "#010a1e",
+                        border: "1px solid white",
+                        color: "white"
+                      },
+                      endAdornment: (
+                        <InputAdornment
+                          position="start"
+                          style={{ color: "white" }}>
+                          <AccountCircleIcon />
+                        </InputAdornment>
+                      )
+                    }}
+                  />
+                </Grid>
+                <Grid display="flex" flexDirection="column" gap={1}>
+                  <InputLabel sx={{ color: "white" }}>
+                    País{" "}
+                    <span style={{ color: theme.palette.custom.required }}>
+                      *
+                    </span>
+                  </InputLabel>
+                  <TextField
+                    name="country"
+                    defaultValue={user.country}
+                    type={"text"}
+                    placeholder="Ingresa tu país"
+                    required
+                    fullWidth
+                    onChange={handleChangeUser}
+                    InputProps={{
+                      style: {
+                        backgroundColor: "#010a1e",
+                        border: "1px solid white",
+                        color: "white"
+                      }
+                    }}
+                  />
+                </Grid>
+                <Grid display="flex" flexDirection="column" gap={1}>
+                  <InputLabel sx={{ color: "white" }}>
+                    Ciudad{" "}
+                    <span style={{ color: theme.palette.custom.required }}>
+                      *
+                    </span>
+                  </InputLabel>
+                  <TextField
+                    name="municipality"
+                    defaultValue={user.municipality}
+                    type={"text"}
+                    placeholder="Ingresa tu ciudad"
+                    required
+                    fullWidth
+                    onChange={handleChangeUser}
+                    InputProps={{
+                      style: {
+                        backgroundColor: "#010a1e",
+                        border: "1px solid white",
+                        color: "white"
+                      }
                     }}
                   />
                 </Grid>
@@ -343,9 +438,9 @@ export default function Signup() {
                     </span>
                   </InputLabel>
                   <TextField
-                    name="cellphone"
+                    name="phone"
                     type="cellphone"
-                    defaultValue={user.cellphone}
+                    defaultValue={user.phone}
                     placeholder="Ingresa tu número celular"
                     required
                     fullWidth
@@ -442,26 +537,7 @@ export default function Signup() {
                     }}
                   />
                 </Grid>
-                {user.slug && (
-                  <Grid display="flex" flexDirection="column" gap={1}>
-                    <InputLabel sx={{ color: "white" }}>
-                      Slug de invitación
-                    </InputLabel>
-                    <TextField
-                      name="slug"
-                      fullWidth
-                      defaultValue={user.slug}
-                      disabled
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <StarIcon />
-                          </InputAdornment>
-                        )
-                      }}
-                    />
-                  </Grid>
-                )}
+
                 <Grid alignItems="center">
                   <FormControlLabel
                     value={checked}

@@ -59,7 +59,6 @@ const ComissionHistoryTable = () => {
         initialState={{ density: "compact" }}
         localization={MRT_Localization_ES}
         enablePagination={false}
-        style={{ height: "100%" }}
       />
     </div>
   )
