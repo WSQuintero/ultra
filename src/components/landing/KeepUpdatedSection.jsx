@@ -16,7 +16,7 @@ const KeepUpdatedSection = () => {
       <img
         src="/Ultra_files/subscribe_bg.png"
         alt="Background"
-        style={{ position: 'absolute', width: '70%', height: '55%', zIndex: 0, borderRadius: '20px' }}
+        style={{ position: 'absolute', width: '60%', height: '45%', zIndex: 0, borderRadius: '20px' }}
       />
 
       <Box width="40%">
