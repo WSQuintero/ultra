@@ -68,8 +68,6 @@ const OurServicesSection = () => {
   );
 };
 
-export default OurServicesSection;
-
 const Item = styled(Paper)(({ theme }) => ({
   background: 'rgba(0, 0, 0, 1)',
   borderRadius: '16px',
@@ -95,7 +93,7 @@ const getTitle = (index) => {
     'ULTRA SCANNER',
     'CLUB DEL FONDEO 2.0'
   ];
-
+  
   return titles[index % titles.length];
 };
 
@@ -108,6 +106,8 @@ const getSubTitle = (index) => {
     'PROYECCIONES I.A',
     'CUENTAS DE FONDEO'
   ];
-
+  
   return subtitle[index % subtitle.length];
 };
+
+export default OurServicesSection;
