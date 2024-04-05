@@ -29,43 +29,9 @@ import {
   VisibilityOffOutlined as VisibilityOffIcon,
   SupervisorAccountRounded as StarIcon
 } from "@mui/icons-material"
-import { Swiper, SwiperSlide } from "swiper/react"
-import { Pagination } from "swiper"
 import AuthService from "../services/auth.service"
-import SliderItem from "../components/SliderItem"
-
-import backgroundSlider1 from "../assets/img/backgrounds/background_1.svg"
-import backgroundSlider2 from "../assets/img/backgrounds/background_2.svg"
-import backgroundSlider3 from "../assets/img/backgrounds/background_3.svg"
-import imageSlider1 from "../assets/img/slider/auth/group_1.svg"
-import imageSlider2 from "../assets/img/slider/auth/group_2.svg"
-import imageSlider3 from "../assets/img/slider/auth/group_3.svg"
 import { Container } from "@mui/system"
 import EmailIcon from "@mui/icons-material/Email"
-
-const sliderOptions = [
-  {
-    title: "TRANSFORMA TUS IDEAS EN REALIDAD.",
-    description:
-      "Calidad y experiencia uniformes en todas las plataformas y dispositivos.",
-    background: backgroundSlider3,
-    image: imageSlider1
-  },
-  {
-    title: "TRANSFORMA TUS IDEAS EN REALIDAD.",
-    description:
-      "Calidad y experiencia uniformes en todas las plataformas y dispositivos.",
-    background: backgroundSlider2,
-    image: imageSlider2
-  },
-  {
-    title: "TRANSFORMA TUS IDEAS EN REALIDAD.",
-    description:
-      "Calidad y experiencia uniformes en todas las plataformas y dispositivos.",
-    background: backgroundSlider1,
-    image: imageSlider3
-  }
-]
 
 const ContainerItem = styled(Grid)(({ theme, overflow }) => ({
   width: "50%",
@@ -88,12 +54,15 @@ export default function Signup() {
     status: "success"
   })
   const [user, setUser] = useState({
-    fullName: "",
+    firstName: "",
+    lastName: "",
+    slugInvitation: "",
+    slug: params.slug || "",
     email: "",
-    cellphone: "",
     password: "",
-    confirmPassword: "",
-    slug: params.slug
+    phone: "",
+    country: "",
+    municipality: ""
   })
   const [checked, setChecked] = useState(false)
   const $Auth = useMemo(() => new AuthService(), [])
@@ -107,13 +76,13 @@ export default function Signup() {
     event.preventDefault()
 
     if (
-      !(
-        user.fullName &&
-        user.email &&
-        user.cellphone &&
-        user.password &&
-        user.confirmPassword
-      )
+      !(user.firstName,
+      user.lastName,
+      user.email,
+      user.password,
+      user.phone,
+      user.country,
+      user.municipality)
     ) {
       setAlert({
         show: true,
@@ -145,7 +114,7 @@ export default function Signup() {
       return
     }
 
-    const { status } = await $Auth.signup(user)
+    const { status, data } = await $Auth.signup(user)
 
     if (status) {
       setAlert({
@@ -153,8 +122,10 @@ export default function Signup() {
         message: "Registro exitoso. Puedes iniciar sesión.",
         status: "success"
       })
-
-      navigate("/signin")
+      console.log(user)
+      setTimeout(() => {
+        // navigate("/signin")
+      }, 2000)
     }
   }
 

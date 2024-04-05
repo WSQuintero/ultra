@@ -80,7 +80,7 @@ export default function ModalDepositFinancity({ open, handleClose }) {
                       {
                         <QRCode
                           style={{ width: "40%", height: "40%" }}
-                          value={import.meta.env.VITE_ULTRA_ADDRESS}
+                          // value={import.meta.env.VITE_ULTRA_ADDRESS}
                         />
                       }
                     </Box>
@@ -92,7 +92,7 @@ export default function ModalDepositFinancity({ open, handleClose }) {
                 <Grid container spacing={2}>
                   <Grid item xs={12} md={10}>
                     <TextField
-                      value={import.meta.env.VITE_ULTRA_ADDRESS}
+                      // value={import.meta.env.VITE_ULTRA_ADDRESS}
                       readOnly
                       fullWidth
                       helperText={helperCopy.show && helperCopy.message}
@@ -100,9 +100,9 @@ export default function ModalDepositFinancity({ open, handleClose }) {
                   </Grid>
                   <Grid item xs={2}>
                     <Button
-                      onClick={() =>
-                        handleCopyIcon(import.meta.env.VITE_ULTRA_ADDRESS)
-                      }
+                      // onClick={() =>
+                      //   handleCopyIcon(import.meta.env.VITE_ULTRA_ADDRESS)
+                      // }
                       sx={{ height: "100%" }}
                       variant="contained"
                       color="primary">
