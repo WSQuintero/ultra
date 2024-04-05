@@ -85,6 +85,7 @@ const MainSection = () => {
         >
           En Ultra Vip te ofrecemos acceso exclusivo a recursos de élite sin ningún cargo.
         </Typography>
+        <br/>
         <Box>
           <GoldButton onClick={handleSignInClick} variant="contained" color="primary2">INICIAR SESIÓN</GoldButton>
           <Button

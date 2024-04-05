@@ -6,6 +6,7 @@ import OurServicesSection from "../components/landing/OurServicesSection"
 import PricingSection from "../components/landing/PricingSection"
 import KeepUpdatedSection from "../components/landing/KeepUpdatedSection"
 import Footer from "../components/landing/Footer"
+import TelegramIcon from "../components/landing/TelegramFixIIcon"
 
 function Landing() {
   return (
@@ -20,6 +21,7 @@ function Landing() {
       <PricingSection />
       <KeepUpdatedSection />
       <Footer />
+      <TelegramIcon />
     </div>
   )
 }
