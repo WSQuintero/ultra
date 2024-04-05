@@ -3,8 +3,9 @@ import MicrosoftCartView from './MicrosoftChartView';
 import BitcoinCartView from './BitcoinChartView';
 
 const OurMissionSection = () => {
+ 
   return (
-    <Box display="flex" padding={10} marginTop={10}>
+    <Box id="our-mission" display="flex" padding={10} marginTop={10}>
       <img src="/Ultra_files/bull.png" style={{ width: '50%' }} />
       <Box>
         <Typography

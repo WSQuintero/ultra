@@ -6,7 +6,11 @@ import InterTypography from '../shared/InterTypography';
 
 const PricingSection = () => {
   return (
-    <Box display={'flex'} flexDirection={'column'} padding={4}>
+    <Box 
+    id='plans-princing'
+    display={'flex'} 
+    flexDirection={'column'} 
+    padding={4}>
       <BGTypography
         color={'white'}
         variant="h2"

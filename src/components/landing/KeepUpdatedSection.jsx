@@ -5,6 +5,7 @@ import { styled } from '@mui/system';
 const KeepUpdatedSection = () => {
   return (
     <Box
+      id='contact'
       width="100%"
       height="100vh"
       display="flex"

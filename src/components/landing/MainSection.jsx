@@ -11,6 +11,7 @@ const MainSection = () => {
   };
   return (
     <Box
+      id="main-section" 
       height="100vh"
       display="flex"
       alignItems="center"
