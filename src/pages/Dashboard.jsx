@@ -1,174 +1,16 @@
 import { useEffect, useState, useMemo } from "react"
 import useAuth from "../hooks/useAuth"
-import UserService from "../services/user.service"
-import {
-  alpha,
-  Box,
-  Container,
-  Divider,
-  Grid,
-  Typography,
-  Button
-} from "@mui/material"
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer
-} from "recharts"
+import { alpha, Box, Container, Grid, Typography, Button } from "@mui/material"
+
 import PageWrapper from "../components/PageWrapper"
-import PricingTable from "../components/PricingTable"
 import useSession from "../hooks/useSession"
 import useConfig from "../hooks/useConfig"
 import SubscriptionService from "../services/subscription.service"
-import ModalPayment from "../components/ModalPayment"
-import {
-  TrendingUp as TrendingUpIcon,
-  TrendingFlat as TrendingFlatIcon,
-  TrendingDown as TrendingDownIcon
-} from "@mui/icons-material"
+
 import { useTheme } from "@emotion/react"
-import background from "../assets/img/pageWrapper/background.svg"
-import CourseCard from "../components/CourseCard"
 import Timer from "../components/Timer"
-
-const data = []
-
-function SummaryCard({ title, value, trend, backgroundColor, alphaB }) {
-  return (
-    <Box
-      position="relative"
-      display="flex"
-      flexDirection="column"
-      paddingY={1}
-      paddingX={2}
-      height={trend === "" ? "50%" : "100%"}
-      borderRadius={4}
-      overflow="hidden"
-      sx={{
-        backgroundImage: `url(${background})`,
-        backgroundPosition: "center",
-        backgroundSize: "cover",
-        "&::before": {
-          content: "''",
-          position: "absolute",
-          left: 0,
-          top: 0,
-          width: "100%",
-          height: "100%",
-          backgroundColor: alpha(backgroundColor, alphaB || 0.5)
-        }
-      }}>
-      <Box zIndex={1}>
-        <Grid display="flex" gap={1} color="white">
-          <Typography color="white">{title}</Typography>
-          {trend === "" ? (
-            <></>
-          ) : (
-            <Typography
-              color="white"
-              style={{
-                textAlign: "right",
-                width: "90%",
-                position: "absolute"
-              }}>
-              Total
-            </Typography>
-          )}
-        </Grid>
-        {trend === "" ? (
-          <></>
-        ) : (
-          <Grid
-            display="flex"
-            alignItems="center"
-            gap={2}
-            justifyContent="space-between">
-            <Typography color="white" fontSize={28}>
-              {value} USDT
-            </Typography>
-            <Grid display="flex" gap={1} color="white">
-              <Typography color="white">{trend} USDT</Typography>
-            </Grid>
-          </Grid>
-        )}
-      </Box>
-    </Box>
-  )
-}
-
-function DateCard({ data }) {
-  return (
-    <Grid
-      display="flex"
-      alignItems="center"
-      gap={2}
-      sx={(t) => ({
-        [t.breakpoints.down("md")]: {
-          flexDirection: "column-reverse"
-        }
-      })}>
-      {data.map((el, index) => (
-        <Grid
-          key={index}
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-          gap={1}>
-          <Grid display="flex" gap={0.5}>
-            <Box
-              paddingY={1}
-              paddingX={2}
-              borderRadius={2}
-              sx={{ backgroundColor: "#3A3689" }}>
-              <Typography fontSize={22} color="white">
-                {el.value[0]}
-              </Typography>
-            </Box>
-            <Box
-              paddingY={1}
-              paddingX={2}
-              borderRadius={2}
-              sx={{ backgroundColor: "#3A3689" }}>
-              <Typography fontSize={22} color="white">
-                {el.value[1]}
-              </Typography>
-            </Box>
-            {el.value.length == 4 && (
-              <Box
-                paddingY={1}
-                paddingX={2}
-                borderRadius={2}
-                sx={{ backgroundColor: "#3A3689" }}>
-                <Typography fontSize={22} color="white">
-                  {el.value[2]}
-                </Typography>
-              </Box>
-            )}
-            {el.value.length == 4 && (
-              <Box
-                paddingY={1}
-                paddingX={2}
-                borderRadius={2}
-                sx={{ backgroundColor: "#3A3689" }}>
-                <Typography fontSize={22} color="white">
-                  {el.value[3]}
-                </Typography>
-              </Box>
-            )}
-          </Grid>
-          <Typography fontSize={22} color="white">
-            {el.label}
-          </Typography>
-        </Grid>
-      ))}
-    </Grid>
-  )
-}
+import GeneralButton from "../components/GeneralButton"
+import SuscriptionList from "../components/suscriptionList"
 
 function Dashboard() {
   const [session] = useSession()
@@ -176,12 +18,7 @@ function Dashboard() {
   const [auth] = useAuth()
   const $Subscription = useMemo(() => new SubscriptionService(auth), [auth])
 
-  const [currentPlan, setCurrentPlan] = useState(false)
-  const [modalcurrentPlan, setModalcurrentPlan] = useState(false)
-  const [walletAddressPlan, setWalletAddressPlan] = useState(false)
-
   const [, { setLoading }] = useConfig()
-  const theme = useTheme()
 
   useEffect(() => {
     setLoading(true)
@@ -213,23 +50,31 @@ function Dashboard() {
     <PageWrapper expanded>
       <Box
         sx={{
-          paddingY: 1,
-          width: "100%",
-          padding: 5,
+          paddingY: 5,
+          width: "90%",
+          height: "calc(100vh - 64px)",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
+          justifyContent: "start",
           alignItems: "center",
-          gap: 1
+          gap: 1,
+          overflow: "auto"
         }}>
         <Typography
           variant="h2"
           color="white"
           marginBottom={5}
-          sx={{ width: "100%" }}>
+          sx={{ width: "88%" }}>
           Good Morning! Juan👋
         </Typography>
-        <Box sx={{ display: "flex", gap: 1 }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexShrink: 0,
+            gap: 1,
+            width: "88%",
+            paddingY: 5
+          }}>
           <Container
             sx={{
               backgroundColor: "#010714",
@@ -296,10 +141,12 @@ function Dashboard() {
                   <img src="/tortatwo.png" alt="tortatwo" />
                 </Box>
                 <Box>
-                  <Typography sx={{ fontSize: 25, color: "white" }}>
+                  <Typography sx={{ fontSize: 15, color: "white" }}>
                     6%
                   </Typography>
-                  <Typography>In Inactive</Typography>
+                  <Typography sx={{ fontSize: 15, color: "white" }}>
+                    In Inactive
+                  </Typography>
                 </Box>
               </Container>
               <Container
@@ -315,10 +162,12 @@ function Dashboard() {
                   <img src="/tortatwo.png" alt="tortatwo" />
                 </Box>
                 <Box>
-                  <Typography sx={{ fontSize: 25, color: "white" }}>
+                  <Typography sx={{ fontSize: 15, color: "white" }}>
                     5%
                   </Typography>
-                  <Typography>Due Issuee</Typography>
+                  <Typography sx={{ fontSize: 15, color: "white" }}>
+                    Due Issuee
+                  </Typography>
                 </Box>
               </Container>
             </Box>
@@ -327,22 +176,23 @@ function Dashboard() {
         <Box
           sx={{
             backgroundColor: "#131006",
-            width: "82%",
-            height: "250px",
+            width: "88%",
+            height: "150px",
             borderRadius: 3,
             border: "1px solid #6e5c25",
             display: "flex",
             justifyContent: "space-around",
-            alignItems: "center"
+            alignItems: "center",
+            flexShrink: 0
           }}>
           <Box sx={{ padding: 4 }}>
-            <Typography sx={{ fontSize: 25, color: "white" }}>
+            <Typography sx={{ fontSize: 20, color: "white" }}>
               Upcoming Payment
             </Typography>
             <Box
               display={"flex"}
               sx={{
-                marginTop: 4,
+                marginTop: 2,
                 gap: 5,
                 justifyConten: "center",
                 alignItems: "center"
@@ -356,19 +206,43 @@ function Dashboard() {
                   <Typography>catalogapp.io</Typography>
                 </Box>
               </Box>
-              <Button
-                sx={{
-                  backgroundColor: "#ab8e3a",
-                  width: "200px",
-                  height: "50px",
-                  color: "white"
-                }}>
-                Pay Now
-              </Button>
+              <GeneralButton>Pay now</GeneralButton>
             </Box>
           </Box>
 
           <Timer />
+        </Box>
+        <Box
+          sx={{
+            backgroundColor: "#010714",
+            width: "88%",
+            height: 500,
+            borderRadius: 3,
+            border: "1px solid #6e5c25",
+            flexShrink: 0,
+            marginTop: 5
+          }}>
+          <Container
+            sx={{
+              width: "100%",
+              height: 100,
+              borderBottom: "1px solid white",
+              padding: 2,
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center"
+            }}>
+            <Box>
+              <Typography variant="h2" sx={{ color: "white" }}>
+                Subscription List
+              </Typography>
+              <Typography>Keep track of subscription list</Typography>
+            </Box>
+            <Box>
+              <GeneralButton>+ Buy More</GeneralButton>
+            </Box>
+          </Container>
+          <SuscriptionList />
         </Box>
       </Box>
     </PageWrapper>

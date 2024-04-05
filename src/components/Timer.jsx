@@ -29,8 +29,8 @@ function Timer() {
 }
 
 const timerBoxStyle = {
-  width: "60px",
-  height: "60px",
+  width: "50px",
+  height: "50px",
   backgroundColor: "#2f2d24",
   textAlign: "center",
   padding: 4,
@@ -38,7 +38,7 @@ const timerBoxStyle = {
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  fontSize: 30,
+  fontSize: 20,
   color: "#ab8e3a"
 }
 
