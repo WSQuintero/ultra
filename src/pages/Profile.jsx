@@ -1,199 +1,220 @@
-import { useCallback, useEffect, useMemo, useState, useRef } from "react"
-import {
-  Alert,
-  Avatar,
-  Box,
-  Container,
-  Divider,
-  Grid,
-  IconButton,
-  Snackbar,
-  TextField,
-  Typography,
-  alpha
-} from "@mui/material"
-import { LoadingButton } from "@mui/lab"
-import useAuth from "../hooks/useAuth"
-import useSession from "../hooks/useSession"
-import useConfig from "../hooks/useConfig"
-import ModalAuth from "../components/ModalAuth"
-import ModalG2Fa from "../components/ModalG2Fa"
-import UserService from "../services/user.service"
+import { Box, Container, Typography } from "@mui/material"
 import PageWrapper from "../components/PageWrapper"
-import FormRow from "../components/FormRow"
-import background from "../assets/img/pageWrapper/background.svg"
 import PerfilCard from "../components/PerfilCard"
+import GeneralButton from "../components/GeneralButton"
+import ComissionHistoryTable from "../components/ComissionHistoryTable.jsx"
 
 function Profile() {
-  const [auth] = useAuth()
-  const [session, setSession] = useSession()
-
-  const [modalConfirm2Fa, setModalConfirm2Fa] = useState(false)
-
-  const [modalConfirmAuth, setModalConfirmAuth] = useState(false)
-  const [{ loading }, { setLoading }] = useConfig({})
-  const [user, setUser] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    slug_invitation: "",
-    cellphone: "",
-    wallet_address_pay_commission: ""
-  })
-  const [alert, setAlert] = useState({
-    show: false,
-    message: "",
-    status: "success"
-  })
-  const $User = useMemo(() => new UserService(auth), [auth])
-
-  const handleInputChange = useCallback((event) => {
-    const { name, value } = event.target
-    setUser((prev) => ({ ...prev, [name]: value }))
-  }, [])
-
-  const handleFormSubmit = useCallback(
-    async (event) => {
-      event.preventDefault()
-
-      if (
-        !user.firstname ||
-        !user.lastname ||
-        !user.email ||
-        !user.slug_invitation ||
-        !user.cellphone
-      ) {
-        setAlert({
-          show: true,
-          message: "Todos los campos son requeridos.",
-          status: "error"
-        })
-        return
-      }
-
-      const { status } = await $User.update({
-        firstName: user.firstname,
-        lastName: user.lastname,
-        phone: user.cellphone
-      })
-
-      if (status) {
-        setAlert({
-          show: true,
-          message: "Perfil actualizado con éxito.",
-          status: "success"
-        })
-
-        setSession({ ...session, ...user })
-      } else {
-        setAlert({
-          show: true,
-          message: "Error al actualizar perfil, inténtelo de nuevo más tarde.",
-          status: "error"
-        })
-      }
-    },
-    [user, $User]
-  )
-
-  const handleFormSubmitWallet = useCallback(
-    async (event) => {
-      event.preventDefault()
-
-      if (!user.wallet_address_pay_commission) {
-        setAlert({
-          show: true,
-          message: "Por favor ingrese la dirección de billetera.",
-          status: "error"
-        })
-        return
-      }
-
-      const expresionOneRegularTRC20 = /^T[1-9A-HJ-NP-Za-km-z]{33}$/
-      const expresionTwoRegularTRC20 = /^T[a-zA-Z0-9]{41}$/
-      if (
-        !expresionOneRegularTRC20.test(user.wallet_address_pay_commission) &&
-        !expresionTwoRegularTRC20.test(user.wallet_address_pay_commission)
-      ) {
-        setAlert({
-          show: true,
-          message: "Por favor ingrese una billetera TRC-20 válida.",
-          status: "error"
-        })
-        return
-      }
-
-      if (session.exist_2fa_auth == 1) {
-        setModalConfirm2Fa(true)
-      } else {
-        setModalConfirmAuth(true)
-      }
-    },
-    [user, $User]
-  )
-
-  const resetAlert = () => {
-    setAlert((prev) => ({ show: false, message: "", status: prev.status }))
-  }
-
-  useEffect(() => {
-    setLoading(true)
-
-    if (session) {
-      setUser({
-        avatar: session.avatar || "",
-        firstname: session.firstname || "",
-        lastname: session.lastname || "",
-        email: session.email || "",
-        slug_invitation:
-          `${import.meta.env.VITE_APP_URL}/signup/${session.slug_invitation}` ||
-          "",
-        cellphone: session.cellphone || "",
-        contract_balance_own: Number(session.contract_balance_own) || 0,
-        wallet_address_pay_commission:
-          session.wallet_address_pay_commission || "",
-        contract_balance_leveraged:
-          Number(session.contract_balance_leveraged) || 0
-      })
-    }
-
-    setTimeout(() => {
-      setLoading(false)
-    }, 500)
-  }, [session])
-
-  if (!session) {
-    return <></>
-  }
-
-  const fileInputRef = useRef(null)
-
-  const handleFileInputChange = async (e) => {
-    const file = e.target.files[0]
-    if (file) {
-      const { status, data } = await $User.changeAvatar({ avatar: file })
-
-      let newUser = user
-      newUser.avatar = data[0].avatar
-      setLoading(true)
-
-      setUser(newUser)
-
-      setSession({ ...session, ...newUser })
-
-      setTimeout(() => {
-        setLoading(false)
-      }, 500)
-    }
-  }
-
-  const handleButtonClick = () => {
-    fileInputRef.current.click()
-  }
-
   return (
-    <PageWrapper expanded>
-      <PerfilCard />
+    <PageWrapper>
+      <Box sx={{ padding: 5, display: "flex", gap: 5, width: "100%" }}>
+        <PerfilCard />
+        <Box sx={{ height: "calc(100vh - 155px)", overflow: "auto" }}>
+          <Box
+            sx={{
+              backgroundColor: "#131006",
+              width: "70%",
+              height: "150px",
+              borderRadius: 3,
+              border: "1px solid #6e5c25",
+              display: "flex",
+              justifyContent: "space-around",
+              alignItems: "center",
+              flexShrink: 0
+            }}>
+            <Box sx={{ padding: 4 }}>
+              <Box
+                display={"flex"}
+                sx={{
+                  marginTop: 2,
+                  gap: 5,
+                  justifyConten: "center",
+                  alignItems: "center"
+                }}>
+                <Box display={"flex"} sx={{ gap: 2 }}>
+                  <Box>
+                    <img src="/fi_1680012.png" alt="fi_1680012" />
+                  </Box>
+                  <Box>
+                    <Typography>
+                      {" "}
+                      Your membership has expired, renew it as soon as possible{" "}
+                    </Typography>
+                  </Box>
+                </Box>
+                <GeneralButton>Renew Membership</GeneralButton>
+              </Box>
+            </Box>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexShrink: 0,
+              gap: 1,
+              width: "70%",
+              paddingY: 5
+            }}>
+            <Container
+              sx={{
+                backgroundColor: "#010714",
+                width: "400px",
+                height: "250px",
+                borderRadius: 3
+              }}>
+              <img
+                src="/f1.png"
+                alt="frame"
+                style={{ marginTop: "25px", width: "50px" }}
+              />
+              <Typography sx={{ fontSize: 25, marginTop: 5, color: "white" }}>
+                Ganancias Plan
+              </Typography>
+              <Typography
+                sx={{ fontSize: 30, color: "white", fontWeight: "bold" }}>
+                $90.00
+              </Typography>
+            </Container>
+            <Container
+              sx={{
+                backgroundColor: "#010714",
+                width: "400px",
+                height: "250px",
+                borderRadius: 3
+              }}>
+              <img
+                src="/f2.png"
+                alt="frametwo"
+                style={{ marginTop: "25px", width: "50px" }}
+              />
+              <Typography sx={{ fontSize: 25, marginTop: 5, color: "white" }}>
+                Ganancias Club{" "}
+              </Typography>
+              <Typography
+                sx={{ fontSize: 30, color: "white", fontWeight: "bold" }}>
+                De Fondeo{" "}
+              </Typography>
+            </Container>
+            <Container
+              sx={{
+                backgroundColor: "#010714",
+                width: "400px",
+                height: "250px",
+                borderRadius: 3
+              }}>
+              <img
+                src="/f3.png"
+                alt="frametwo"
+                style={{ marginTop: "25px", width: "50px" }}
+              />
+              <Typography sx={{ fontSize: 25, marginTop: 5, color: "white" }}>
+                Ganancias{" "}
+              </Typography>
+              <Typography
+                sx={{ fontSize: 30, color: "white", fontWeight: "bold" }}>
+                Xcalper{" "}
+              </Typography>
+            </Container>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexShrink: 0,
+              gap: 1,
+              width: "70%"
+            }}>
+            <Container
+              sx={{
+                backgroundColor: "#010714",
+                width: "100%",
+                height: "280px",
+                borderRadius: 3,
+                padding: 3
+              }}>
+              <Typography sx={{ color: "white" }}>Sales Performance</Typography>
+
+              <Container
+                sx={{
+                  backgroundColor: "#0f172a",
+                  width: "100%",
+                  height: "85%",
+                  borderRadius: 3,
+                  padding: 3,
+                  marginTop: 1
+                }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    borderBottom: "1px solid white",
+                    padding: 1
+                  }}>
+                  <img
+                    src="/fi_7446910.png"
+                    alt="fi_7446910"
+                    style={{ width: "60px" }}
+                  />
+                  <Box>
+                    <Typography color="white">
+                      Let’s Achieve Your Sales Goal
+                    </Typography>
+                    <Typography>
+                      It is a long established fact that a reader will be
+                      distracted
+                    </Typography>
+                  </Box>
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    padding: 1
+                  }}>
+                  <Box sx={{ width: "50%" }}>
+                    <Typography>Ambassadors</Typography>
+                    <img src="/f.png" alt="f" />
+                  </Box>
+                  <Box sx={{ width: "50%" }}>
+                    <Typography>Masters</Typography>
+                    <img src="/f.png" alt="f" />
+                  </Box>
+                </Box>
+              </Container>
+            </Container>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexShrink: 0,
+              gap: 1,
+              width: "70%",
+              marginTop: 5
+            }}>
+            <Container
+              sx={{
+                backgroundColor: "#010714",
+                width: "100%",
+                height: "auto",
+                borderRadius: 3,
+                padding: 3
+              }}>
+              <Typography sx={{ color: "white" }}>
+                Commission History
+              </Typography>
+
+              <Container
+                sx={{
+                  backgroundColor: "#0f172a",
+                  width: "100%",
+                  height: "90%",
+                  borderRadius: 3,
+                  padding: 3,
+                  marginTop: 1
+                }}>
+                <ComissionHistoryTable />
+              </Container>
+            </Container>
+          </Box>
+        </Box>
+      </Box>
     </PageWrapper>
   )
 }

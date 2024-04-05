@@ -16,7 +16,9 @@ const PerfilCard = () => {
         overflow: "hidden",
         borderRadius: 5,
         background: "#010714",
-        height: "80vh"
+        height: "auto",
+        maxHeight: "80vh",
+        flexShrink: 0
       }}>
       {/* Sección Inicial */}
       <Box sx={{ width: "100%" }}>
