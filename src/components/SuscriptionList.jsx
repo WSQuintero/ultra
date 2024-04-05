@@ -1,6 +1,7 @@
 import { useMemo } from "react"
 import { MaterialReactTable } from "material-react-table"
 import { MRT_Localization_ES } from "material-react-table/locales/es"
+import { Box } from "@mui/material"
 
 const SuscriptionList = () => {
   const columns = useMemo(
@@ -59,7 +60,7 @@ const SuscriptionList = () => {
   ]
 
   return (
-    <>
+    <div style={{ height: "100%" }}>
       <MaterialReactTable
         columns={columns}
         data={list}
@@ -72,9 +73,9 @@ const SuscriptionList = () => {
         // state={{ showSkeletons: loading }}
         localization={MRT_Localization_ES}
         enablePagination={true}
-        sx={{ heigth: "100%" }}
+        style={{ heigth: "100%" }}
       />
-    </>
+    </div>
   )
 }
 
