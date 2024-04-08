@@ -28,24 +28,24 @@ function Dashboard() {
     }, 500)
   }, [])
 
-  useEffect(() => {
-    if (
-      session?.userSubscription.some(
-        (plan) => plan.product === 4 && plan.status_pay === 1
-      )
-    ) {
-      setMemberIB(
-        session?.userSubscription
-          .filter((plan) => plan.product === 4 && plan.status_pay === 1)[0]
-          .expired_at.split("T")[0]
-          .split("-")
-      )
-    }
-  }, [session])
+  // useEffect(() => {
+  //   if (
+  //     session?.userSubscription.some(
+  //       (plan) => plan.product === 4 && plan.status_pay === 1
+  //     )
+  //   ) {
+  //     setMemberIB(
+  //       session?.userSubscription
+  //         .filter((plan) => plan.product === 4 && plan.status_pay === 1)[0]
+  //         .expired_at.split("T")[0]
+  //         .split("-")
+  //     )
+  //   }
+  // }, [session])
 
-  if (!session) {
-    return <></>
-  }
+  // if (!session) {
+  //   return <></>
+  // }
 
   return (
     <PageWrapper expanded>
