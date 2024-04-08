@@ -11,6 +11,7 @@ import { useTheme } from "@emotion/react"
 import Timer from "../components/Timer"
 import GeneralButton from "../components/GeneralButton"
 import SuscriptionList from "../components/suscriptionList"
+import PriceCard from "../components/PriceCard"
 
 function Dashboard() {
   const [session] = useSession()
@@ -51,7 +52,7 @@ function Dashboard() {
       <Box
         sx={{
           paddingY: 5,
-          width: "90%",
+          width: "100%",
           height: "calc(100vh - 64px)",
           display: "flex",
           flexDirection: "column",
@@ -243,6 +244,19 @@ function Dashboard() {
             </Box>
           </Container>
           <SuscriptionList />
+        </Box>
+        <Box
+          style={{
+            width: "80%",
+            display: "flex",
+            justifyContent: "center",
+            padding: 20,
+            flexWrap: "wrap",
+            gap: 20
+          }}>
+          <PriceCard />
+          <PriceCard />
+          <PriceCard />
         </Box>
       </Box>
     </PageWrapper>

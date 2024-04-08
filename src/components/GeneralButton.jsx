@@ -5,8 +5,8 @@ function GeneralButton({ children }) {
     <Button
       sx={{
         backgroundColor: "#ab8e3a",
-        width: "200px",
-        height: "50px",
+        width: "160px",
+        height: "40px",
         color: "white"
       }}>
       {children}

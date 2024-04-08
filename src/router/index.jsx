@@ -14,6 +14,7 @@ import ResetPassword from "../pages/ResetPassword"
 import useAuth from "../hooks/useAuth"
 import { useMemo } from "react"
 import Landing from "../pages/Landing"
+import ValidateEmail from "../pages/ValidateEmail"
 
 const META = {
   REQUIRES_AUTH: Symbol("REQUIRES_AUTH"),
@@ -91,8 +92,8 @@ function Router() {
       )
     },
     {
-      path: "/validate",
-      element: <PrivateRoute component={Signin} meta={[META.HIDE_FOR_AUTH]} />
+      path: "/auth/validateEmail",
+      element: <PrivateRoute component={ValidateEmail} />
     },
     {
       path: "/signup/:slug?",
