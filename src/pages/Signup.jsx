@@ -82,6 +82,7 @@ export default function Signup() {
       user.password,
       user.phone,
       user.country,
+      user.slugInvitation,
       user.municipality)
     ) {
       setAlert({
@@ -117,14 +118,30 @@ export default function Signup() {
     const { status, data } = await $Auth.signup(user)
 
     if (status) {
+      if (data.message === "Email already in use.") {
+        setAlert({
+          show: true,
+          message: "Email ya se encuentra registrado",
+          status: "error"
+        })
+        return
+      }
+      if (data.message === "Slug Code already in use.") {
+        setAlert({
+          show: true,
+          message:
+            "Slug ya registrado. Por favor elige otro código de invitación para tí.",
+          status: "error"
+        })
+        return
+      }
       setAlert({
         show: true,
-        message: "Registro exitoso. Puedes iniciar sesión.",
+        message: "Registro exitoso",
         status: "success"
       })
-      console.log(user)
       setTimeout(() => {
-        // navigate("/signin")
+        navigate("/signin")
       }, 2000)
     }
   }
@@ -253,6 +270,8 @@ export default function Signup() {
                     name="slugInvitation"
                     fullWidth
                     defaultValue={user.slugInvitation}
+                    required
+                    onChange={handleChangeUser}
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
@@ -519,7 +538,7 @@ export default function Signup() {
                       <>
                         He leído y acepto los{" "}
                         <Link
-                          to="/termsAndConditions.pdf"
+                          to="#"
                           component={RouterLink}
                           target="_blank"
                           color={"#ab8e3a"}>
