@@ -9,7 +9,7 @@ import {
 import { AccountCircle } from "@mui/icons-material"
 import GeneralButton from "./GeneralButton"
 
-const PriceCard = () => {
+const PriceCard = ({ header, options }) => {
   return (
     <Box
       sx={{
@@ -20,7 +20,7 @@ const PriceCard = () => {
         borderRadius: 5,
         background: "#010714",
         height: "auto",
-        maxHeight: "80vh",
+        border: "2px solid #23221c",
         flexShrink: 0
       }}>
       {/* Sección Inicial */}
@@ -35,13 +35,11 @@ const PriceCard = () => {
           padding: 2
         }}>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <Typography sx={{ color: "white" }}>
-            Unlock Comprehensive Learning
-          </Typography>
+          <Typography sx={{ color: "white" }}>{header?.title}</Typography>
           <div style={{ display: "flex", gap: 4 }}>
-            <Typography sx={{ color: "white" }}>$299!</Typography>
+            <Typography sx={{ color: "white" }}>{header?.price}</Typography>
             <Typography sx={{ textDecoration: "line-through" }}>
-              $3,100
+              {header?.realPrice}
             </Typography>
           </div>
         </div>
@@ -52,9 +50,7 @@ const PriceCard = () => {
             justifyContent: "space-between",
             alignItems: "center"
           }}>
-          <Typography sx={{ fontSize: 15 }}>
-            All Courses Now Just Only
-          </Typography>
+          <Typography sx={{ fontSize: 15 }}>{header?.description}</Typography>
           <div style={{ display: "flex", gap: 4 }}>
             <Typography
               sx={{
@@ -65,7 +61,7 @@ const PriceCard = () => {
                 fontSize: 15,
                 color: "white"
               }}>
-              90.35% Discount 🔥
+              {header.discount}
             </Typography>
           </div>
         </div>
@@ -85,144 +81,32 @@ const PriceCard = () => {
           justifyContent: "start"
         }}>
         {/* Sección 2 */}
-        <Box
-          sx={{
-            borderBottom: "1px solid white",
-            padding: 1
-          }}>
+        {options?.map((option, index) => (
           <Box
             sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between"
-            }}>
-            <Typography variant="body2" color="white" sx={{ fontSize: 20 }}>
-              Texto 1
-            </Typography>
+              borderBottom: "1px solid white",
+              padding: 1
+            }}
+            key={index}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between"
+              }}>
+              <Typography variant="body2" color="white" sx={{ fontSize: 20 }}>
+                {option.title}
+              </Typography>
 
-            <Typography variant="body2" color="white" sx={{ fontSize: 20 }}>
-              $1,000
+              <Typography variant="body2" color="white" sx={{ fontSize: 20 }}>
+                {option.price}
+              </Typography>
+            </Box>
+            <Typography sx={{ fontSize: 15 }} color="textPrimary">
+              {option.subtitle}
             </Typography>
           </Box>
-          <Typography sx={{ fontSize: 15 }} color="textPrimary">
-            Label 1
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            borderBottom: "1px solid white",
-            padding: 1
-          }}>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between"
-            }}>
-            <Typography variant="body2" color="white" sx={{ fontSize: 20 }}>
-              Texto 1
-            </Typography>
-
-            <Typography variant="body2" color="white" sx={{ fontSize: 20 }}>
-              $1,000
-            </Typography>
-          </Box>
-          <Typography sx={{ fontSize: 15 }} color="textPrimary">
-            Label 1
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            borderBottom: "1px solid white",
-            padding: 1
-          }}>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between"
-            }}>
-            <Typography variant="body2" color="white" sx={{ fontSize: 20 }}>
-              Texto 1
-            </Typography>
-
-            <Typography variant="body2" color="white" sx={{ fontSize: 20 }}>
-              $1,000
-            </Typography>
-          </Box>
-          <Typography sx={{ fontSize: 15 }} color="textPrimary">
-            Label 1
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            borderBottom: "1px solid white",
-            padding: 1
-          }}>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between"
-            }}>
-            <Typography variant="body2" color="white" sx={{ fontSize: 20 }}>
-              Texto 1
-            </Typography>
-
-            <Typography variant="body2" color="white" sx={{ fontSize: 20 }}>
-              $1,000
-            </Typography>
-          </Box>
-          <Typography sx={{ fontSize: 15 }} color="textPrimary">
-            Label 1
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            borderBottom: "1px solid white",
-            padding: 1
-          }}>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between"
-            }}>
-            <Typography variant="body2" color="white" sx={{ fontSize: 20 }}>
-              Texto 1
-            </Typography>
-
-            <Typography variant="body2" color="white" sx={{ fontSize: 20 }}>
-              $1,000
-            </Typography>
-          </Box>
-          <Typography sx={{ fontSize: 15 }} color="textPrimary">
-            Label 1
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            borderBottom: "1px solid white",
-            padding: 1
-          }}>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between"
-            }}>
-            <Typography variant="body2" color="white" sx={{ fontSize: 20 }}>
-              Texto 1
-            </Typography>
-
-            <Typography variant="body2" color="white" sx={{ fontSize: 20 }}>
-              $1,000
-            </Typography>
-          </Box>
-          <Typography sx={{ fontSize: 15 }} color="textPrimary">
-            Label 1
-          </Typography>
-        </Box>
+        ))}
       </Box>
     </Box>
   )

@@ -12,6 +12,7 @@ import Timer from "../components/Timer"
 import GeneralButton from "../components/GeneralButton"
 import SuscriptionList from "../components/suscriptionList"
 import PriceCard from "../components/PriceCard"
+import { optionsPlan90 } from "../components/constants/constants"
 
 function Dashboard() {
   const [session] = useSession()
@@ -254,9 +255,26 @@ function Dashboard() {
             flexWrap: "wrap",
             gap: 20
           }}>
-          <PriceCard />
-          <PriceCard />
-          <PriceCard />
+          <PriceCard
+            header={{
+              title: "Plan 90",
+              price: "$299 usd",
+              realPrice: "$3.100 usd",
+              description: "All Courses Now Just Only",
+              discount: "90.35% Discount 🔥"
+            }}
+            options={optionsPlan90}
+          />
+          <PriceCard
+            header={{
+              title: "Plan 90",
+              price: "$299 usd",
+              realPrice: "$3.100 usd",
+              description: "All Courses Now Just Only",
+              discount: "90.35% Discount 🔥"
+            }}
+            options={optionsPlan90}
+          />
         </Box>
       </Box>
     </PageWrapper>
