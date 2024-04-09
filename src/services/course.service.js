@@ -8,54 +8,13 @@ export default class CourseService {
 
   async createCourse(token, formdata) {
     try {
-      const { data } = await axios.post(`${this.API_URL}/academy`, formdata, {
-        headers: {
-          Authorization: token
-        }
-      })
-
-      return { status: true, data: data }
-    } catch (error) {
-      return { status: false, data: error.response }
-    }
-  }
-  async updateCourse(token, id, formdata) {
-    try {
-      const { data } = await axios.put(
-        `${this.API_URL}/academy/${id}`,
+      const { data } = await axios.post(
+        `${this.API_URL}/academy/category`,
         formdata,
         {
           headers: {
             Authorization: this.token
-          }
-        }
-      )
-
-      return { status: true, data: data }
-    } catch (error) {
-      return { status: false, data: error.response }
-    }
-  }
-  async deleteCourse(token, id) {
-    try {
-      const { data } = await axios.post(`${this.API_URL}/delete/${id}`, {
-        headers: {
-          Authorization: token
-        }
-      })
-
-      return { status: true, data: data }
-    } catch (error) {
-      return { status: false, data: error.response }
-    }
-  }
-  async getCourses({ token, category }) {
-    try {
-      const { data } = await axios.get(
-        `${this.API_URL}/academy?category=${category}`,
-        {
-          headers: {
-            Authorization: token
+            // redirect: "follow"
           }
         }
       )

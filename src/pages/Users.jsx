@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo, useContext } from "react"
 import useAuth from "../hooks/useAuth"
+
 import UserService from "../services/user.service"
 import {
   alpha,
@@ -39,6 +40,7 @@ import CreateCourse from "../components/CreateCourse"
 import { useNavigate } from "react-router-dom"
 import { MyContext } from "../generalContext/GeneralContext"
 import { GoldButton } from "../components/landing/GoldButton"
+import CourseService from "../services/course.service"
 
 const data = []
 
@@ -189,8 +191,9 @@ function Dashboard() {
   const [textNewCategory, setTextNewCategory] = useState("")
   const [categories, setCategories] = useState([])
   const [courses, setCourses] = useState([])
+  const courseService = useMemo(() => new CourseService(token), [token]) // Instancia del servicio CourseService
 
-  const handleCreateCategory = () => {
+  const handleCreateCategory = async () => {
     if (newCategory === 0) {
       setNewCategory(1)
       setTextNewCategory("")
@@ -198,11 +201,38 @@ function Dashboard() {
     if (newCategory === 1) {
       setTextNewCategory("")
       setNewCategory(0)
+      console.log("Here is it?")
+
+      try {
+        const { status, data } = await courseService.createCourse({
+          name: textNewCategory
+        })
+
+        if (status) {
+          console.log("Nueva categoría creada:", data)
+          setCourses((prevCourses) => [
+            ...prevCourses,
+            {
+              title: data.name,
+              duration: "24 hours",
+              videoCount: "8 videos",
+              progress: "25%"
+            }
+          ])
+
+          window.location.reload()
+        } else {
+          console.error("Error al crear la categoría:", data)
+        }
+      } catch (error) {
+        console.error("Error al crear la categoría:", error)
+      }
     }
   }
 
   const addCourse = (title) => {
     setCourses((prevCourses) => [
+      ...prevCourses,
       {
         title: title,
         duration: "24 hours",
