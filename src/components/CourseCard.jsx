@@ -1,15 +1,15 @@
 import {
-  Button,
   CardMedia,
   CardContent,
-  CardActions,
   CardActionArea,
   Typography,
   Card,
   Box
 } from "@mui/material"
 
-function CourseCard() {
+import PropTypes from 'prop-types';
+
+function CourseCard({ image, duration, videoCount, title, progress }) {
   return (
     <Card
       sx={{
@@ -18,11 +18,12 @@ function CourseCard() {
         minWidth: "200px",
         maxHeight: "350px",
         borderRadius: 7,
-        transition: "box-shadow 0.3s", // Transición suave de la sombra
+        transition: "box-shadow 0.3s", 
         "&:hover": {
-          boxShadow: "0 4px 8px #ab8e3a" // Sombra sutil al hacer hover
+          boxShadow: "0 4px 8px #ab8e3a"
         }
-      }}>
+      }}
+    >
       <CardActionArea>
         <CardMedia
           component="img"
@@ -38,7 +39,8 @@ function CourseCard() {
                 padding: "5px",
                 paddingX: "10px",
                 borderRadius: 2
-              }}>
+              }}
+            >
               <Typography sx={{ color: "rgba(255,255,255,0.7)" }}>
                 <span>
                   <img
@@ -47,7 +49,7 @@ function CourseCard() {
                     style={{ width: "15px" }}
                   />
                 </span>{" "}
-                24 hours
+                {duration}
               </Typography>
             </Box>
             <Box
@@ -59,11 +61,13 @@ function CourseCard() {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center"
-              }}>
+              }}
+            >
               <Typography
                 sx={{
                   color: "rgba(255,255,255,0.7)"
-                }}>
+                }}
+              >
                 <span>
                   <img
                     src="/clock.svg"
@@ -71,7 +75,7 @@ function CourseCard() {
                     style={{ width: "15px" }}
                   />
                 </span>{" "}
-                8 videos
+                {videoCount}
               </Typography>
             </Box>
           </div>
@@ -80,8 +84,9 @@ function CourseCard() {
             component="h2"
             marginLeft={1}
             marginTop={1}
-            sx={{ color: "white" }}>
-            Forex
+            sx={{ color: "white" }}
+          >
+            {title}
           </Typography>
           <div
             style={{
@@ -89,20 +94,29 @@ function CourseCard() {
               height: "10px",
               alignItems: "center",
               gap: "10px"
-            }}>
+            }}
+          >
             <img
               src="/charge.png"
               alt="charge"
               style={{ marginLeft: "10px", width: "80%" }}
             />
             <span>
-              <Typography>25%</Typography>
+              <Typography>{progress}</Typography>
             </span>
           </div>
         </CardContent>
       </CardActionArea>
     </Card>
-  )
+  );
 }
 
-export default CourseCard
+CourseCard.propTypes = {
+  image: PropTypes.string.isRequired,
+  duration: PropTypes.string.isRequired,
+  videoCount: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  progress: PropTypes.string.isRequired,
+};
+
+export default CourseCard;
