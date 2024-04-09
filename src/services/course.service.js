@@ -9,12 +9,12 @@ export default class CourseService {
   async createCourse(formdata) {
     try {
       const { data } = await axios.post(
-        `${this.API_URL}/api/academy`,
+        `${this.API_URL}/academy/category`,
         formdata,
         {
           headers: {
             Authorization: this.token,
-            redirect: "follow"
+            // redirect: "follow"
           }
         }
       )
