@@ -204,7 +204,8 @@ function Dashboard() {
       console.log("Here is it?")
 
       try {
-        const { status, data } = await courseService.createCourse({
+        const { status, data } = await courseService.updateCategory({
+          token,
           name: textNewCategory
         })
 

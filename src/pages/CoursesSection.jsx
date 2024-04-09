@@ -28,6 +28,7 @@ const CoursesSection = () => {
   const { token, $Course } = useContext(MyContext)
   const location = useLocation()
   const [openDeleteModal, setOpenDeleteModal] = useState()
+  const [updateState, setUpdateState] = useState(false)
   const [videos, setVideos] = useState([
     {
       id: 1,
@@ -62,9 +63,11 @@ const CoursesSection = () => {
         console.log(data)
       }
     }
+    if (token) {
+      getVideos()
+    }
     console.log(token)
-    getVideos()
-  }, [token])
+  }, [token, updateState])
 
   const [selectedVideo, setSelectedVideo] = useState(videos[0])
 
@@ -79,15 +82,16 @@ const CoursesSection = () => {
   }
 
   useEffect(() => {
-    if (actualId || editMode) {
+    if ((actualId && !openDeleteModal) || (editMode && !openDeleteModal)) {
       setOpenNewVideo(true)
     }
   }, [actualId, editMode])
 
-  const handleDelete = (videoId) => {
-    // Implementar lógica para eliminar el video
+  const handleDelete = (event, videoId) => {
+    event.stopPropagation()
     setOpenDeleteModal(true)
     setActualId(videoId)
+    setOpenNewVideo(false)
   }
 
   const handleBack = () => {
@@ -95,7 +99,9 @@ const CoursesSection = () => {
     window.history.back()
   }
 
-  const handleAddVideo = () => {
+  const handleAddVideo = (event) => {
+    event.stopPropagation()
+
     setActualId(null)
     setEditMode(false)
     setOpenNewVideo(true)
@@ -104,6 +110,8 @@ const CoursesSection = () => {
   const onCloseDeleteModal = () => {
     setOpenDeleteModal(false)
     setActualId(null)
+    setUpdateState(!updateState)
+    setOpenNewVideo(false)
   }
   return (
     <PageWrapper>
@@ -290,7 +298,9 @@ const CoursesSection = () => {
                         edge="end"
                         aria-label="delete"
                         sx={{ marginRight: "4px", color: "white" }}
-                        onClick={() => handleDelete(video.id)}>
+                        onClick={(event) => {
+                          handleDelete(event, video.id)
+                        }}>
                         <DeleteIcon />
                       </IconButton>
                     </Box>
@@ -307,6 +317,7 @@ const CoursesSection = () => {
           setActualId("")
           setEditMode(false)
           setOpenNewVideo(false)
+          setUpdateState(!updateState)
         }}
         editMode={editMode}
         id={actualId}
