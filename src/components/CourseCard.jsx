@@ -9,7 +9,7 @@ import {
 
 import PropTypes from 'prop-types';
 
-function CourseCard({ image, duration, videoCount, title, progress }) {
+function CourseCard({ duration, videoCount, title, progress }) {
   return (
     <Card
       sx={{
