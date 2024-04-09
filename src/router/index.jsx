@@ -15,6 +15,7 @@ import useAuth from "../hooks/useAuth"
 import { useMemo } from "react"
 import Landing from "../pages/Landing"
 import ValidateEmail from "../pages/ValidateEmail"
+import CoursesSection from "../pages/CoursesSection"
 
 const META = {
   REQUIRES_AUTH: Symbol("REQUIRES_AUTH"),
@@ -62,6 +63,12 @@ function Router() {
     {
       path: "/profile",
       element: <PrivateRoute component={Profile} meta={[META.REQUIRES_AUTH]} />
+    },
+    {
+      path: "/course",
+      element: (
+        <PrivateRoute component={CoursesSection} meta={[META.REQUIRES_AUTH]} />
+      )
     },
     {
       path: "/report",

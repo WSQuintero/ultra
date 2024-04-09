@@ -35,6 +35,7 @@ import { useTheme } from "@emotion/react"
 import background from "../assets/img/pageWrapper/background.svg"
 import CourseCard from "../components/CourseCard"
 import CreateCourse from "../components/CreateCourse"
+import { useNavigate } from "react-router-dom"
 
 const data = []
 
@@ -182,7 +183,7 @@ function Dashboard() {
   const [open, setOpen] = useState(false)
   const [, { setLoading }] = useConfig()
   const theme = useTheme()
-
+  const navigate = useNavigate()
   useEffect(() => {
     setLoading(true)
     setTimeout(() => {
@@ -252,7 +253,7 @@ function Dashboard() {
         <Box
           sx={{ display: "flex", flexWrap: "wrap", gap: 5, paddingBottom: 10 }}>
           {courses.map((course) => (
-            <div onClick={() => setOpen(true)} key={course}>
+            <div onClick={() => navigate("/course")} key={course}>
               <CourseCard />
             </div>
           ))}
