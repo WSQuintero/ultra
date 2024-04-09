@@ -175,101 +175,74 @@ function DateCard({ data }) {
 }
 
 function Dashboard() {
-  const [session] = useSession()
-  const [memberIB, setMemberIB] = useState(false)
-  const [auth] = useAuth()
-  const $Subscription = useMemo(() => new SubscriptionService(auth), [auth])
+  const [session] = useSession();
+  const [auth] = useAuth();
+  const $Subscription = useMemo(() => new SubscriptionService(auth), [auth]);
+  const [currentPlan, setCurrentPlan] = useState(false);
+  const [modalcurrentPlan, setModalcurrentPlan] = useState(false);
+  const [walletAddressPlan, setWalletAddressPlan] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [, { setLoading }] = useConfig();
+  const navigate = useNavigate();
+  const { $Course, token } = useContext(MyContext);
+  const [newCategory, setNewCategory] = useState(0);
+  const [textNewCategory, setTextNewCategory] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [courses, setCourses] = useState([]);
 
-  const [currentPlan, setCurrentPlan] = useState(false)
-  const [modalcurrentPlan, setModalcurrentPlan] = useState(false)
-  const [walletAddressPlan, setWalletAddressPlan] = useState(false)
-  const [open, setOpen] = useState(false)
-  const [, { setLoading }] = useConfig()
-  const theme = useTheme()
-  const navigate = useNavigate()
-  const { $Course, token } = useContext(MyContext)
-  const [newCategory, setNewCategory] = useState(0)
-  const [textNewCategory, setTextNewCategory] = useState("")
   const handleCreateCategory = () => {
     if (newCategory === 0) {
-      setNewCategory(1)
-      setTextNewCategory("")
+      setNewCategory(1);
+      setTextNewCategory("");
     }
     if (newCategory === 1) {
-      setTextNewCategory("")
-
-      setNewCategory(0)
+      setTextNewCategory("");
+      setNewCategory(0);
     }
-  }
+  };
+
+  const addCourse = (title) => {
+    setCourses(prevCourses => [
+      {
+        title: title,
+        duration: "24 hours",
+        videoCount: "8 videos",
+        progress: "25%"
+      }, 
+      { title: "one", duration: "24 hours", videoCount: "8 videos", progress: "25%" },
+      { title: "two", duration: "20 hours", videoCount: "10 videos", progress: "50%" },
+      { title: "three", duration: "30 hours", videoCount: "6 videos", progress: "75%" },
+      { title: "four", duration: "18 hours", videoCount: "12 videos", progress: "90%" },
+      { title: "five", duration: "22 hours", videoCount: "9 videos", progress: "40%" },
+      { title: "six", duration: "28 hours", videoCount: "7 videos", progress: "60%" }
+    ]);
+  };
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     setTimeout(() => {
-      setLoading(false)
-    }, 500)
-  }, [])
-
-  // useEffect(() => {
-  //   if (
-  //     session?.userSubscription.some(
-  //       (plan) => plan.product === 4 && plan.status_pay === 1
-  //     )
-  //   ) {
-  //     setMemberIB(
-  //       session?.userSubscription
-  //         .filter((plan) => plan.product === 4 && plan.status_pay === 1)[0]
-  //         .expired_at.split("T")[0]
-  //         .split("-")
-  //     )
-  //   }
-  // }, [session])
-
-  // if (!session) {
-  //   return <></>
-  // }
-
-  const [categories, setCategories] = useState([])
-  const buyPlanIBWithUSDT = async () => {
-    setLoading(true)
-
-    let { status, data } = await $Subscription.generateWallet({
-      body: {
-        idProduct: 4
-      },
-      network: "TRON"
-    })
-
-    setWalletAddressPlan(data[0].product_wallet_address)
-
-    setCurrentPlan({
-      isMostPopular: false,
-      name: "Membresía IB",
-      price: 15,
-      features: []
-    })
-
-    setLoading(false)
-    setModalcurrentPlan(true)
-  }
-  const courses = ["one", "two", "three", "four", "five", "six"]
-
-  const onClose = () => {
-    setOpen(false)
-  }
+      setLoading(false);
+    }, 500);
+  }, []);
 
   useEffect(() => {
     const getCategories = async () => {
-      const { status, data } = await $Course.getCategories(token)
+      const { status, data } = await $Course.getCategories(token);
 
       if (status) {
-        console.log(data) //respuesta array con categorias
+        console.log(data);
+        data.forEach(item => addCourse(item.name));
       } else {
-        console.log(data)
+        console.log(data);
       }
-    }
+    };
 
-    getCategories()
-  }, [token])
+    getCategories();
+  }, [token]);
+
+  const onClose = () => {
+    setOpen(false);
+  };
 
   return (
     <PageWrapper expanded>
@@ -306,16 +279,22 @@ function Dashboard() {
             paddingBottom: 10,
             justifyContent: "center"
           }}>
-          {courses.map((course) => (
-            <div onClick={() => navigate("/course")} key={course}>
-              <CourseCard />
+          {courses.map((course, index) => (
+            <div onClick={() => navigate("/course")} key={index}>
+              <CourseCard
+                image="/card-course.png"
+                duration={course.duration}
+                videoCount={course.videoCount}
+                title={course.title}
+                progress={course.progress}
+              />
             </div>
           ))}
         </Box>
       </Box>
       <CreateCourse open={open} onClose={onClose} />
     </PageWrapper>
-  )
+  );
 }
 
-export default Dashboard
+export default Dashboard;
