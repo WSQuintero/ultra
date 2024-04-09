@@ -69,18 +69,28 @@ const CoursesSection = () => {
           container
           spacing={1}
           width={"100%"}
-          sx={{ position: "relative", gap: 10 }}>
+          sx={{
+            position: "relative",
+            gap: 10,
+            justifyContent: "center",
+            alignItems: "center",
+            height: "calc(100vh - 120px)"
+          }}>
           <Grid
             item
             xs={8}
             sx={{
-              width: "55vw",
-              height: "calc(55vw * 9 / 16)",
-              marginTop: 10,
+              width: "53vw",
+              height: "calc(100vh - 130px)",
+              maxHeight: "700px",
               display: "flex",
               flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center"
+              justifyContent: "start",
+              alignItems: "center",
+              border: "1px solid #ab8e3a",
+              overflow: "hidden",
+              marginTop: "10px",
+              position: "relative"
             }}>
             {selectedVideo && (
               <div
@@ -94,16 +104,20 @@ const CoursesSection = () => {
                 <Box
                   sx={{
                     width: "100%",
-                    backgroundColor: "black",
-                    height: "100px",
+                    backgroundColor: "white",
+                    height: "50px",
                     display: "flex",
                     justifyContent: "start",
                     alignItems: "center",
-                    padding: 2
+                    padding: 2,
+                    flexShrink: 0
                   }}>
                   <Typography
                     variant="h2"
-                    sx={{ fontSize: 25, color: "white" }}>
+                    sx={{
+                      fontSize: 25,
+                      color: "black"
+                    }}>
                     {selectedVideo.id}
                   </Typography>
                 </Box>
@@ -111,7 +125,7 @@ const CoursesSection = () => {
                 <iframe
                   title="Video Player"
                   width="100%"
-                  height="100%"
+                  height="520px"
                   src={selectedVideo.url}
                   frameBorder="0"
                   allowFullScreen
@@ -123,10 +137,11 @@ const CoursesSection = () => {
                 width: "100%",
                 display: "flex",
                 justifyContent: "space-between",
-                padding: 5,
+                padding: 2,
                 flexShrink: 0,
                 backgroundColor: "black",
-                marginBottom: 5
+                position: "absolute",
+                bottom: 0
               }}>
               <div style={{ position: "relative", top: 5 }}>
                 <BackButton handleBack={handleBack} />
