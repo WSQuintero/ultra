@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo, useContext } from "react"
 import useAuth from "../hooks/useAuth"
+
 import UserService from "../services/user.service"
 import {
   alpha,
@@ -39,6 +40,7 @@ import CreateCourse from "../components/CreateCourse"
 import { useNavigate } from "react-router-dom"
 import { MyContext } from "../generalContext/GeneralContext"
 import { GoldButton } from "../components/landing/GoldButton"
+import CourseService from "../services/course.service"
 
 const data = []
 
@@ -174,6 +176,7 @@ function DateCard({ data }) {
   )
 }
 
+
 function Dashboard() {
   const [session] = useSession();
   const [auth] = useAuth();
@@ -189,8 +192,9 @@ function Dashboard() {
   const [textNewCategory, setTextNewCategory] = useState("");
   const [categories, setCategories] = useState([]);
   const [courses, setCourses] = useState([]);
+  const courseService = useMemo(() => new CourseService(token), [token]); // Instancia del servicio CourseService
 
-  const handleCreateCategory = () => {
+  const handleCreateCategory = async () => {
     if (newCategory === 0) {
       setNewCategory(1);
       setTextNewCategory("");
@@ -198,23 +202,45 @@ function Dashboard() {
     if (newCategory === 1) {
       setTextNewCategory("");
       setNewCategory(0);
+      console.log('Here is it?');
+  
+      try {
+        const { status, data } = await courseService.createCourse({
+          name: textNewCategory 
+        });
+  
+        if (status) {
+          console.log('Nueva categoría creada:', data);
+          setCourses(prevCourses => [
+            ...prevCourses,
+            {
+              title: data.name, 
+              duration: "24 hours",
+              videoCount: "8 videos",
+              progress: "25%"
+            }
+          ]);
+  
+          window.location.reload();
+        } else {
+          console.error('Error al crear la categoría:', data);
+        }
+      } catch (error) {
+        console.error('Error al crear la categoría:', error);
+      }
     }
   };
 
   const addCourse = (title) => {
     setCourses(prevCourses => [
+      ...prevCourses,
       {
         title: title,
         duration: "24 hours",
         videoCount: "8 videos",
         progress: "25%"
-      }, 
-      { title: "one", duration: "24 hours", videoCount: "8 videos", progress: "25%" },
-      { title: "two", duration: "20 hours", videoCount: "10 videos", progress: "50%" },
-      { title: "three", duration: "30 hours", videoCount: "6 videos", progress: "75%" },
-      { title: "four", duration: "18 hours", videoCount: "12 videos", progress: "90%" },
-      { title: "five", duration: "22 hours", videoCount: "9 videos", progress: "40%" },
-      { title: "six", duration: "28 hours", videoCount: "7 videos", progress: "60%" }
+      }
+     
     ]);
   };
 
