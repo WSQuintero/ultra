@@ -7,8 +7,8 @@ function BackButton({ handleBack }) {
     <IconButton
       onClick={handleBack}
       aria-label="#ab8e3a"
-      sx={{ color: "#ab8e3a", cursor: "pointer" }}>
-      <ArrowBack sx={{ fontSize: 50 }} />
+      sx={{ color: "#ab8e3a", cursor: "pointer", height: "30px" }}>
+      <ArrowBack sx={{ fontSize: 30 }} />
     </IconButton>
   )
 }

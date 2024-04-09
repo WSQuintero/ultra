@@ -11,7 +11,7 @@ const initialState = {
   url_resource: ""
 }
 
-function CreateCourse({ open, onClose }) {
+function CreateCourse({ id, open, onClose, editMode }) {
   const [imagePreviewUrl, setImagePreviewUrl] = useState("")
   const [alert, setAlert] = useState({ show: false, message: "" })
 
@@ -45,17 +45,35 @@ function CreateCourse({ open, onClose }) {
         newFormData.append(key, formData[key])
       }
     }
-    const { status, data } = await $Course.createCourse(newFormData)
-    if (status) {
-      setAlert({ show: true, message: "Course added correctly" })
-      setFormData(initialState)
-      setImagePreviewUrl(null)
-      onClose()
+    if (!editMode && id) {
+      cnsole.log("editMode")
+      const { status, data } = await $Course.createCourse(newFormData)
+      if (status) {
+        setAlert({ show: true, message: "Course added correctly" })
+        setFormData(initialState)
+        setImagePreviewUrl(null)
+        onClose()
+      } else {
+        onClose()
+        setFormData(initialState)
+        setImagePreviewUrl(null)
+        setAlert({ show: true, message: "Error" })
+      }
     } else {
-      onClose()
-      setFormData(initialState)
-      setImagePreviewUrl(null)
-      setAlert({ show: true, message: "Error" })
+      console.log("createmode")
+
+      const { status, data } = await $Course.updateCourse(id, newFormData)
+      if (status) {
+        setAlert({ show: true, message: "Course added correctly" })
+        setFormData(initialState)
+        setImagePreviewUrl(null)
+        onClose()
+      } else {
+        onClose()
+        setFormData(initialState)
+        setImagePreviewUrl(null)
+        setAlert({ show: true, message: "Error" })
+      }
     }
   }
 
@@ -128,7 +146,7 @@ function CreateCourse({ open, onClose }) {
               gap: 15,
               width: "50%",
               backgroundColor: "rgba(0,0,0,0.1)",
-              padding: 20
+              padding: 10
             }}>
             {/* Resto de campos */}
             <TextField
@@ -137,7 +155,7 @@ function CreateCourse({ open, onClose }) {
               variant="outlined"
               fullWidth
               value={formData.product}
-              sx={{ borderRadius: 5, marginTop: 10 }}
+              sx={{ borderRadius: 5, marginTop: 2 }}
               onChange={handleInputChange}
               InputLabelProps={{
                 style: {

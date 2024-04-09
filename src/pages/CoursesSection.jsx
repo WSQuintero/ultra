@@ -20,6 +20,8 @@ import CreateCourse from "../components/CreateCourse"
 
 const CoursesSection = () => {
   const [openNewVideo, setOpenNewVideo] = useState(false)
+  const [editMode, setEditMode] = useState(false)
+  const [actualId, setActualId] = useState()
   const [videos, setVideos] = useState([
     {
       id: 1,
@@ -33,7 +35,7 @@ const CoursesSection = () => {
       thumbnail: "https://ethic.es/wp-content/uploads/2023/03/imagen.jpg"
     },
     {
-      id: 1,
+      id: 3,
       url: "https://www.youtube.com/watch?v=UZuavdI6h1Y&list=RDUZuavdI6h1Y&start_radio=1",
       thumbnail:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiHxqXTXWQ5zU6DdUjKo43ZE1401YDUitHYd2cXMR0FA&s"
@@ -46,7 +48,10 @@ const CoursesSection = () => {
   }
 
   const handleEdit = (videoId) => {
-    // Implementar lógica para editar el video
+    console.log(videoId)
+    setEditMode(true)
+    setOpenNewVideo(true)
+    setActualId(videoId)
   }
 
   const handleDelete = (videoId) => {
@@ -59,6 +64,8 @@ const CoursesSection = () => {
   }
 
   const handleAddVideo = () => {
+    setActualId()
+    setEditMode(false)
     setOpenNewVideo(true)
   }
 
@@ -126,7 +133,8 @@ const CoursesSection = () => {
                 <iframe
                   title="Video Player"
                   width="100%"
-                  height="520px"
+                  height="74%"
+                  style={{ maxHeight: "520px" }}
                   src={selectedVideo.url}
                   frameBorder="0"
                   allowFullScreen
@@ -138,23 +146,21 @@ const CoursesSection = () => {
                 width: "100%",
                 display: "flex",
                 justifyContent: "space-between",
-                padding: 2,
-                flexShrink: 0,
+                padding: 1,
                 backgroundColor: "black",
                 position: "absolute",
                 borderTop: "1px solid #ab8e3a",
-
-                bottom: 0
+                bottom: 5
               }}>
-              <div style={{ position: "relative", top: 5 }}>
+              <div style={{ position: "relative" }}>
                 <BackButton handleBack={handleBack} />
               </div>
               <GoldButton
                 variant="contained"
                 color="primary"
                 startIcon={<AddIcon />}
-                sx={{ marginTop: 2 }}
-                onClick={handleAddVideo}>
+                onClick={handleAddVideo}
+                sx={{ height: "30px" }}>
                 Agregar Video
               </GoldButton>
             </Box>
@@ -166,7 +172,10 @@ const CoursesSection = () => {
               width: "20vw",
               backgroundColor: "black",
               border: "1px solid #ab8e3a",
-              height: "calc(100vh - 130px)"
+              height: "calc(100vh - 130px)",
+              marginTop: 2,
+              maxHeight: "700px",
+              overflowY: "scroll"
             }}>
             <List
               style={{
@@ -177,7 +186,7 @@ const CoursesSection = () => {
                 <ListItem
                   sx={{
                     height: "calc(20vw * (9 / 16))",
-                    width: "100%",
+                    width: "97%",
                     padding: "20px",
                     fontSize: "1.2rem",
                     marginBottom: "10px",
@@ -206,41 +215,50 @@ const CoursesSection = () => {
                     )
                   }
                   onClick={() => handleVideoSelect(video)}>
-                  <ListItemText
-                    primary={`Video ${index + 1}`}
+                  <Box
                     sx={{
-                      backgroundColor: "rgba(0, 0, 0, 0.8)",
-                      display: "flex",
-                      padding: 2,
-                      width: "85%",
-                      visibility: video.hover ? "visible" : "hidden"
-                    }}
-                  />
-                  <ListItemSecondaryAction
-                    sx={{
-                      backgroundColor: "#ab8e3a",
-                      borderRadius: "50%",
-                      padding: "8px",
+                      width: "100%",
+                      height: "100%",
                       display: "flex",
                       justifyContent: "center",
-                      alignItems: "center",
-                      visibility: video.hover ? "visible" : "hidden"
+                      alignItems: "end"
                     }}>
-                    <IconButton
-                      edge="end"
-                      aria-label="edit"
-                      sx={{ marginRight: "4px", color: "white" }}
-                      onClick={() => handleEdit(video.id)}>
-                      <EditIcon />
-                    </IconButton>
-                    <IconButton
-                      edge="end"
-                      aria-label="delete"
-                      sx={{ marginRight: "4px", color: "white" }}
-                      onClick={() => handleDelete(video.id)}>
-                      <DeleteIcon />
-                    </IconButton>
-                  </ListItemSecondaryAction>
+                    <Typography
+                      sx={{
+                        backgroundColor: "rgba(0, 0, 0, 0.8)",
+                        display: "flex",
+                        height: "40px",
+                        width: "85%",
+                        fontSize: 15,
+                        padding: 1,
+                        bottom: 0
+                      }}>{`Video ${index + 1}`}</Typography>
+                    <Box
+                      sx={{
+                        backgroundColor: "#ab8e3a",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        height: "40px",
+                        bottom: 0,
+                        marginBottom: 0.2
+                      }}>
+                      <IconButton
+                        edge="end"
+                        aria-label="edit"
+                        sx={{ marginRight: "4px", color: "white" }}
+                        onClick={() => handleEdit(video.id)}>
+                        <EditIcon />
+                      </IconButton>
+                      <IconButton
+                        edge="end"
+                        aria-label="delete"
+                        sx={{ marginRight: "4px", color: "white" }}
+                        onClick={() => handleDelete(video.id)}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </Box>
+                  </Box>
                 </ListItem>
               ))}
             </List>
@@ -249,7 +267,13 @@ const CoursesSection = () => {
       </Box>
       <CreateCourse
         open={openNewVideo}
-        onClose={() => setOpenNewVideo(false)}
+        onClose={() => {
+          setActualId("")
+          setEditMode(false)
+          setOpenNewVideo(false)
+        }}
+        editMode={editMode}
+        id={actualId}
       />
     </PageWrapper>
   )
