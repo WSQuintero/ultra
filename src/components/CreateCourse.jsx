@@ -2,6 +2,7 @@ import { useContext, useState } from "react"
 import { Modal, Box, TextField, Button, Snackbar, Alert } from "@mui/material"
 import { GoldButton } from "./landing/GoldButton"
 import { MyContext } from "../generalContext/GeneralContext"
+import { useLocation } from "react-router-dom"
 const initialState = {
   image: null,
   product: "",
@@ -14,9 +15,9 @@ const initialState = {
 function CreateCourse({ id, open, onClose, editMode }) {
   const [imagePreviewUrl, setImagePreviewUrl] = useState("")
   const [alert, setAlert] = useState({ show: false, message: "" })
-
+  const location = useLocation()
   const [formData, setFormData] = useState(initialState)
-  const { $Course } = useContext(MyContext)
+  const { $Course, token } = useContext(MyContext)
   const handleInputChange = (event) => {
     const { name, value } = event.target
     setFormData({ ...formData, [name]: value })
@@ -45,9 +46,10 @@ function CreateCourse({ id, open, onClose, editMode }) {
         newFormData.append(key, formData[key])
       }
     }
-    if (!editMode && id) {
-      cnsole.log("editMode")
-      const { status, data } = await $Course.createCourse(newFormData)
+    if (!editMode && !id) {
+      console.log("createmode")
+
+      const { status, data } = await $Course.createCourse(token, newFormData)
       if (status) {
         setAlert({ show: true, message: "Course added correctly" })
         setFormData(initialState)
@@ -60,9 +62,15 @@ function CreateCourse({ id, open, onClose, editMode }) {
         setAlert({ show: true, message: "Error" })
       }
     } else {
-      console.log("createmode")
+      console.log("editMode")
 
-      const { status, data } = await $Course.updateCourse(id, newFormData)
+      const ruta = location.hash
+      const fragmento = ruta.split("#")[1] // Dividir la ruta en partes usando '#' como separador y obtener el fragmento
+      const { status, data } = await $Course.updateCourse(
+        token,
+        id,
+        newFormData
+      )
       if (status) {
         setAlert({ show: true, message: "Course added correctly" })
         setFormData(initialState)
@@ -169,9 +177,10 @@ function CreateCourse({ id, open, onClose, editMode }) {
               label="Categoría"
               variant="outlined"
               fullWidth
-              value={formData.category}
+              value={location?.hash?.split("#")[1]}
+              disabled
               sx={{ borderRadius: 5 }}
-              onChange={handleInputChange}
+              // onChange={handleInputChange}
               InputLabelProps={{
                 style: {
                   color: "black",

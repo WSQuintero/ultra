@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import {
   Grid,
   List,
@@ -17,30 +17,55 @@ import BackButton from "../components/BackButton"
 import AddIcon from "@mui/icons-material/Add"
 import { GoldButton } from "../components/landing/GoldButton"
 import CreateCourse from "../components/CreateCourse"
+import { MyContext } from "../generalContext/GeneralContext"
+import { useLocation } from "react-router-dom"
+import DeleteVideoConfirmationModal from "../components/DeleteVideoConfirmationModal"
 
 const CoursesSection = () => {
   const [openNewVideo, setOpenNewVideo] = useState(false)
   const [editMode, setEditMode] = useState(false)
   const [actualId, setActualId] = useState()
+  const { token, $Course } = useContext(MyContext)
+  const location = useLocation()
+  const [openDeleteModal, setOpenDeleteModal] = useState()
   const [videos, setVideos] = useState([
     {
       id: 1,
       url: "https://www.youtube.com/embed/roZasR_0oHk?si=fSnQWthk5ZI5OzXA",
       thumbnail:
         "https://www.adslzone.net/app/uploads-adslzone.net/2019/04/borrar-fondo-imagen-1.jpg"
-    },
-    {
-      id: 2,
-      url: "https://www.youtube.com/watch?v=UZuavdI6h1Y&list=RDUZuavdI6h1Y&start_radio=1",
-      thumbnail: "https://ethic.es/wp-content/uploads/2023/03/imagen.jpg"
-    },
-    {
-      id: 3,
-      url: "https://www.youtube.com/watch?v=UZuavdI6h1Y&list=RDUZuavdI6h1Y&start_radio=1",
-      thumbnail:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiHxqXTXWQ5zU6DdUjKo43ZE1401YDUitHYd2cXMR0FA&s"
     }
   ])
+
+  const onDelete = async () => {
+    const { status, data } = await $Course.deleteCourse(token, actualId)
+    if (status) {
+      console.log(data)
+      setActualId(null)
+    } else {
+      console.log(data)
+      setActualId(null)
+    }
+  }
+
+  useEffect(() => {
+    const ruta = location.hash
+    const category = ruta.split("#")[1]
+    console.log(category)
+
+    const getVideos = async () => {
+      const { status, data } = await $Course.getCourses({ token, category })
+      if (status) {
+        console.log(data)
+        // setVideos(data)
+      } else {
+        console.log(data)
+      }
+    }
+    console.log(token)
+    getVideos()
+  }, [token])
+
   const [selectedVideo, setSelectedVideo] = useState(videos[0])
 
   const handleVideoSelect = (video) => {
@@ -50,12 +75,19 @@ const CoursesSection = () => {
   const handleEdit = (videoId) => {
     console.log(videoId)
     setEditMode(true)
-    setOpenNewVideo(true)
     setActualId(videoId)
   }
 
+  useEffect(() => {
+    if (actualId || editMode) {
+      setOpenNewVideo(true)
+    }
+  }, [actualId, editMode])
+
   const handleDelete = (videoId) => {
     // Implementar lógica para eliminar el video
+    setOpenDeleteModal(true)
+    setActualId(videoId)
   }
 
   const handleBack = () => {
@@ -64,11 +96,15 @@ const CoursesSection = () => {
   }
 
   const handleAddVideo = () => {
-    setActualId()
+    setActualId(null)
     setEditMode(false)
     setOpenNewVideo(true)
   }
 
+  const onCloseDeleteModal = () => {
+    setOpenDeleteModal(false)
+    setActualId(null)
+  }
   return (
     <PageWrapper>
       <Box sx={{ backgroundColor: "black" }}>
@@ -274,6 +310,11 @@ const CoursesSection = () => {
         }}
         editMode={editMode}
         id={actualId}
+      />
+      <DeleteVideoConfirmationModal
+        open={openDeleteModal}
+        onClose={onCloseDeleteModal}
+        onDelete={onDelete}
       />
     </PageWrapper>
   )
