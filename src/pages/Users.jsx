@@ -34,6 +34,7 @@ import {
 import { useTheme } from "@emotion/react"
 import background from "../assets/img/pageWrapper/background.svg"
 import CourseCard from "../components/CourseCard"
+import CreateCourse from "../components/CreateCourse"
 
 const data = []
 
@@ -178,7 +179,7 @@ function Dashboard() {
   const [currentPlan, setCurrentPlan] = useState(false)
   const [modalcurrentPlan, setModalcurrentPlan] = useState(false)
   const [walletAddressPlan, setWalletAddressPlan] = useState(false)
-
+  const [open, setOpen] = useState(false)
   const [, { setLoading }] = useConfig()
   const theme = useTheme()
 
@@ -232,6 +233,9 @@ function Dashboard() {
   }
   const courses = ["one", "two", "three", "four", "five", "six"]
 
+  const onClose = () => {
+    setOpen(false)
+  }
   return (
     <PageWrapper expanded>
       <Box
@@ -248,10 +252,13 @@ function Dashboard() {
         <Box
           sx={{ display: "flex", flexWrap: "wrap", gap: 5, paddingBottom: 10 }}>
           {courses.map((course) => (
-            <CourseCard key={course} />
+            <div onClick={() => setOpen(true)} key={course}>
+              <CourseCard />
+            </div>
           ))}
         </Box>
       </Box>
+      <CreateCourse open={open} onClose={onClose} />
     </PageWrapper>
   )
 }
