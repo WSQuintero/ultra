@@ -74,7 +74,8 @@ const CoursesSection = () => {
             gap: 10,
             justifyContent: "center",
             alignItems: "center",
-            height: "calc(100vh - 120px)"
+            height: "calc(100vh - 120px)",
+            paddingTop: 3
           }}>
           <Grid
             item
@@ -141,6 +142,8 @@ const CoursesSection = () => {
                 flexShrink: 0,
                 backgroundColor: "black",
                 position: "absolute",
+                borderTop: "1px solid #ab8e3a",
+
                 bottom: 0
               }}>
               <div style={{ position: "relative", top: 5 }}>
@@ -157,7 +160,14 @@ const CoursesSection = () => {
             </Box>
           </Grid>
 
-          <Grid item sx={{ width: "20vw", backgroundColor: "black" }}>
+          <Grid
+            item
+            sx={{
+              width: "20vw",
+              backgroundColor: "black",
+              border: "1px solid #ab8e3a",
+              height: "calc(100vh - 130px)"
+            }}>
             <List
               style={{
                 maxHeight: "calc(100vh - 80px)",
