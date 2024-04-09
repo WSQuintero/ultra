@@ -4,7 +4,10 @@ import { ArrowBack } from "@mui/icons-material"
 
 function BackButton({ handleBack }) {
   return (
-    <IconButton onClick={handleBack} aria-label="back" sx={{ color: "white" }}>
+    <IconButton
+      onClick={handleBack}
+      aria-label="white"
+      sx={{ color: "white", cursor: "pointer" }}>
       <ArrowBack sx={{ fontSize: 50 }} />
     </IconButton>
   )

@@ -419,7 +419,7 @@ export default function Signin() {
               type="submit"
               variant="contained"
               size="large"
-              sx={{ mt: 2, backgroundColor: "#ab8e3a", color: "#010a1e" }}
+              sx={{ mt: 2, backgroundColor: "#ab8e3a", color: "black" }}
               fullWidth>
               Log in
             </Button>

@@ -8,7 +8,7 @@ export default class CourseService {
 
   async createCourse(formdata) {
     try {
-      const { data } = await axios.put(
+      const { data } = await axios.post(
         `${this.API_URL}/api/academy`,
         formdata,
         {
@@ -21,7 +21,20 @@ export default class CourseService {
 
       return { status: true, data: data }
     } catch (error) {
-      return { status: false, data: "" }
+      return { status: false, data: error.response }
+    }
+  }
+  async getCategories(token) {
+    try {
+      const { data } = await axios.get(`${this.API_URL}/academy/categories`, {
+        headers: {
+          Authorization: token
+        }
+      })
+
+      return { status: true, data: data }
+    } catch (error) {
+      return { status: false, data: error }
     }
   }
 }

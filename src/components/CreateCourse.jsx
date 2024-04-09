@@ -67,7 +67,7 @@ function CreateCourse({ open, onClose }) {
         aria-labelledby="custom-modal-title"
         aria-describedby="custom-modal-description"
         BackdropProps={{
-          style: { backgroundColor: "rgba(0, 0, 0, 0.7)" } // Ajusta el último valor (0.5) para cambiar la opacidad
+          style: { backgroundColor: "rgba(171, 142, 58,0.5)" }
         }}>
         <Box
           sx={{
@@ -111,14 +111,14 @@ function CreateCourse({ open, onClose }) {
               id="image-upload"
             />
             <label htmlFor="image-upload">
-              <Button
+              <GoldButton
                 variant="contained"
                 color="primary"
                 component="span"
                 sx={{ position: "absolute", bottom: 20, left: 5 }}
                 fullWidth>
                 Subir Imagen
-              </Button>
+              </GoldButton>
             </label>
           </div>
           <Box
@@ -127,7 +127,7 @@ function CreateCourse({ open, onClose }) {
               flexDirection: "column",
               gap: 15,
               width: "50%",
-              backgroundColor: "#010714",
+              backgroundColor: "rgba(0,0,0,0.1)",
               padding: 20
             }}>
             {/* Resto de campos */}
@@ -139,6 +139,12 @@ function CreateCourse({ open, onClose }) {
               value={formData.product}
               sx={{ borderRadius: 5, marginTop: 10 }}
               onChange={handleInputChange}
+              InputLabelProps={{
+                style: {
+                  color: "black",
+                  textShadow: "1px 1px 1px rgba(255,255, 255, 0.7)"
+                }
+              }}
             />
             <TextField
               name="category"
@@ -148,6 +154,12 @@ function CreateCourse({ open, onClose }) {
               value={formData.category}
               sx={{ borderRadius: 5 }}
               onChange={handleInputChange}
+              InputLabelProps={{
+                style: {
+                  color: "black",
+                  textShadow: "1px 1px 1px rgba(255,255, 255, 0.7)"
+                }
+              }}
             />
             <TextField
               name="title"
@@ -157,6 +169,12 @@ function CreateCourse({ open, onClose }) {
               value={formData.title}
               sx={{ borderRadius: 5 }}
               onChange={handleInputChange}
+              InputLabelProps={{
+                style: {
+                  color: "black",
+                  textShadow: "1px 1px 1px rgba(255,255, 255, 0.7)"
+                }
+              }}
             />
             <TextField
               name="description"
@@ -166,6 +184,12 @@ function CreateCourse({ open, onClose }) {
               value={formData.description}
               sx={{ borderRadius: 5 }}
               onChange={handleInputChange}
+              InputLabelProps={{
+                style: {
+                  color: "black",
+                  textShadow: "1px 1px 1px rgba(255,255, 255, 0.7)"
+                }
+              }}
             />
             <TextField
               name="url_resource"
@@ -175,6 +199,12 @@ function CreateCourse({ open, onClose }) {
               value={formData.url_resource}
               onChange={handleInputChange}
               sx={{ borderRadius: 5 }}
+              InputLabelProps={{
+                style: {
+                  color: "black",
+                  textShadow: "1px 1px 1px rgba(255,255, 255, 0.7)"
+                }
+              }}
             />
             <Box
               style={{

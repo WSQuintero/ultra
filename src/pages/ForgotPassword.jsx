@@ -48,7 +48,7 @@ const SentOTP = ({ theme, onSubmit }) => {
               onChange={(val) => setEmail(val.target.value)}
               InputProps={{
                 style: {
-                  backgroundColor: "#010a1e",
+                  backgroundColor: "black",
                   border: "1px solid white",
                   color: "white"
                 },
@@ -65,7 +65,7 @@ const SentOTP = ({ theme, onSubmit }) => {
           type="submit"
           variant="contained"
           size="large"
-          sx={{ mt: 2, backgroundColor: "#ab8e3a", color: "#010a1e" }}
+          sx={{ mt: 2, backgroundColor: "#ab8e3a", color: "black" }}
           fullWidth>
           Enviar OTP
         </Button>
@@ -174,7 +174,7 @@ function ForgotPassword() {
       alignItems="center"
       minHeight="100vh"
       sx={{
-        backgroundColor: "#010a1e",
+        backgroundColor: "black",
         backgroundPosition: "center",
         backgroundSize: "cover",
         position: "relative"
@@ -199,7 +199,7 @@ function ForgotPassword() {
         display="flex"
         flexDirection="column"
         gap={4}
-        bgcolor="#010a1e"
+        bgcolor="black"
         padding={4}
         sx={{
           boxShadow: "0px 0px 10px 0px rgba(255, 255, 255, 0.5)", // Añadiendo sombra

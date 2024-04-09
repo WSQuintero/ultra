@@ -154,7 +154,7 @@ export default function Signup() {
     <Grid container minHeight="100vh">
       <ContainerItem
         sx={{
-          backgroundColor: "#010a1e",
+          backgroundColor: "black",
           height: "100vh",
           width: "50%",
           position: "relative"
@@ -169,7 +169,7 @@ export default function Signup() {
           justifyContent="center"
           alignItems="center"
           sx={{
-            backgroundColor: "#010a1e",
+            backgroundColor: "black",
             height: "100%",
             width: "100%",
             position: "relative"
@@ -227,7 +227,7 @@ export default function Signup() {
           alignItems="center"
           justifyContent="center"
           sx={{
-            backgroundColor: "#010a1e",
+            backgroundColor: "black",
             height: "100vh",
             justifyContent: "center",
             alignItems: "center",
@@ -297,7 +297,7 @@ export default function Signup() {
                     onChange={handleChangeUser}
                     InputProps={{
                       style: {
-                        backgroundColor: "#010a1e",
+                        backgroundColor: "black",
                         border: "1px solid white",
                         color: "white"
                       },
@@ -327,7 +327,7 @@ export default function Signup() {
                     onChange={handleChangeUser}
                     InputProps={{
                       style: {
-                        backgroundColor: "#010a1e",
+                        backgroundColor: "black",
                         border: "1px solid white",
                         color: "white"
                       },
@@ -358,7 +358,7 @@ export default function Signup() {
                     onChange={handleChangeUser}
                     InputProps={{
                       style: {
-                        backgroundColor: "#010a1e",
+                        backgroundColor: "black",
                         border: "1px solid white",
                         color: "white"
                       }
@@ -382,7 +382,7 @@ export default function Signup() {
                     onChange={handleChangeUser}
                     InputProps={{
                       style: {
-                        backgroundColor: "#010a1e",
+                        backgroundColor: "black",
                         border: "1px solid white",
                         color: "white"
                       }
@@ -406,7 +406,7 @@ export default function Signup() {
                     onChange={handleChangeUser}
                     InputProps={{
                       style: {
-                        backgroundColor: "#010a1e",
+                        backgroundColor: "black",
                         border: "1px solid white",
                         color: "white"
                       },
@@ -437,7 +437,7 @@ export default function Signup() {
                     onChange={handleChangeUser}
                     InputProps={{
                       style: {
-                        backgroundColor: "#010a1e",
+                        backgroundColor: "black",
                         border: "1px solid white",
                         color: "white"
                       },
@@ -468,7 +468,7 @@ export default function Signup() {
                     onChange={handleChangeUser}
                     InputProps={{
                       style: {
-                        backgroundColor: "#010a1e",
+                        backgroundColor: "black",
                         border: "1px solid white",
                         color: "white"
                       },
@@ -506,7 +506,7 @@ export default function Signup() {
                     onChange={handleChangeUser}
                     InputProps={{
                       style: {
-                        backgroundColor: "#010a1e",
+                        backgroundColor: "black",
                         border: "1px solid white",
                         color: "white"
                       },
@@ -553,7 +553,7 @@ export default function Signup() {
                 type="submit"
                 variant="contained"
                 size="large"
-                sx={{ mt: 2, backgroundColor: "#ab8e3a", color: "#010a1e" }}
+                sx={{ mt: 2, backgroundColor: "#ab8e3a", color: "black" }}
                 fullWidth>
                 Create account
               </Button>

@@ -13,7 +13,7 @@ const PriceCard = ({ header, options }) => {
   return (
     <Box
       sx={{
-        maxWidth: 450,
+        maxWidth: 350,
         minWidth: 300,
         width: "100%",
         overflow: "hidden",
@@ -51,14 +51,14 @@ const PriceCard = ({ header, options }) => {
             alignItems: "center"
           }}>
           <Typography sx={{ fontSize: 15 }}>{header?.description}</Typography>
-          <div style={{ display: "flex", gap: 4 }}>
+          <div style={{ display: "flex", gap: 4, marginTop: "10px" }}>
             <Typography
               sx={{
                 width: "auto",
                 padding: 1,
                 borderRadius: 10,
                 backgroundColor: "#f45170",
-                fontSize: 15,
+                fontSize: 12,
                 color: "white"
               }}>
               {header.discount}

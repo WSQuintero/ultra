@@ -13,15 +13,26 @@ function PageWrapper({ sx = {}, expanded = false, empty = false, children }) {
         display: "flex",
         height: "89vh",
         width: "100%",
-        overflow: "hidden"
+        overflow: "hidden",
+        justifyContent: "space-evenly"
       }}>
-      <Sidebar />
       <Box
         sx={{
           position: "relative",
           zIndex: 0,
           flex: 1,
-          backgroundColor: "#0f172a"
+          backgroundColor: "black",
+          maxWidth: "20%"
+        }}>
+        <Sidebar />
+      </Box>
+      <Box
+        sx={{
+          position: "relative",
+          zIndex: 0,
+          flex: 1,
+          backgroundColor: "black",
+          width: "80%"
         }}>
         {children}
       </Box>

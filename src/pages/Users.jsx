@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react"
+import { useEffect, useState, useMemo, useContext } from "react"
 import useAuth from "../hooks/useAuth"
 import UserService from "../services/user.service"
 import {
@@ -8,7 +8,8 @@ import {
   Divider,
   Grid,
   Typography,
-  Button
+  Button,
+  TextField
 } from "@mui/material"
 import {
   BarChart,
@@ -36,6 +37,8 @@ import background from "../assets/img/pageWrapper/background.svg"
 import CourseCard from "../components/CourseCard"
 import CreateCourse from "../components/CreateCourse"
 import { useNavigate } from "react-router-dom"
+import { MyContext } from "../generalContext/GeneralContext"
+import { GoldButton } from "../components/landing/GoldButton"
 
 const data = []
 
@@ -184,6 +187,21 @@ function Dashboard() {
   const [, { setLoading }] = useConfig()
   const theme = useTheme()
   const navigate = useNavigate()
+  const { $Course, token } = useContext(MyContext)
+  const [newCategory, setNewCategory] = useState(0)
+  const [textNewCategory, setTextNewCategory] = useState("")
+  const handleCreateCategory = () => {
+    if (newCategory === 0) {
+      setNewCategory(1)
+      setTextNewCategory("")
+    }
+    if (newCategory === 1) {
+      setTextNewCategory("")
+
+      setNewCategory(0)
+    }
+  }
+
   useEffect(() => {
     setLoading(true)
     setTimeout(() => {
@@ -210,6 +228,7 @@ function Dashboard() {
   //   return <></>
   // }
 
+  const [categories, setCategories] = useState([])
   const buyPlanIBWithUSDT = async () => {
     setLoading(true)
 
@@ -237,21 +256,56 @@ function Dashboard() {
   const onClose = () => {
     setOpen(false)
   }
+
+  useEffect(() => {
+    const getCategories = async () => {
+      const { status, data } = await $Course.getCategories(token)
+
+      if (status) {
+        console.log(data) //respuesta array con categorias
+      } else {
+        console.log(data)
+      }
+    }
+
+    getCategories()
+  }, [token])
+
   return (
     <PageWrapper expanded>
       <Box
         sx={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "end",
+          padding: 2
+        }}>
+        {newCategory === 1 && (
+          <TextField
+            onChange={(event) => setTextNewCategory(event.target.value)}
+            value={textNewCategory}
+          />
+        )}
+        <GoldButton onClick={handleCreateCategory}>Crear categoria</GoldButton>
+      </Box>
+      <Box
+        sx={{
           paddingY: 1,
           width: "100%",
-          padding: 5,
-          height: "100vh",
+          height: "90%",
           overflow: "auto"
         }}>
         <Typography variant="h2" color="white" marginBottom={5}>
           All courses
         </Typography>
         <Box
-          sx={{ display: "flex", flexWrap: "wrap", gap: 5, paddingBottom: 10 }}>
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: 5,
+            paddingBottom: 10,
+            justifyContent: "center"
+          }}>
           {courses.map((course) => (
             <div onClick={() => navigate("/course")} key={course}>
               <CourseCard />

@@ -74,14 +74,13 @@ const Sidebar = () => {
   return (
     <Box
       sx={{
-        width: "20%",
         display: "flex",
-        backgroundColor: "#010A1E",
-        height: "100vh"
+        backgroundColor: "black",
+        height: "100vh",
+        width: "100%"
       }}>
       <div
         style={{
-          width: "250px",
           position: "relative",
           top: "0",
           left: "0",
@@ -97,9 +96,9 @@ const Sidebar = () => {
                 component={NavLink}
                 to={route}
                 sx={{
-                  "&.active": { color: "primary.main", bgcolor: "#30160c" },
+                  "&.active": { color: "primary.main", bgcolor: "#ab8e3a" },
                   "&:hover": {
-                    bgcolor: "#30160c"
+                    bgcolor: "#ab8e3a"
                   }
                 }}>
                 <ListItemIcon sx={{ color: "rgba(255, 255, 255, 0.7)" }}>

@@ -11,7 +11,18 @@ import {
 
 function CourseCard() {
   return (
-    <Card sx={{ width: "420px", height: "350px", borderRadius: 5 }}>
+    <Card
+      sx={{
+        maxWidth: "350px",
+        width: "100%",
+        minWidth: "200px",
+        maxHeight: "350px",
+        borderRadius: 7,
+        transition: "box-shadow 0.3s", // Transición suave de la sombra
+        "&:hover": {
+          boxShadow: "0 4px 8px #ab8e3a" // Sombra sutil al hacer hover
+        }
+      }}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -19,7 +30,7 @@ function CourseCard() {
           image="/card-course.png"
           title="Contemplative Reptile"
         />
-        <CardContent sx={{ backgroundColor: "#010a1e", paddingBottom: 5 }}>
+        <CardContent sx={{ backgroundColor: "black", paddingBottom: 5 }}>
           <div style={{ display: "flex", gap: "5px" }}>
             <Box
               sx={{
@@ -82,7 +93,7 @@ function CourseCard() {
             <img
               src="/charge.png"
               alt="charge"
-              style={{ marginLeft: "10px", width: "90%" }}
+              style={{ marginLeft: "10px", width: "80%" }}
             />
             <span>
               <Typography>25%</Typography>

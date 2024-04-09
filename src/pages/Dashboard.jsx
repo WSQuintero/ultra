@@ -53,7 +53,6 @@ function Dashboard() {
       <Box
         sx={{
           paddingY: 5,
-          width: "100%",
           height: "calc(100vh - 64px)",
           display: "flex",
           flexDirection: "column",

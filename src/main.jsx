@@ -8,14 +8,14 @@ import { GeneralContext } from "./generalContext/GeneralContext.jsx"
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <GeneralContext>
+    <SessionProvider>
       <AuthProvider>
-        <SessionProvider>
+        <GeneralContext>
           <ConfigProvider>
             <App />
           </ConfigProvider>
-        </SessionProvider>
+        </GeneralContext>
       </AuthProvider>
-    </GeneralContext>
+    </SessionProvider>
   </React.StrictMode>
 )
