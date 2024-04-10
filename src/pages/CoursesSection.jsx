@@ -32,33 +32,48 @@ const CoursesSection = () => {
   const [videos, setVideos] = useState([
     {
       id: 1,
-      url: "https://www.youtube.com/embed/roZasR_0oHk?si=fSnQWthk5ZI5OzXA",
-      thumbnail:
-        "https://www.adslzone.net/app/uploads-adslzone.net/2019/04/borrar-fondo-imagen-1.jpg"
+      title: "",
+      url: "",
+      thumbnail: ""
     }
   ])
 
   const onDelete = async () => {
     const { status, data } = await $Course.deleteCourse(token, actualId)
     if (status) {
-      console.log(data)
       setActualId(null)
+      setOpenDeleteModal(false)
+      setUpdateState(!updateState)
+      setVideos([])
+      selectedVideo(null)
     } else {
-      console.log(data)
       setActualId(null)
+      setOpenDeleteModal(false)
+      setUpdateState(!updateState)
+      setVideos([])
+      selectedVideo(null)
     }
   }
 
   useEffect(() => {
     const ruta = location.hash
     const category = ruta.split("#")[1]
-    console.log(category)
+    const categoryId = ruta.split("#")[2]
 
     const getVideos = async () => {
-      const { status, data } = await $Course.getCourses({ token, category })
+      const { status, data } = await $Course.getCourses({
+        token,
+        category: categoryId
+      })
       if (status) {
-        console.log(data)
-        // setVideos(data)
+        setVideos(
+          data.map((course) => ({
+            id: course.idResource,
+            url: course.url_resource,
+            title: course.title,
+            thumbnail: course.image
+          }))
+        )
       } else {
         console.log(data)
       }
@@ -66,7 +81,6 @@ const CoursesSection = () => {
     if (token) {
       getVideos()
     }
-    console.log(token)
   }, [token, updateState])
 
   const [selectedVideo, setSelectedVideo] = useState(videos[0])
@@ -76,7 +90,7 @@ const CoursesSection = () => {
   }
 
   const handleEdit = (videoId) => {
-    console.log(videoId)
+    setActualId()
     setEditMode(true)
     setActualId(videoId)
   }
@@ -95,7 +109,6 @@ const CoursesSection = () => {
   }
 
   const handleBack = () => {
-    console.log("atrpas")
     window.history.back()
   }
 
@@ -162,27 +175,41 @@ const CoursesSection = () => {
                     justifyContent: "start",
                     alignItems: "center",
                     padding: 2,
-                    flexShrink: 0
+                    flexShrink: 0,
+                    position: "absolute",
+                    bottom: 0,
+                    marginRight: 20
                   }}>
                   <Typography
                     variant="h2"
                     sx={{
                       fontSize: 25,
-                      color: "black"
+                      color: "black",
+                      textAlign: "center",
+                      width: "100%"
                     }}>
-                    {selectedVideo.id}
+                    {selectedVideo.title}
                   </Typography>
                 </Box>
-
-                <iframe
-                  title="Video Player"
-                  width="100%"
-                  height="74%"
-                  style={{ maxHeight: "520px" }}
-                  src={selectedVideo.url}
-                  frameBorder="0"
-                  allowFullScreen
-                />
+                {selectedVideo.url ? (
+                  <iframe
+                    title="Video Player"
+                    width="100%"
+                    height="74%"
+                    style={{ maxHeight: "520px", marginTop: 70 }}
+                    src={selectedVideo.url}
+                    frameBorder="0"
+                    allow="autoplay"
+                  />
+                ) : (
+                  <img
+                    src="/elseimg.png"
+                    title="Video Player"
+                    width="50%"
+                    height="100%"
+                    style={{ maxHeight: "520px", marginLeft: "20%" }}
+                  />
+                )}
               </div>
             )}
             <Box
@@ -194,7 +221,7 @@ const CoursesSection = () => {
                 backgroundColor: "black",
                 position: "absolute",
                 borderTop: "1px solid #ab8e3a",
-                bottom: 5
+                top: 5
               }}>
               <div style={{ position: "relative" }}>
                 <BackButton handleBack={handleBack} />
@@ -235,7 +262,9 @@ const CoursesSection = () => {
                     fontSize: "1.2rem",
                     marginBottom: "10px",
                     borderRadius: "8px",
-                    backgroundImage: `url(${video.thumbnail})`,
+                    backgroundImage: `url(${
+                      video.thumbnail || "/elseimg.png"
+                    })`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                     backgroundRepeat: "no-repeat",
@@ -276,7 +305,9 @@ const CoursesSection = () => {
                         fontSize: 15,
                         padding: 1,
                         bottom: 0
-                      }}>{`Video ${index + 1}`}</Typography>
+                      }}>
+                      {video.title}
+                    </Typography>
                     <Box
                       sx={{
                         backgroundColor: "#ab8e3a",

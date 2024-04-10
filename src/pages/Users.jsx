@@ -193,7 +193,8 @@ function Dashboard() {
   const [courses, setCourses] = useState([])
   const courseService = useMemo(() => new CourseService(token), [token]) // Instancia del servicio CourseService
 
-  const handleCreateCategory = async () => {
+  const handleCreateCategory = async (event) => {
+    event.preventDefault()
     if (newCategory === 0) {
       setNewCategory(1)
       setTextNewCategory("")
@@ -217,11 +218,12 @@ function Dashboard() {
               title: data.name,
               duration: "24 hours",
               videoCount: "8 videos",
-              progress: "25%"
+              progress: "25%",
+              id: data.id
             }
           ])
 
-          window.location.reload()
+          // window.location.reload()
         } else {
           console.error("Error al crear la categoría:", data)
         }
@@ -231,14 +233,15 @@ function Dashboard() {
     }
   }
 
-  const addCourse = (title) => {
+  const addCourse = (title, id) => {
     setCourses((prevCourses) => [
       ...prevCourses,
       {
         title: title,
         duration: "24 hours",
         videoCount: "8 videos",
-        progress: "25%"
+        progress: "25%",
+        id: id
       }
     ])
   }
@@ -256,7 +259,7 @@ function Dashboard() {
 
       if (status) {
         console.log(data)
-        data.forEach((item) => addCourse(item.name))
+        data.forEach((item) => addCourse(item.name, item.id))
       } else {
         console.log(data)
       }
@@ -306,7 +309,7 @@ function Dashboard() {
           }}>
           {courses.map((course, index) => (
             <div
-              onClick={() => navigate(`/course/#${course.title}`)}
+              onClick={() => navigate(`/course/#${course.title}#${course.id}`)}
               key={index}>
               <CourseCard
                 image="/card-course.png"

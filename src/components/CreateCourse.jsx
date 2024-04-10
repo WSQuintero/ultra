@@ -6,7 +6,6 @@ import { useLocation } from "react-router-dom"
 const initialState = {
   image: null,
   product: "",
-  category: "",
   title: "",
   description: "",
   url_resource: ""
@@ -46,6 +45,10 @@ function CreateCourse({ id, open, onClose, editMode }) {
         newFormData.append(key, formData[key])
       }
     }
+    const ruta = location.hash
+    const fragmento = ruta.split("#")[2]
+    newFormData.append("category", fragmento)
+
     if (!editMode && !id) {
       console.log("createmode")
 
@@ -65,7 +68,7 @@ function CreateCourse({ id, open, onClose, editMode }) {
       console.log("editMode")
 
       const ruta = location.hash
-      const fragmento = ruta.split("#")[1] // Dividir la ruta en partes usando '#' como separador y obtener el fragmento
+      const fragmento = ruta.split("#")[2]
       const { status, data } = await $Course.updateCourse(
         token,
         id,

@@ -26,7 +26,7 @@ export default class CourseService {
         formdata,
         {
           headers: {
-            Authorization: this.token
+            Authorization: token
           }
         }
       )
@@ -38,27 +38,34 @@ export default class CourseService {
   }
   async deleteCourse(token, id) {
     try {
-      const { data } = await axios.post(`${this.API_URL}/delete/${id}`, {
-        headers: {
-          Authorization: token
-        }
-      })
+      const myHeaders = new Headers()
+      myHeaders.append("Authorization", token)
+
+      const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        redirect: "follow"
+      }
+
+      const response = await fetch(
+        `${this.API_URL}/academy/delete/${id}`,
+        requestOptions
+      )
+      const data = await response.json()
 
       return { status: true, data: data }
     } catch (error) {
       return { status: false, data: error.response }
     }
   }
+
   async getCourses({ token, category }) {
     try {
-      const { data } = await axios.get(
-        `${this.API_URL}/academy?category=${category}`,
-        {
-          headers: {
-            Authorization: token
-          }
+      const { data } = await axios.get(`${this.API_URL}/academy/${category}`, {
+        headers: {
+          Authorization: token
         }
-      )
+      })
 
       return { status: true, data: data }
     } catch (error) {
