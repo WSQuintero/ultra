@@ -126,6 +126,7 @@ export default function Signin() {
 
       if (status) {
         console.log(data)
+        console.log(data)
       }
     } else {
       setAlert({
