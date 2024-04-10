@@ -31,10 +31,10 @@ function PrivateRoute({ component: Component, meta = [], ...props }) {
   }
 
   if (meta.includes(META.REQUIRES_AUTH) && !isAuthenticated) {
-    return <Navigate to="/landing" />
+    return <Navigate to="/" />
   }
   if (meta.includes(META.HIDE_FOR_AUTH) && isAuthenticated) {
-    return <Navigate to="/" />
+    return <Navigate to="/dashboard" />
   }
 
   return <Component {...props} />
@@ -43,13 +43,13 @@ function PrivateRoute({ component: Component, meta = [], ...props }) {
 function Router() {
   return useRoutes([
     {
-      path: "/",
+      path: "/dashboard",
       element: (
         <PrivateRoute component={Dashboard} meta={[META.REQUIRES_AUTH]} />
       )
     },
     {
-      path: "/landing",
+      path: "/",
       element: <PrivateRoute component={Landing} />
     },
     {
