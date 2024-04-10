@@ -1,5 +1,5 @@
-import { Box } from "@mui/material"
-
+import React from 'react';
+import { Box } from "@mui/material";
 
 function Timer({ days, hours, minutes }) {
   const formatToTwoDigits = (value) => {
@@ -9,6 +9,11 @@ function Timer({ days, hours, minutes }) {
   const formattedDays = formatToTwoDigits(days);
   const formattedHours = formatToTwoDigits(hours);
   const formattedMinutes = formatToTwoDigits(minutes);
+
+  const hoursFirstDigit = formattedHours < 10 ? formattedHours[0] : Math.floor(formattedHours / 10);
+  const hoursSecondDigit = formattedHours % 10;
+  const minutesFirstDigit = formattedMinutes < 10 ? formattedMinutes[0] : Math.floor(formattedMinutes / 10);
+  const minutesSecondDigit = formattedMinutes % 10;
 
   return (
     <Box sx={{ display: "flex", gap: 5 }}>
@@ -21,15 +26,15 @@ function Timer({ days, hours, minutes }) {
       </div>
       <div>
         <div style={{ display: "flex", gap: "5px" }}>
-          <div style={timerBoxStyle}>{formattedHours[0]}</div>
-          <div style={timerBoxStyle}>{formattedHours[1]}</div>
+          <div style={timerBoxStyle}>{hoursFirstDigit}</div>
+          <div style={timerBoxStyle}>{hoursSecondDigit}</div>
         </div>
         <p style={textAlignCenter}>HOURS</p>
       </div>
       <div>
         <div style={{ display: "flex", gap: "5px" }}>
-          <div style={timerBoxStyle}>{formattedMinutes[0]}</div>
-          <div style={timerBoxStyle}>{formattedMinutes[1]}</div>
+          <div style={timerBoxStyle}>{minutesFirstDigit}</div>
+          <div style={timerBoxStyle}>{minutesSecondDigit}</div>
         </div>
         <p style={textAlignCenter}>MINUTES</p>
       </div>
@@ -55,4 +60,4 @@ const textAlignCenter = {
   textAlign: "center"
 }
 
-export default Timer
+export default Timer;
