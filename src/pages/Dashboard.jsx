@@ -10,9 +10,9 @@ import SubscriptionService from "../services/subscription.service"
 import { useTheme } from "@emotion/react"
 import Timer from "../components/Timer"
 import GeneralButton from "../components/GeneralButton"
-import SuscriptionList from "../components/suscriptionList"
 import PriceCard from "../components/PriceCard"
 import { optionsPlan90 } from "../components/constants/constants"
+import SuscriptionList from "../components/SuscriptionList"
 
 function Dashboard() {
   const [session] = useSession()
