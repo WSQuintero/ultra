@@ -258,7 +258,6 @@ function Dashboard() {
       const { status, data } = await $Course.getCategories(token)
 
       if (status) {
-        console.log(data)
         data.forEach((item) => addCourse(item.name, item.id))
       } else {
         console.log(data)
