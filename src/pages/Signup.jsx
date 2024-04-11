@@ -5,6 +5,8 @@ import {
   Link as RouterLink,
   Navigate
 } from "react-router-dom"
+import PhoneField from "react-phone-input-2"
+
 import {
   Box,
   Grid,
@@ -64,14 +66,16 @@ export default function Signup() {
     country: "",
     municipality: ""
   })
-  const [checked, setChecked] = useState(false)
+  const [checked, setChecked] = useState(true)
   const $Auth = useMemo(() => new AuthService(), [])
 
   const handleChangeUser = (event) => {
     const { name, value } = event.target
     setUser((prev) => ({ ...prev, [name]: value }))
   }
-
+  const handleChangeCell = (value) => {
+    setUser((prev) => ({ ...prev, phone: value }))
+  }
   const handleSubmit = async (event) => {
     event.preventDefault()
 
@@ -155,9 +159,9 @@ export default function Signup() {
       <ContainerItem
         sx={{
           backgroundColor: "black",
-          height: "100vh",
           width: "50%",
-          position: "relative"
+          position: "relative",
+          maxHeight: "100vh"
         }}>
         <img
           src="/logoLogin.png"
@@ -218,20 +222,21 @@ export default function Signup() {
           </Typography>
         </Box>
       </ContainerItem>
-      <ContainerItem display="flex" flexDirection="column">
+      <ContainerItem
+        display="flex"
+        flexDirection="column"
+        sx={{ minHeight: "100vh", maxHeight: "100vh" }}>
         <Container
           display="flex"
           flexDirection="column"
-          padding={4}
-          overflow
           alignItems="center"
           justifyContent="center"
           sx={{
             backgroundColor: "black",
-            height: "100vh",
             justifyContent: "center",
             alignItems: "center",
-            overflow: "auto"
+            overflow: "auto",
+            height: "100%"
           }}>
           <Grid
             flexGrow={1}
@@ -242,8 +247,8 @@ export default function Signup() {
             gap={3}
             maxWidth={550}
             marginX="auto"
-            paddingBottom={5}>
-            <Grid marginBottom={3}></Grid>
+            paddingBottom={5}
+            sx={{ marginTop: 5 }}>
             <Grid display="flex" flexDirection="column" gap={2}>
               <Typography
                 variant="h2"
@@ -282,16 +287,15 @@ export default function Signup() {
                   />
                 </Grid>
                 <Grid display="flex" flexDirection="column" gap={1}>
-                  <InputLabel sx={{ color: "white" }}>
-                    Name{" "}
-                    <span style={{ color: theme.palette.custom.required }}>
-                      *
-                    </span>
-                  </InputLabel>
                   <TextField
                     name="firstName"
+                    label="Nombres"
+                    InputLabelProps={{
+                      style: {
+                        color: "rgba(255,255,255,0.7)"
+                      }
+                    }}
                     defaultValue={user.firstName}
-                    placeholder="Ingresa tu nombre"
                     required
                     fullWidth
                     onChange={handleChangeUser}
@@ -312,16 +316,15 @@ export default function Signup() {
                   />
                 </Grid>
                 <Grid display="flex" flexDirection="column" gap={1}>
-                  <InputLabel sx={{ color: "white" }}>
-                    Apellidos{" "}
-                    <span style={{ color: theme.palette.custom.required }}>
-                      *
-                    </span>
-                  </InputLabel>
                   <TextField
                     name="lastName"
+                    label="Apellidos"
+                    InputLabelProps={{
+                      style: {
+                        color: "rgba(255,255,255,0.7)"
+                      }
+                    }}
                     defaultValue={user.lastName}
-                    placeholder="Ingresa tus apellidos"
                     required
                     fullWidth
                     onChange={handleChangeUser}
@@ -342,17 +345,16 @@ export default function Signup() {
                   />
                 </Grid>
                 <Grid display="flex" flexDirection="column" gap={1}>
-                  <InputLabel sx={{ color: "white" }}>
-                    País{" "}
-                    <span style={{ color: theme.palette.custom.required }}>
-                      *
-                    </span>
-                  </InputLabel>
                   <TextField
                     name="country"
+                    label="País"
+                    InputLabelProps={{
+                      style: {
+                        color: "rgba(255,255,255,0.7)"
+                      }
+                    }}
                     defaultValue={user.country}
                     type={"text"}
-                    placeholder="Ingresa tu país"
                     required
                     fullWidth
                     onChange={handleChangeUser}
@@ -366,17 +368,16 @@ export default function Signup() {
                   />
                 </Grid>
                 <Grid display="flex" flexDirection="column" gap={1}>
-                  <InputLabel sx={{ color: "white" }}>
-                    Ciudad{" "}
-                    <span style={{ color: theme.palette.custom.required }}>
-                      *
-                    </span>
-                  </InputLabel>
                   <TextField
                     name="municipality"
+                    label="Ciudad"
+                    InputLabelProps={{
+                      style: {
+                        color: "rgba(255,255,255,0.7)"
+                      }
+                    }}
                     defaultValue={user.municipality}
                     type={"text"}
-                    placeholder="Ingresa tu ciudad"
                     required
                     fullWidth
                     onChange={handleChangeUser}
@@ -390,17 +391,16 @@ export default function Signup() {
                   />
                 </Grid>
                 <Grid display="flex" flexDirection="column" gap={1}>
-                  <InputLabel sx={{ color: "white" }}>
-                    Email{" "}
-                    <span style={{ color: theme.palette.custom.required }}>
-                      *
-                    </span>
-                  </InputLabel>
                   <TextField
                     name="email"
                     type="email"
+                    label="Email"
+                    InputLabelProps={{
+                      style: {
+                        color: "rgba(255,255,255,0.7)"
+                      }
+                    }}
                     defaultValue={user.email}
-                    placeholder="Ingresa tu correo"
                     required
                     fullWidth
                     onChange={handleChangeUser}
@@ -421,7 +421,7 @@ export default function Signup() {
                   />
                 </Grid>
                 <Grid display="flex" flexDirection="column" gap={1}>
-                  <InputLabel sx={{ color: "white" }}>
+                  {/* <InputLabel sx={{ color: "white" }}>
                     Cellphone{" "}
                     <span style={{ color: theme.palette.custom.required }}>
                       *
@@ -431,7 +431,7 @@ export default function Signup() {
                     name="phone"
                     type="cellphone"
                     defaultValue={user.phone}
-                    placeholder="Ingresa tu número celular"
+
                     required
                     fullWidth
                     onChange={handleChangeUser}
@@ -449,20 +449,46 @@ export default function Signup() {
                         </InputAdornment>
                       )
                     }}
+                  /> */}
+                  <PhoneField
+                    enableSearch={true}
+                    value={user.cellphone}
+                    country="co"
+                    specialLabel=""
+                    autoFormat={true}
+                    inputStyle={{
+                      width: "100%",
+                      height: 50,
+                      padding: 10,
+                      backgroundColor: "black",
+                      border: "1px solid white",
+                      color: "white"
+                    }}
+                    inputProps={{
+                      name: "phone",
+                      required: true
+                    }}
+                    isValid={(value, country) => {
+                      if (value.match(/12345/)) {
+                        return "Invalid value: " + value + ", " + country.name
+                      } else {
+                        return true
+                      }
+                    }}
+                    onChange={handleChangeCell}
                   />
                 </Grid>
                 <Grid display="flex" flexDirection="column" gap={1}>
-                  <InputLabel sx={{ color: "white" }}>
-                    Password{" "}
-                    <span style={{ color: theme.palette.custom.required }}>
-                      *
-                    </span>
-                  </InputLabel>
                   <TextField
                     name="password"
+                    label="Password"
+                    InputLabelProps={{
+                      style: {
+                        color: "rgba(255,255,255,0.7)"
+                      }
+                    }}
                     defaultValue={user.password}
                     type={showPassword ? "text" : "password"}
-                    placeholder="Ingresa tu contraseña"
                     required
                     fullWidth
                     onChange={handleChangeUser}
@@ -490,18 +516,18 @@ export default function Signup() {
                   />
                 </Grid>
                 <Grid display="flex" flexDirection="column" gap={1}>
-                  <InputLabel sx={{ color: "white" }}>
-                    Repeat password{" "}
-                    <span style={{ color: theme.palette.custom.required }}>
-                      *
-                    </span>
-                  </InputLabel>
                   <TextField
                     name="confirmPassword"
+                    label="Repetir password"
+                    InputLabelProps={{
+                      style: {
+                        color: "rgba(255,255,255,0.7)"
+                      }
+                    }}
                     defaultValue={user.confirmPassword}
                     type={showPassword ? "text" : "password"}
-                    placeholder="Ingresa tu contraseña"
                     required
+                    variant="outlined"
                     fullWidth
                     onChange={handleChangeUser}
                     InputProps={{
@@ -528,7 +554,7 @@ export default function Signup() {
                   />
                 </Grid>
 
-                <Grid alignItems="center">
+                {/* <Grid alignItems="center">
                   <FormControlLabel
                     value={checked}
                     sx={{ gap: 1 }}
@@ -547,7 +573,7 @@ export default function Signup() {
                       </>
                     }
                   />
-                </Grid>
+                </Grid> */}
               </Grid>
               <Button
                 type="submit"
@@ -560,7 +586,7 @@ export default function Signup() {
             </Box>
             <Grid>
               <Typography>
-                ¿Ya tienes una cuenta?{" "}
+                ¿Ya tienes una cuenta?
                 <Link to="/signin" component={RouterLink} color={"#ab8e3a"}>
                   Iniciar sesión
                 </Link>

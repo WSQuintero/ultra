@@ -92,8 +92,8 @@ function CreateCourse({ id, open, onClose, editMode, video }) {
     setImagePreviewUrl(video?.thumbnail || "")
     setFormData({
       ...initialState,
-      title: video.title,
-      url_resource: video.url
+      title: video?.title,
+      url_resource: video?.url
     })
   }, [video])
   return (
