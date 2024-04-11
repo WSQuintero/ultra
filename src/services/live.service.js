@@ -63,7 +63,7 @@ export default class LiveService {
     }
   }
 
-  async getLives({ token, category }) {
+  async getLives({ token }) {
     try {
       const { data } = await axios.get(`${this.API_URL}/ultraLive`, {
         headers: {
