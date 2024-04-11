@@ -14,9 +14,12 @@
   --swiper-pagination-bullet-inactive-color: white;
 }
 
-.swiper .swiper-pagination .swiper-pagination-bullet {}
+.swiper .swiper-pagination .swiper-pagination-bullet {
+}
 
-.swiper .swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active {
+.swiper
+  .swiper-pagination
+  .swiper-pagination-bullet.swiper-pagination-bullet-active {
   width: 32px;
   border-radius: 56px;
 }
@@ -106,7 +109,13 @@
 .cloud {
   background: #fff;
   background: -moz-linear-gradient(top, #fff 5%, #f1f1f1 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(5%, #fff), color-stop(100%, #f1f1f1));
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    color-stop(5%, #fff),
+    color-stop(100%, #f1f1f1)
+  );
   background: -webkit-linear-gradient(top, #fff 5%, #f1f1f1 100%);
   background: -o-linear-gradient(top, #fff 5%, #f1f1f1 100%);
   background: -ms-linear-gradient(top, #fff 5%, #f1f1f1 100%);
@@ -126,11 +135,12 @@
   width: 350px;
 }
 
-.cloud:after, .cloud:before {
+.cloud:after,
+.cloud:before {
   background: #fff;
-  content: '';
+  content: "";
   position: absolute;
-  z-indeX: -1;
+  z-index: -1;
 }
 
 .cloud:after {
@@ -155,8 +165,11 @@
   top: -90px;
 }
 
-
-.mountains .one, .mountains .two, .mountains .three, .mountains .four, .mountains .five {
+.mountains .one,
+.mountains .two,
+.mountains .three,
+.mountains .four,
+.mountains .five {
   position: fixed;
   bottom: 0;
   left: 0;
@@ -167,7 +180,6 @@
   background-size: 105%;
   pointer-events: none;
 }
-
 
 .mountains .two {
   background-image: url("https://raw.githubusercontent.com/joshuaward/codepen-images/master/mountains-2.svg");
@@ -197,7 +209,11 @@
   opacity: 0.1;
 }
 
-.city .one, .city .two, .city .three, .city .four, .city .five {
+.city .one,
+.city .two,
+.city .three,
+.city .four,
+.city .five {
   position: fixed;
   bottom: -350px;
   left: 0;
@@ -208,8 +224,6 @@
   background-size: 105%;
   pointer-events: none;
 }
-
-
 
 .city .three {
   background-image: url("../img/pageWrapper/parallax/city/city3.svg");
