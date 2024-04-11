@@ -1,31 +1,45 @@
-import { Box } from "@mui/material"
+import React from 'react';
+import { Box } from "@mui/material";
 
-function Timer() {
+function Timer({ days, hours, minutes }) {
+  const formatToTwoDigits = (value) => {
+    return value < 10 ? `0${value}` : value;
+  };
+
+  const formattedDays = formatToTwoDigits(days);
+  const formattedHours = formatToTwoDigits(hours);
+  const formattedMinutes = formatToTwoDigits(minutes);
+
+  const hoursFirstDigit = formattedHours < 10 ? formattedHours[0] : Math.floor(formattedHours / 10);
+  const hoursSecondDigit = formattedHours % 10;
+  const minutesFirstDigit = formattedMinutes < 10 ? formattedMinutes[0] : Math.floor(formattedMinutes / 10);
+  const minutesSecondDigit = formattedMinutes % 10;
+
   return (
     <Box sx={{ display: "flex", gap: 5 }}>
       <div>
         <div style={{ display: "flex", gap: "5px" }}>
-          <div style={timerBoxStyle}>0</div>
-          <div style={timerBoxStyle}>2</div>
+          <div style={timerBoxStyle}>{formattedDays[0]}</div>
+          <div style={timerBoxStyle}>{formattedDays[1]}</div>
         </div>
         <p style={textAlignCenter}>DAY</p>
       </div>
       <div>
         <div style={{ display: "flex", gap: "5px" }}>
-          <div style={timerBoxStyle}>2</div>
-          <div style={timerBoxStyle}>3</div>
+          <div style={timerBoxStyle}>{hoursFirstDigit}</div>
+          <div style={timerBoxStyle}>{hoursSecondDigit}</div>
         </div>
         <p style={textAlignCenter}>HOURS</p>
       </div>
       <div>
         <div style={{ display: "flex", gap: "5px" }}>
-          <div style={timerBoxStyle}>4</div>
-          <div style={timerBoxStyle}>2</div>
+          <div style={timerBoxStyle}>{minutesFirstDigit}</div>
+          <div style={timerBoxStyle}>{minutesSecondDigit}</div>
         </div>
         <p style={textAlignCenter}>MINUTES</p>
       </div>
     </Box>
-  )
+  );
 }
 
 const timerBoxStyle = {
@@ -46,4 +60,4 @@ const textAlignCenter = {
   textAlign: "center"
 }
 
-export default Timer
+export default Timer;

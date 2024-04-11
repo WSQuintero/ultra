@@ -12,7 +12,7 @@ import Timer from "../components/Timer"
 import GeneralButton from "../components/GeneralButton"
 import PriceCard from "../components/PriceCard"
 import { optionsPlan90 } from "../components/constants/constants"
-import SuscriptionList from "../components/SuscriptionList"
+import CountdownTimer from "../components/CountdownTimer"
 
 function Dashboard() {
   const [session] = useSession()
@@ -210,8 +210,7 @@ function Dashboard() {
               <GeneralButton>Pay now</GeneralButton>
             </Box>
           </Box>
-
-          <Timer />
+          <CountdownTimer />
         </Box>
         <Box
           sx={{
