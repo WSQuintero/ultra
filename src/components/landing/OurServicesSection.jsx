@@ -6,7 +6,7 @@ import Paper from '@mui/material/Paper';
 const OurServicesSection = () => {
   return (
     <Box
-      height="100vh"
+      // height="100vh"
       display="flex"
       alignItems="center"
       justifyContent="center"
@@ -18,7 +18,7 @@ const OurServicesSection = () => {
         alt="Background"
         style={{ position: 'absolute', width: '50%', height: 'auto' }}
       />
-      <br/>
+      <br />
       <Typography
         variant="h2"
         align="center"
@@ -26,14 +26,21 @@ const OurServicesSection = () => {
           fontWeight: 600,
           fontSize: '48px',
           lineHeight: '57.6px',
-          color: 'white'
+          color: 'white',
         }}
       >
         Our Services
       </Typography>
-      <br/>
+      <br />
 
-      <Box width="30%">
+      <Box
+        sx={{
+          width: {
+            xs: '70%',
+            xxl: '30%',
+          },
+        }}
+      >
         <Typography
           variant="body1"
           align="center"
@@ -44,20 +51,54 @@ const OurServicesSection = () => {
             color: 'white',
           }}
         >
-          Both a free trial and a free set of features for anyone who wants to use them. The more orders your company
+          Both a free trial and a free set of features for anyone who wants to
+          use them. The more orders your company
         </Typography>
-      <br/>
-
+        <br />
       </Box>
-      <Box width="60%" padding="10px" sx={{ flexGrow: 1 }}>
-        <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+      <Box
+        padding="10px"
+        sx={{
+          flexGrow: 1,
+          width: {
+            xs: '90%',
+            xxl: '80%',
+            xxxl: '60%',
+          },
+        }}
+      >
+        <Grid
+          container
+          spacing={{ xs: 2, md: 3 }}
+          // columns={{ xs: 4, sm: 8, md: 12 }}
+        >
           {Array.from(Array(6)).map((_, index) => (
-            <Grid xs={3} sm={3} md={4} key={index}>
+            <Grid xs={12} sm={6} md={6} lg={4} key={index}>
               <Item elevation={8} padding="10px">
-                <img src="/Ultra_files/bank_icon.png" alt="Background" style={{ height: '50px', width: '50px' }} />
-                <Typography style={{ color: 'white', fontWeight: 700, fontSize: 26 }}>{getTitle(index)}</Typography>
-                <br/>
-                <Typography style={{ color: 'white', fontWeight: 200 }}>{getSubTitle(index)}</Typography>
+                <img
+                  src="/Ultra_files/bank_icon.png"
+                  alt="Background"
+                  style={{ height: '50px', width: '50px' }}
+                />
+                <Typography
+                  sx={{
+                    color: 'white',
+                    fontWeight: 700,
+                    fontSize: { xs: 16, md: 18, xxl: 24, xxxl: 26 },
+                  }}
+                >
+                  {getTitle(index)}
+                </Typography>
+                <br />
+                <Typography
+                  sx={{
+                    color: 'white',
+                    fontWeight: 200,
+                    fontSize: { xs: 15, md: 16, xxl: 20, xxxl: 22 },
+                  }}
+                >
+                  {getSubTitle(index)}
+                </Typography>
                 <Box />
               </Item>
             </Grid>
@@ -80,20 +121,20 @@ const Item = styled(Paper)(({ theme }) => ({
   transition: 'all 0.3s ease-in-out',
   '&:hover': {
     boxShadow: '0px 0px 20px rgba(0,0,0,0.2)',
-    transform: 'translateY(-5px)'
-  }
+    transform: 'translateY(-5px)',
+  },
 }));
 
 const getTitle = (index) => {
   const titles = [
     'PlAN 90',
-    "SALA DE TRADING",
+    'SALA DE TRADING',
     'INVERHOME',
-    "ULTRA PROFITS",
+    'ULTRA PROFITS',
     'ULTRA SCANNER',
-    'CLUB DEL FONDEO 2.0'
+    'CLUB DEL FONDEO 2.0',
   ];
-  
+
   return titles[index % titles.length];
 };
 
@@ -104,9 +145,9 @@ const getSubTitle = (index) => {
     'FRACCIONES INMOBILIARIAS',
     'COPYTRADING',
     'PROYECCIONES I.A',
-    'CUENTAS DE FONDEO'
+    'CUENTAS DE FONDEO',
   ];
-  
+
   return subtitle[index % subtitle.length];
 };
 
