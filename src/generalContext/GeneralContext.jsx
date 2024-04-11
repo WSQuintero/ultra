@@ -8,10 +8,14 @@ const MyContext = createContext()
 
 function GeneralContext({ children }) {
   const [auth, , logout] = useAuth()
-
+  const [actualUser, setActualUser] = useState({})
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const $Auth = useMemo(() => new AuthService(auth), [auth])
   const $Course = useMemo(() => new CourseService(), [])
+
+  useEffect(() => {
+    setActualUser(JSON.parse(localStorage.getItem("user")))
+  }, [])
 
   return (
     <MyContext.Provider
@@ -19,7 +23,9 @@ function GeneralContext({ children }) {
         isAuthenticated,
         setIsAuthenticated,
         $Course,
-        token: $Auth.token
+        token: $Auth.token,
+        actualUser,
+        setActualUser
       }}>
       {children}
     </MyContext.Provider>

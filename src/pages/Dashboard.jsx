@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react"
+import { useEffect, useState, useMemo, useContext } from "react"
 import useAuth from "../hooks/useAuth"
 import { alpha, Box, Container, Grid, Typography, Button } from "@mui/material"
 
@@ -13,13 +13,15 @@ import GeneralButton from "../components/GeneralButton"
 import PriceCard from "../components/PriceCard"
 import { optionsPlan90 } from "../components/constants/constants"
 import CountdownTimer from "../components/CountdownTimer"
+import SuscriptionList from "../components/SuscriptionList"
+import { MyContext } from "../generalContext/GeneralContext"
 
 function Dashboard() {
   const [session] = useSession()
   const [memberIB, setMemberIB] = useState(false)
   const [auth] = useAuth()
   const $Subscription = useMemo(() => new SubscriptionService(auth), [auth])
-
+  const { actualUser } = useContext(MyContext)
   const [, { setLoading }] = useConfig()
 
   useEffect(() => {
@@ -66,7 +68,7 @@ function Dashboard() {
           color="white"
           marginBottom={5}
           sx={{ width: "88%" }}>
-          Good Morning! Juan👋
+          Hola! {actualUser?.firstname} 👋
         </Typography>
         <Box
           sx={{
@@ -74,7 +76,8 @@ function Dashboard() {
             flexShrink: 0,
             gap: 1,
             width: "88%",
-            paddingY: 5
+            paddingY: 5,
+            flexWrap: "wrap"
           }}>
           <Container
             sx={{
@@ -89,11 +92,11 @@ function Dashboard() {
               style={{ marginTop: "25px", width: "50px" }}
             />
             <Typography sx={{ fontSize: 25, marginTop: 5, color: "white" }}>
-              Total Earning
+              Comisiones totales
             </Typography>
             <Typography
               sx={{ fontSize: 40, color: "white", fontWeight: "bold" }}>
-              $230.00
+              ${actualUser.getTotalCommissions.totalCommissions}
             </Typography>
           </Container>
           <Container
@@ -109,14 +112,91 @@ function Dashboard() {
               style={{ marginTop: "25px", width: "50px" }}
             />
             <Typography sx={{ fontSize: 25, marginTop: 5, color: "white" }}>
-              Matatrader Balance
+              Total de pagos
             </Typography>
             <Typography
               sx={{ fontSize: 40, color: "white", fontWeight: "bold" }}>
-              $230.00
+              ${actualUser.getTotalCommissions.ultraPayed}
             </Typography>
           </Container>
           <Container
+            sx={{
+              backgroundColor: "#010714",
+              width: "400px",
+              height: "250px",
+              borderRadius: 3
+            }}>
+            <img
+              src="/frametwo.png"
+              alt="frametwo"
+              style={{ marginTop: "25px", width: "50px" }}
+            />
+            <Typography sx={{ fontSize: 25, marginTop: 5, color: "white" }}>
+              Pagos pendientes
+            </Typography>
+            <Typography
+              sx={{ fontSize: 40, color: "white", fontWeight: "bold" }}>
+              ${actualUser.getTotalCommissions.ultraPending}
+            </Typography>
+          </Container>
+
+          <Container
+            sx={{
+              backgroundColor: "#010714",
+              maxWidth: "400px",
+              width: "45%",
+              height: "250px",
+              borderRadius: 3,
+              justifyContent: "center",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center"
+            }}>
+            <img
+              src="/frametwo.png"
+              alt="frametwo"
+              style={{ marginTop: "25px", width: "50px", flexShrink: 0 }}
+            />
+            <Typography
+              sx={{
+                fontSize: 25,
+                marginTop: 5,
+                color: "white",
+                flexShrink: 0
+              }}>
+              Total de afiliados
+            </Typography>
+            <Typography
+              sx={{ fontSize: 40, color: "white", fontWeight: "bold" }}>
+              {actualUser.getTotalDirectUsers}
+            </Typography>
+          </Container>
+          <Container
+            sx={{
+              backgroundColor: "#010714",
+              maxWidth: "300px",
+              width: "45%",
+              height: "250px",
+              borderRadius: 3,
+              justifyContent: "center",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center"
+            }}>
+            <img
+              src="/frametwo.png"
+              alt="frametwo"
+              style={{ marginTop: "25px", width: "50px" }}
+            />
+            <Typography sx={{ fontSize: 25, marginTop: 5, color: "white" }}>
+              Afiliados hoy
+            </Typography>
+            <Typography
+              sx={{ fontSize: 40, color: "white", fontWeight: "bold" }}>
+              {actualUser.getTotalDirectUsersToday}
+            </Typography>
+          </Container>
+          {/* <Container
             sx={{
               backgroundColor: "#010714",
               width: "400px",
@@ -172,7 +252,7 @@ function Dashboard() {
                 </Box>
               </Container>
             </Box>
-          </Container>
+          </Container> */}
         </Box>
         <Box
           sx={{
@@ -188,7 +268,7 @@ function Dashboard() {
           }}>
           <Box sx={{ padding: 4 }}>
             <Typography sx={{ fontSize: 20, color: "white" }}>
-              Upcoming Payment
+              Próximo pago
             </Typography>
             <Box
               display={"flex"}
@@ -204,10 +284,10 @@ function Dashboard() {
                 </Box>
                 <Box>
                   <Typography sx={{ color: "white" }}>Catalog</Typography>
-                  <Typography>catalogapp.io</Typography>
+                  <Typography>-</Typography>
                 </Box>
               </Box>
-              <GeneralButton>Pay now</GeneralButton>
+              <GeneralButton>Pagar ahora</GeneralButton>
             </Box>
           </Box>
           <CountdownTimer />
@@ -234,9 +314,9 @@ function Dashboard() {
             }}>
             <Box>
               <Typography variant="h2" sx={{ color: "white" }}>
-                Subscription List
+                Lista de suscriptores
               </Typography>
-              <Typography>Keep track of subscription list</Typography>
+              <Typography>Registro de la lista de suscripciones</Typography>
             </Box>
             <Box>
               <GeneralButton>+ Buy More</GeneralButton>

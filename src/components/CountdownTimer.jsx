@@ -1,38 +1,29 @@
-import { useCountdown } from '../hooks/UseCountdown';
-import Timer from "../components/Timer";
+import { useCountdown } from "../hooks/UseCountdown"
+import Timer from "../components/Timer"
 
 const CountdownTimer = ({ targetDate }) => {
   const getNextFriday = () => {
-    const today = new Date();
-    const nextFriday = new Date(today);
+    const today = new Date()
+    const nextFriday = new Date(today)
 
-    const currentDay = today.getDay();
-    const daysUntilNextFriday = currentDay === 5 ? 7 : (5 - currentDay + 7) % 7;
-    
-    nextFriday.setDate(today.getDate() + daysUntilNextFriday);
+    const currentDay = today.getDay()
+    const daysUntilNextFriday = currentDay === 5 ? 7 : (5 - currentDay + 7) % 7
 
-    nextFriday.setHours(23, 59, 59, 999);
+    nextFriday.setDate(today.getDate() + daysUntilNextFriday)
 
-    return nextFriday;
-  };
+    nextFriday.setHours(23, 59, 59, 999)
 
-  const [days, hours, minutes, seconds] = useCountdown(getNextFriday());
-  
-  console.log(days)
-  console.log(hours)
-  console.log(minutes)
-  if (days + hours + minutes + seconds <= 0) {
-    return <ExpiredNotice />;
-  } else {
-    return (
-      <Timer
-        days={days}
-        hours={hours}
-        minutes={minutes}
-      />
-    );
+    return nextFriday
   }
-};
+
+  const [days, hours, minutes, seconds] = useCountdown(getNextFriday())
+
+  if (days + hours + minutes + seconds <= 0) {
+    return <ExpiredNotice />
+  } else {
+    return <Timer days={days} hours={hours} minutes={minutes} />
+  }
+}
 
 const ExpiredNotice = () => {
   return (
@@ -40,7 +31,7 @@ const ExpiredNotice = () => {
       <span>Expired!!!</span>
       <p>Please select a future date and time.</p>
     </div>
-  );
-};
+  )
+}
 
-export default CountdownTimer;
+export default CountdownTimer

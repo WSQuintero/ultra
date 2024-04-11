@@ -47,6 +47,8 @@ import imageSlider3 from "../assets/img/slider/auth/group_3.svg"
 import AuthService from "../services/auth.service"
 import { Container } from "@mui/system"
 import LockOpenIcon from "@mui/icons-material/LockOpen"
+import { useContext } from "react"
+import { MyContext } from "../generalContext/GeneralContext"
 const sliderOptions = [
   {
     title: "TRANSFORMA TUS IDEAS EN REALIDAD.",
@@ -93,7 +95,7 @@ export default function Signin() {
   })
   const [user, setUser] = useState({ email: "", password: "" })
   const $Auth = useMemo(() => new AuthService(), [])
-
+  const { setActualUser } = useContext(MyContext)
   const reCaptchaRef = useRef()
 
   const handleChangeUser = (event) => {
@@ -107,6 +109,11 @@ export default function Signin() {
 
     const { status, data } = await $Auth.signin(newUser)
 
+    if (status) {
+      console.log(data)
+      setActualUser(data.user)
+      localStorage.setItem("user", JSON.stringify(data.user))
+    }
     if (data.message) {
       setAlert({
         show: true,

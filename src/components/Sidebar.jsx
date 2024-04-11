@@ -23,14 +23,14 @@ const Sidebar = () => {
   const [, , logout] = useAuth()
 
   const pages = [
-    { icon: <DashboardIcon />, name: "Dashboard", route: "/" },
+    { icon: <DashboardIcon />, name: "Dashboard", route: "/dashboard" },
     {
       icon: (
         <>
           <img src="/teacher.svg" alt="teacher.svg" />
         </>
       ),
-      name: "Courses",
+      name: "Cursos",
       route: "/courses"
     },
     {
@@ -48,7 +48,7 @@ const Sidebar = () => {
           <img src="/shield_person.svg" alt="shield_person.svg" />
         </>
       ),
-      name: "Profile",
+      name: "Perfil",
       route: "/profile"
     },
     {
@@ -57,7 +57,7 @@ const Sidebar = () => {
           <img src="/request_quote.svg" alt="request_quote.svg" />
         </>
       ),
-      name: "Report",
+      name: "Reportes",
       route: "/report"
     },
     {
