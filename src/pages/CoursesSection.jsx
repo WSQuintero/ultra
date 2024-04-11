@@ -179,7 +179,7 @@ const CoursesSection = () => {
                         width: "100%",
                         display: "flex",
                         justifyContent: "space-between",
-                        padding: 1,
+                        padding: 2,
                         backgroundColor: "black",
                         position: "relative",
                         borderTop: "1px solid #ab8e3a",
@@ -188,14 +188,16 @@ const CoursesSection = () => {
                       <div style={{ position: "relative" }}>
                         <BackButton handleBack={handleBack} />
                       </div>
-                      <GoldButton
-                        variant="contained"
-                        color="primary"
-                        startIcon={<AddIcon />}
-                        onClick={handleAddVideo}
-                        sx={{ height: "30px" }}>
-                        Agregar Video
-                      </GoldButton>
+                      {actualUser.rol === 1 && (
+                        <GoldButton
+                          variant="contained"
+                          color="primary"
+                          startIcon={<AddIcon />}
+                          onClick={handleAddVideo}
+                          sx={{ height: "30px" }}>
+                          Agregar Video
+                        </GoldButton>
+                      )}
                     </Box>
                     <Box
                       sx={{
@@ -325,36 +327,38 @@ const CoursesSection = () => {
                           }}>
                           {video.title}
                         </Typography>
-                        <Box
-                          sx={{
-                            backgroundColor: "#ab8e3a",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            height: "40px",
-                            bottom: 0,
-                            marginBottom: 0.2
-                          }}>
-                          <IconButton
-                            edge="end"
-                            aria-label="edit"
-                            sx={{ marginRight: "4px", color: "white" }}
-                            onClick={() => {
-                              handleEdit(video.id)
-                              handleVideoSelect(video)
+                        {actualUser?.rol === 1 && (
+                          <Box
+                            sx={{
+                              backgroundColor: "#ab8e3a",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              height: "40px",
+                              bottom: 0,
+                              marginBottom: 0.2
                             }}>
-                            <EditIcon />
-                          </IconButton>
-                          <IconButton
-                            edge="end"
-                            aria-label="delete"
-                            sx={{ marginRight: "4px", color: "white" }}
-                            onClick={(event) => {
-                              handleDelete(event, video.id, video)
-                            }}>
-                            <DeleteIcon />
-                          </IconButton>
-                        </Box>
+                            <IconButton
+                              edge="end"
+                              aria-label="edit"
+                              sx={{ marginRight: "4px", color: "white" }}
+                              onClick={() => {
+                                handleEdit(video.id)
+                                handleVideoSelect(video)
+                              }}>
+                              <EditIcon />
+                            </IconButton>
+                            <IconButton
+                              edge="end"
+                              aria-label="delete"
+                              sx={{ marginRight: "4px", color: "white" }}
+                              onClick={(event) => {
+                                handleDelete(event, video.id, video)
+                              }}>
+                              <DeleteIcon />
+                            </IconButton>
+                          </Box>
+                        )}
                       </Box>
                     </ListItem>
                   ))}

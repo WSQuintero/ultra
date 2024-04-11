@@ -1,14 +1,19 @@
-import React from "react"
+import { useContext } from "react"
 import Card from "@mui/material/Card"
 import CardActionArea from "@mui/material/CardActionArea"
 import CardActions from "@mui/material/CardActions"
 import CardContent from "@mui/material/CardContent"
 import CardMedia from "@mui/material/CardMedia"
-import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
 import { GoldButton } from "./landing/GoldButton"
+import { MyContext } from "../generalContext/GeneralContext"
 
 function CardLive({ img, description, title, setEditMode, setOpen }) {
+  const { actualUser } = useContext(MyContext)
+  const handleOpenModal = () => {
+    setEditMode(true)
+    setOpen(true)
+  }
   return (
     <Card
       sx={{
@@ -25,7 +30,8 @@ function CardLive({ img, description, title, setEditMode, setOpen }) {
         border: "1px solid #ab8e3a",
         position: "relative",
         backgroundColor: "black"
-      }}>
+      }}
+      onClick={handleOpenModal}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -43,20 +49,16 @@ function CardLive({ img, description, title, setEditMode, setOpen }) {
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions sx={{ paddingX: 5 }}>
-        <GoldButton size="small" color="primary">
-          Eliminar
-        </GoldButton>
-        <GoldButton
-          size="small"
-          color="primary"
-          onClick={() => {
-            setEditMode(true)
-            setOpen(true)
-          }}>
-          Editar
-        </GoldButton>
-      </CardActions>
+      {actualUser?.rol === 1 && (
+        <CardActions sx={{ paddingX: 5 }}>
+          <GoldButton size="small" color="primary">
+            Eliminar
+          </GoldButton>
+          <GoldButton size="small" color="primary" onClick={handleOpenModal}>
+            Editar
+          </GoldButton>
+        </CardActions>
+      )}
     </Card>
   )
 }

@@ -11,7 +11,7 @@ function Deposits() {
   const [open, setOpen] = useState(false)
   const [editMode, setEditMode] = useState(false)
   const [actualLive, setActualLive] = useState(false)
-  const { $Live, token } = useContext(MyContext)
+  const { $Live, token, actualUser } = useContext(MyContext)
   const [lives, setLives] = useState()
   const onClose = () => {
     setOpen(false)
@@ -39,12 +39,14 @@ function Deposits() {
           padding: 2,
           justifyContent: "end"
         }}>
-        <GoldButton
-          onClick={() => {
-            setOpen(true)
-          }}>
-          Crear live
-        </GoldButton>
+        {actualUser?.rol === 1 && (
+          <GoldButton
+            onClick={() => {
+              setOpen(true)
+            }}>
+            Crear live
+          </GoldButton>
+        )}
       </Box>
       {/* {lives?.map((live) => ( */}
       <Box
