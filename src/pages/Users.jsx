@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom"
 import { MyContext } from "../generalContext/GeneralContext"
 import { GoldButton } from "../components/landing/GoldButton"
 import CourseService from "../services/course.service"
+import ConfirmationModal from "../components/ConfirmationModal"
 
 function Dashboard() {
   const [open, setOpen] = useState(false)
@@ -42,13 +43,14 @@ function Dashboard() {
           setCourses((prevCourses) => [
             ...prevCourses,
             {
-              title: textNewCategory,
+              title: data[0].name,
               duration: "24 hours",
               videoCount: "8 videos",
               progress: "25%",
-              id: data.id
+              id: data[0].id
             }
           ])
+          setTextNewCategory("")
         } else {
           console.error("Error al crear la categoría:", data)
         }
@@ -56,19 +58,6 @@ function Dashboard() {
         console.error("Error al crear la categoría:", error)
       }
     }
-  }
-
-  const addCourse = (title, id) => {
-    setCourses((prevCourses) => [
-      ...prevCourses,
-      {
-        title: title,
-        duration: "24 hours",
-        videoCount: "8 videos",
-        progress: "25%",
-        id: id
-      }
-    ])
   }
 
   useEffect(() => {
@@ -185,54 +174,15 @@ function Dashboard() {
         </Box>
       </Box>
       <CreateCourse open={open} onClose={onClose} />
-      <Modal
-        open={deleteModalOpen}
-        onClose={() => setDeleteModalOpen(false)}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description">
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: "80%",
-            bgcolor: "black",
-            border: "1px solid #ab8e3a",
-            boxShadow: 24,
-            p: 4,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center"
-          }}>
-          <Typography
-            id="modal-modal-title"
-            variant="h2"
-            component="h2"
-            sx={{ color: "white" }}>
-            ¿Estás seguro de eliminar esta categoría?
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2, fontSize: 26 }}>
-            Ten presente que todos los videos asociados a esta ya no estarán
-            disponibles.
-          </Typography>
-          <Grid
-            container
-            spacing={2}
-            sx={{ marginTop: 3 }}
-            justifyContent="center">
-            <Grid item>
-              <GoldButton onClick={handleCancelDelete}>Cancelar</GoldButton>
-            </Grid>
-            <Grid item>
-              <GoldButton onClick={handleDeleteConfirmation}>
-                Eliminar
-              </GoldButton>
-            </Grid>
-          </Grid>
-        </Box>
-      </Modal>
+      <ConfirmationModal
+        deleteModalOpen={deleteModalOpen}
+        handleCancelDelete={handleCancelDelete}
+        handleDeleteConfirmation={handleDeleteConfirmation}
+        title={"¿Estás seguro de eliminar esta categoría?"}
+        message={
+          "Ten presente que todos los videos asociados a esta ya no estarán disponibles."
+        }
+      />
     </PageWrapper>
   )
 }

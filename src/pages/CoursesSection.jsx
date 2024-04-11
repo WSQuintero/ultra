@@ -20,6 +20,7 @@ import CreateCourse from "../components/CreateCourse"
 import { MyContext } from "../generalContext/GeneralContext"
 import { useLocation } from "react-router-dom"
 import DeleteVideoConfirmationModal from "../components/DeleteVideoConfirmationModal"
+import ConfirmationModal from "../components/ConfirmationModal"
 
 const CoursesSection = () => {
   const [openNewVideo, setOpenNewVideo] = useState(false)
@@ -153,6 +154,8 @@ const CoursesSection = () => {
               justifyContent: "start",
               alignItems: "center",
               border: "1px solid #ab8e3a",
+              padding: 1,
+
               overflow: "hidden",
               marginTop: "10px",
               position: "relative"
@@ -169,16 +172,39 @@ const CoursesSection = () => {
                 <Box
                   sx={{
                     width: "100%",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    padding: 1,
+                    backgroundColor: "black",
+                    position: "relative",
+                    borderTop: "1px solid #ab8e3a",
+                    top: 5,
+                    padding: 2
+                  }}>
+                  <div style={{ position: "relative" }}>
+                    <BackButton handleBack={handleBack} />
+                  </div>
+                  <GoldButton
+                    variant="contained"
+                    color="primary"
+                    startIcon={<AddIcon />}
+                    onClick={handleAddVideo}
+                    sx={{ height: "30px" }}>
+                    Agregar Video
+                  </GoldButton>
+                </Box>
+                <Box
+                  sx={{
+                    width: "100%",
                     backgroundColor: "white",
                     height: "50px",
                     display: "flex",
-                    justifyContent: "start",
+                    justifyContent: "center",
                     alignItems: "center",
                     padding: 2,
                     flexShrink: 0,
-                    position: "absolute",
-                    bottom: 0,
-                    marginRight: 20
+                    position: "relative",
+                    bottom: 0
                   }}>
                   <Typography
                     variant="h2"
@@ -195,8 +221,8 @@ const CoursesSection = () => {
                   <iframe
                     title="Video Player"
                     width="100%"
-                    height="74%"
-                    style={{ maxHeight: "520px", marginTop: 70 }}
+                    height="100%"
+                    style={{ maxHeight: "520px", marginTop: 10 }}
                     src={selectedVideo.url}
                     frameBorder="0"
                     allow="autoplay"
@@ -205,36 +231,16 @@ const CoursesSection = () => {
                   <img
                     src="/elseimg.png"
                     title="Video Player"
-                    width="50%"
-                    height="100%"
-                    style={{ maxHeight: "520px", marginLeft: "20%" }}
+                    width="30%"
+                    style={{
+                      maxHeight: "520px",
+                      marginLeft: "400px",
+                      marginTop: "150px"
+                    }}
                   />
                 )}
               </div>
             )}
-            <Box
-              sx={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "space-between",
-                padding: 1,
-                backgroundColor: "black",
-                position: "absolute",
-                borderTop: "1px solid #ab8e3a",
-                top: 5
-              }}>
-              <div style={{ position: "relative" }}>
-                <BackButton handleBack={handleBack} />
-              </div>
-              <GoldButton
-                variant="contained"
-                color="primary"
-                startIcon={<AddIcon />}
-                onClick={handleAddVideo}
-                sx={{ height: "30px" }}>
-                Agregar Video
-              </GoldButton>
-            </Box>
           </Grid>
 
           <Grid
@@ -246,7 +252,7 @@ const CoursesSection = () => {
               height: "calc(100vh - 130px)",
               marginTop: 2,
               maxHeight: "700px",
-              overflowY: "scroll"
+              overflowY: "auto"
             }}>
             <List
               style={{
@@ -353,10 +359,17 @@ const CoursesSection = () => {
         editMode={editMode}
         id={actualId}
       />
-      <DeleteVideoConfirmationModal
+      {/* <DeleteVideoConfirmationModal
         open={openDeleteModal}
         onClose={onCloseDeleteModal}
         onDelete={onDelete}
+      /> */}
+      <ConfirmationModal
+        deleteModalOpen={openDeleteModal}
+        handleCancelDelete={onCloseDeleteModal}
+        handleDeleteConfirmation={onDelete}
+        title={"Confirmar Eliminación de Video"}
+        message={"¿Estás seguro de que deseas eliminar este video?"}
       />
     </PageWrapper>
   )
