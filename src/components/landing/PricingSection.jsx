@@ -6,11 +6,13 @@ import InterTypography from '../shared/InterTypography';
 
 const PricingSection = () => {
   return (
-    <Box 
-    id='plans-princing'
-    display={'flex'} 
-    flexDirection={'column'} 
-    padding={4}>
+    <Box
+      id="plans-princing"
+      display={'flex'}
+      overflow={'hidden'}
+      flexDirection={'column'}
+      padding={4}
+    >
       <BGTypography
         color={'white'}
         variant="h2"
@@ -29,7 +31,11 @@ const PricingSection = () => {
         Both a free trial and a free set of features for anyone who wants to{' '}
         <br /> use them. The more orders your company
       </Typography>
-      <Box display={'flex'} margin={'50px auto 0'} gap={10}>
+      <Box
+        sx={{ overflowX: 'auto', display: 'flex' }}
+        margin={'50px auto 0'}
+        gap={10}
+      >
         {plans.map((plan, i) => (
           <PlanCard key={i} {...plan} />
         ))}
@@ -57,6 +63,7 @@ const PlanCard = ({
       display={'flex'}
       flexDirection={'column'}
       sx={{
+        minWidth: '410px',
         width: '410px',
         height: '830px',
         backgroundColor: 'rgba(255, 255, 255, 0.04)',
@@ -175,25 +182,21 @@ const PlanCard = ({
                   src="/Ultra_files/goldcheckbox.svg"
                   style={{ width: 'auto', height: '20px', marginRight: '5px' }}
                 />
-                <BGTypography
-                  marginLeft={0.5}
-                  color="white"
-                  display={'inline'}
-                >
+                <BGTypography marginLeft={0.5} color="white" display={'inline'}>
                   {benefit}
                 </BGTypography>
               </Box>
             ))}
           </Box>
           {goldButton ? (
-            <GoldButton fullWidth size='large' {...buttonProps}>
+            <GoldButton fullWidth size="large" {...buttonProps}>
               {buttonTitle}
             </GoldButton>
           ) : (
             <GrayOutlinedButton
               color="primary2"
               variant="outlined"
-              size='large'
+              size="large"
               fullWidth
               {...buttonProps}
             >
