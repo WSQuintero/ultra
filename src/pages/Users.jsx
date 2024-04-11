@@ -142,8 +142,12 @@ function Dashboard() {
           height: "90%",
           overflow: "auto"
         }}>
-        <Typography variant="h2" color="white" marginBottom={5}>
-          All courses
+        <Typography
+          variant="h2"
+          color="white"
+          marginBottom={5}
+          sx={{ marginLeft: 10 }}>
+          Cursos
         </Typography>
         <Box
           sx={{

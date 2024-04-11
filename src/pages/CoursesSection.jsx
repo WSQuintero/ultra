@@ -102,7 +102,7 @@ const CoursesSection = () => {
     }
   }, [actualId, editMode])
 
-  const handleDelete = (event, videoId) => {
+  const handleDelete = (event, videoId, video) => {
     event.stopPropagation()
     setOpenDeleteModal(true)
     setActualId(videoId)
@@ -178,8 +178,7 @@ const CoursesSection = () => {
                     backgroundColor: "black",
                     position: "relative",
                     borderTop: "1px solid #ab8e3a",
-                    top: 5,
-                    padding: 2
+                    top: 5
                   }}>
                   <div style={{ position: "relative" }}>
                     <BackButton handleBack={handleBack} />
@@ -228,16 +227,23 @@ const CoursesSection = () => {
                     allow="autoplay"
                   />
                 ) : (
-                  <img
-                    src="/elseimg.png"
-                    title="Video Player"
-                    width="30%"
-                    style={{
-                      maxHeight: "520px",
-                      marginLeft: "400px",
-                      marginTop: "150px"
-                    }}
-                  />
+                  <Box
+                    sx={{
+                      width: "100%",
+                      height: "100%",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center"
+                    }}>
+                    <img
+                      src="/elseimg.png"
+                      title="Video Player"
+                      width="30%"
+                      style={{
+                        marginBottom: "150px"
+                      }}
+                    />
+                  </Box>
                 )}
               </div>
             )}
@@ -328,7 +334,10 @@ const CoursesSection = () => {
                         edge="end"
                         aria-label="edit"
                         sx={{ marginRight: "4px", color: "white" }}
-                        onClick={() => handleEdit(video.id)}>
+                        onClick={() => {
+                          handleEdit(video.id)
+                          handleVideoSelect(video)
+                        }}>
                         <EditIcon />
                       </IconButton>
                       <IconButton
@@ -336,7 +345,7 @@ const CoursesSection = () => {
                         aria-label="delete"
                         sx={{ marginRight: "4px", color: "white" }}
                         onClick={(event) => {
-                          handleDelete(event, video.id)
+                          handleDelete(event, video.id, video)
                         }}>
                         <DeleteIcon />
                       </IconButton>
@@ -358,6 +367,7 @@ const CoursesSection = () => {
         }}
         editMode={editMode}
         id={actualId}
+        video={selectedVideo}
       />
       {/* <DeleteVideoConfirmationModal
         open={openDeleteModal}

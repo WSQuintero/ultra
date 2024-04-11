@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Modal, Box, TextField, Button, Snackbar, Alert } from "@mui/material"
 import { GoldButton } from "./landing/GoldButton"
 import { MyContext } from "../generalContext/GeneralContext"
@@ -11,7 +11,7 @@ const initialState = {
   url_resource: ""
 }
 
-function CreateCourse({ id, open, onClose, editMode }) {
+function CreateCourse({ id, open, onClose, editMode, video }) {
   const [imagePreviewUrl, setImagePreviewUrl] = useState("")
   const [alert, setAlert] = useState({ show: false, message: "" })
   const location = useLocation()
@@ -88,6 +88,14 @@ function CreateCourse({ id, open, onClose, editMode }) {
     }
   }
 
+  useEffect(() => {
+    setImagePreviewUrl(video?.thumbnail || "")
+    setFormData({
+      ...initialState,
+      title: video.title,
+      url_resource: video.url
+    })
+  }, [video])
   return (
     <>
       <Modal
