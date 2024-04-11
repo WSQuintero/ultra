@@ -322,10 +322,10 @@ export default function Signin() {
               variant="h2"
               textAlign="start"
               sx={{ color: "white", marginTop: 5 }}>
-              Log in to your account
+              Inicia sesión en tu cuenta.
             </Typography>
             <Typography textAlign="start">
-              Welcome! Please enter your details.
+              ¡Bienvenido! Por favor ingresa tus datos de inicio.
             </Typography>
           </Grid>
           <Box
@@ -335,7 +335,7 @@ export default function Signin() {
             noValidate>
             <Grid display="flex" flexDirection="column" gap={2}>
               <Grid display="flex" flexDirection="column" gap={1}>
-                <InputLabel sx={{ color: "white" }}>Email Address</InputLabel>
+                <InputLabel sx={{ color: "white" }}>Email</InputLabel>
                 <TextField
                   name="email"
                   placeholder="Ingresa tu correo"
@@ -371,7 +371,7 @@ export default function Signin() {
                   <span style={{ color: theme.palette.custom.required }}>
                     <img src="/lock.svg" alt="lock.svg" />
                   </span>{" "}
-                  Password{" "}
+                  Contraseña{" "}
                 </InputLabel>
                 <TextField
                   name="password"
@@ -418,7 +418,7 @@ export default function Signin() {
                     to="/forgot-password"
                     component={RouterLink}
                     color={"#ab8e3a"}>
-                    Forgot Password?
+                    ¿Olvidaste tu contraseña?
                   </Link>
                 </Grid>
               </Grid>

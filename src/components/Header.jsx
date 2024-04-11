@@ -13,11 +13,12 @@ function Header() {
         backgroundColor: "#ab8e3a",
         justifyCenter: "center",
         display:
-          location.pathname === "/signin" ||
-          location.pathname === "/signup" ||
-          location.pathname === "/forgot-password" ||
-          location.pathname === "/landing" ||
-          location.pathname === "/auth/validateEmail"
+          location.pathname.includes("/signin") ||
+          location.pathname.includes("/signup") ||
+          location.pathname.includes("/forgot-password") ||
+          location.pathname.includes("/landing") ||
+          location.pathname.includes("/auth/validateEmail") ||
+          location.pathname.includes === "/"
             ? "none"
             : "flex"
       }}>

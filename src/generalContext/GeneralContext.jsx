@@ -18,7 +18,7 @@ function GeneralContext({ children }) {
   const $Buy = useMemo(() => new BuyService(), [])
 
   useEffect(() => {
-    setActualUser(JSON.parse(localStorage.getItem("user")))
+    setActualUser(JSON.parse(localStorage?.getItem("user")) || {})
   }, [])
 
   return (
