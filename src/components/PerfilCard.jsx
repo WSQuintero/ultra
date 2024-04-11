@@ -1,3 +1,4 @@
+import React, { useContext, useEffect } from "react"
 import {
   Box,
   Typography,
@@ -7,12 +8,25 @@ import {
   Button
 } from "@mui/material"
 import { AccountCircle } from "@mui/icons-material"
+import { MyContext } from "../generalContext/GeneralContext"
+import { RiCellphoneLine } from "react-icons/ri"
+import { MdOutlineMail, MdOutlineCardMembership } from "react-icons/md"
+import { GoCrossReference } from "react-icons/go"
+import { FaClipboardUser } from "react-icons/fa6"
+import UserInfo from "./UserInfo"
 
 const PerfilCard = () => {
+  const { actualUser } = useContext(MyContext)
+
+  useEffect(() => {
+    console.log(actualUser)
+  }, [])
+
   return (
     <Box
       sx={{
-        width: 300,
+        maxWidth: 450,
+        width: "100%",
         overflow: "hidden",
         borderRadius: 5,
         background: "#010714",
@@ -53,8 +67,8 @@ const PerfilCard = () => {
               top: -55
             }}
           />
-          <Typography variant="body1" color="textPrimary">
-            Nombre de Usuario
+          <Typography variant="body1" color="white">
+            {`${actualUser.firstname} ${actualUser.lastname}`}
           </Typography>
         </Box>
       </Box>
@@ -63,169 +77,36 @@ const PerfilCard = () => {
         sx={{
           padding: 2,
           overflow: "auto",
-          height: "50%",
+          height: "100%",
           display: "flex",
           flexDirection: "column",
           justifyContent: "start"
         }}>
-        <Box
-          sx={{
-            borderBottom: "1px solid white",
-            padding: 1
-          }}>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between"
-            }}>
-            <Typography
-              sx={{ fontSize: 12 }}
-              variant="body2"
-              color="textPrimary">
-              Texto 1
-            </Typography>
-
-            <Button sx={{ fontSize: 12 }} variant="body2" color="textPrimary">
-              Edit
-            </Button>
-          </Box>
-        </Box>
-
-        {/* Sección 2 */}
-        <Box
-          sx={{
-            borderBottom: "1px solid white",
-            padding: 1
-          }}>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between"
-            }}>
-            <Typography
-              sx={{ fontSize: 12 }}
-              variant="body2"
-              color="textPrimary">
-              Texto 1
-            </Typography>
-
-            <IconButton color="inherit">
-              <AccountCircle />
-            </IconButton>
-          </Box>
-          <Typography sx={{ fontSize: 20 }} color="textPrimary">
-            Label 1
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            borderBottom: "1px solid white",
-            padding: 1
-          }}>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between"
-            }}>
-            <Typography
-              sx={{ fontSize: 12 }}
-              variant="body2"
-              color="textPrimary">
-              Texto 1
-            </Typography>
-
-            <IconButton color="inherit">
-              <AccountCircle />
-            </IconButton>
-          </Box>
-          <Typography sx={{ fontSize: 20 }} color="textPrimary">
-            Label 1
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            borderBottom: "1px solid white",
-            padding: 1
-          }}>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between"
-            }}>
-            <Typography
-              sx={{ fontSize: 12 }}
-              variant="body2"
-              color="textPrimary">
-              Texto 1
-            </Typography>
-
-            <IconButton color="inherit">
-              <AccountCircle />
-            </IconButton>
-          </Box>
-          <Typography sx={{ fontSize: 20 }} color="textPrimary">
-            Label 1
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            borderBottom: "1px solid white",
-            padding: 1
-          }}>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between"
-            }}>
-            <Typography
-              sx={{ fontSize: 12 }}
-              variant="body2"
-              color="textPrimary">
-              Texto 1
-            </Typography>
-
-            <IconButton color="inherit">
-              <AccountCircle />
-            </IconButton>
-          </Box>
-          <Typography sx={{ fontSize: 20 }} color="textPrimary">
-            Label 1
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            borderBottom: "1px solid white",
-            padding: 1
-          }}>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between"
-            }}>
-            <Typography
-              sx={{ fontSize: 12 }}
-              variant="body2"
-              color="textPrimary">
-              Texto 1
-            </Typography>
-
-            <IconButton color="inherit">
-              <AccountCircle />
-            </IconButton>
-          </Box>
-          <Typography sx={{ fontSize: 20 }} color="textPrimary">
-            Label 1
-          </Typography>
-        </Box>
-        <Typography sx={{ pl: 2 }} variant="body2" color="textSecondary">
-          Texto 2
-        </Typography>
+        <UserInfo
+          label="Teléfono"
+          value={actualUser.cellphone}
+          icon={<RiCellphoneLine />}
+        />
+        <UserInfo
+          label="Email"
+          value={actualUser.email}
+          icon={<MdOutlineMail />}
+        />
+        <UserInfo
+          label="Slug de invitación"
+          value={actualUser.slug_invitation}
+          icon={<GoCrossReference />}
+        />
+        <UserInfo
+          label="Role"
+          value={actualUser.rol === 1 ? "Administrador" : "Usuario"}
+          icon={<FaClipboardUser />}
+        />
+        <UserInfo
+          label="Estado suscripción"
+          value={actualUser.membership_status}
+          icon={<MdOutlineCardMembership />}
+        />
       </Box>
     </Box>
   )

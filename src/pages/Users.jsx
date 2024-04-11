@@ -1,40 +1,7 @@
 import { useEffect, useState, useMemo, useContext } from "react"
-import useAuth from "../hooks/useAuth"
-
-import UserService from "../services/user.service"
-import {
-  alpha,
-  Box,
-  Container,
-  Divider,
-  Grid,
-  Typography,
-  Button,
-  TextField
-} from "@mui/material"
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer
-} from "recharts"
+import { Box, Typography, TextField, Modal, Button, Grid } from "@mui/material"
 import PageWrapper from "../components/PageWrapper"
-import PricingTable from "../components/PricingTable"
-import useSession from "../hooks/useSession"
 import useConfig from "../hooks/useConfig"
-import SubscriptionService from "../services/subscription.service"
-import ModalPayment from "../components/ModalPayment"
-import {
-  TrendingUp as TrendingUpIcon,
-  TrendingFlat as TrendingFlatIcon,
-  TrendingDown as TrendingDownIcon
-} from "@mui/icons-material"
-import { useTheme } from "@emotion/react"
-import background from "../assets/img/pageWrapper/background.svg"
 import CourseCard from "../components/CourseCard"
 import CreateCourse from "../components/CreateCourse"
 import { useNavigate } from "react-router-dom"
@@ -42,154 +9,15 @@ import { MyContext } from "../generalContext/GeneralContext"
 import { GoldButton } from "../components/landing/GoldButton"
 import CourseService from "../services/course.service"
 
-const data = []
-
-function SummaryCard({ title, value, trend, backgroundColor, alphaB }) {
-  return (
-    <Box
-      position="relative"
-      display="flex"
-      flexDirection="column"
-      paddingY={1}
-      paddingX={2}
-      height={trend === "" ? "50%" : "100%"}
-      borderRadius={4}
-      overflow="hidden"
-      sx={{
-        backgroundImage: `url(${background})`,
-        backgroundPosition: "center",
-        backgroundSize: "cover",
-        "&::before": {
-          content: "''",
-          position: "absolute",
-          left: 0,
-          top: 0,
-          width: "100%",
-          height: "100%",
-          backgroundColor: alpha(backgroundColor, alphaB || 0.5)
-        }
-      }}>
-      <Box zIndex={1}>
-        <Grid display="flex" gap={1} color="white">
-          <Typography color="white">{title}</Typography>
-          {trend === "" ? (
-            <></>
-          ) : (
-            <Typography
-              color="white"
-              style={{
-                textAlign: "right",
-                width: "90%",
-                position: "absolute"
-              }}>
-              Total
-            </Typography>
-          )}
-        </Grid>
-        {trend === "" ? (
-          <></>
-        ) : (
-          <Grid
-            display="flex"
-            alignItems="center"
-            gap={2}
-            justifyContent="space-between">
-            <Typography color="white" fontSize={28}>
-              {value} USDT
-            </Typography>
-            <Grid display="flex" gap={1} color="white">
-              <Typography color="white">{trend} USDT</Typography>
-            </Grid>
-          </Grid>
-        )}
-      </Box>
-    </Box>
-  )
-}
-
-function DateCard({ data }) {
-  return (
-    <Grid
-      display="flex"
-      alignItems="center"
-      gap={2}
-      sx={(t) => ({
-        [t.breakpoints.down("md")]: {
-          flexDirection: "column-reverse"
-        }
-      })}>
-      {data.map((el, index) => (
-        <Grid
-          key={index}
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-          gap={1}>
-          <Grid display="flex" gap={0.5}>
-            <Box
-              paddingY={1}
-              paddingX={2}
-              borderRadius={2}
-              sx={{ backgroundColor: "#3A3689" }}>
-              <Typography fontSize={22} color="white">
-                {el.value[0]}
-              </Typography>
-            </Box>
-            <Box
-              paddingY={1}
-              paddingX={2}
-              borderRadius={2}
-              sx={{ backgroundColor: "#3A3689" }}>
-              <Typography fontSize={22} color="white">
-                {el.value[1]}
-              </Typography>
-            </Box>
-            {el.value.length == 4 && (
-              <Box
-                paddingY={1}
-                paddingX={2}
-                borderRadius={2}
-                sx={{ backgroundColor: "#3A3689" }}>
-                <Typography fontSize={22} color="white">
-                  {el.value[2]}
-                </Typography>
-              </Box>
-            )}
-            {el.value.length == 4 && (
-              <Box
-                paddingY={1}
-                paddingX={2}
-                borderRadius={2}
-                sx={{ backgroundColor: "#3A3689" }}>
-                <Typography fontSize={22} color="white">
-                  {el.value[3]}
-                </Typography>
-              </Box>
-            )}
-          </Grid>
-          <Typography fontSize={22} color="white">
-            {el.label}
-          </Typography>
-        </Grid>
-      ))}
-    </Grid>
-  )
-}
-
 function Dashboard() {
-  const [session] = useSession()
-  const [auth] = useAuth()
-  const $Subscription = useMemo(() => new SubscriptionService(auth), [auth])
-  const [currentPlan, setCurrentPlan] = useState(false)
-  const [modalcurrentPlan, setModalcurrentPlan] = useState(false)
-  const [walletAddressPlan, setWalletAddressPlan] = useState(false)
   const [open, setOpen] = useState(false)
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false)
+  const [deleteCategoryId, setDeleteCategoryId] = useState(null)
   const [, { setLoading }] = useConfig()
   const navigate = useNavigate()
   const { $Course, token } = useContext(MyContext)
   const [newCategory, setNewCategory] = useState(0)
   const [textNewCategory, setTextNewCategory] = useState("")
-  const [categories, setCategories] = useState([])
   const [courses, setCourses] = useState([])
   const courseService = useMemo(() => new CourseService(token), [token]) // Instancia del servicio CourseService
 
@@ -211,19 +39,16 @@ function Dashboard() {
         })
 
         if (status) {
-          console.log("Nueva categoría creada:", data)
           setCourses((prevCourses) => [
             ...prevCourses,
             {
-              title: data.name,
+              title: textNewCategory,
               duration: "24 hours",
               videoCount: "8 videos",
               progress: "25%",
               id: data.id
             }
           ])
-
-          // window.location.reload()
         } else {
           console.error("Error al crear la categoría:", data)
         }
@@ -253,22 +78,55 @@ function Dashboard() {
     }, 500)
   }, [])
 
-  useEffect(() => {
-    const getCategories = async () => {
-      const { status, data } = await $Course.getCategories(token)
+  const getCourses = async () => {
+    const { status, data } = await $Course.getCategories(token)
 
-      if (status) {
-        data.forEach((item) => addCourse(item.name, item.id))
-      } else {
-        console.log(data)
-      }
+    if (status) {
+      setCourses(
+        data.map((item) => ({
+          title: item.name,
+          duration: "24 hours",
+          videoCount: "8 videos",
+          progress: "25%",
+          id: item.id
+        }))
+      )
+    } else {
+      console.log(data)
     }
+  }
 
-    getCategories()
+  useEffect(() => {
+    getCourses()
   }, [token])
 
   const onClose = () => {
     setOpen(false)
+  }
+
+  const handleDeleteConfirmation = async () => {
+    setDeleteModalOpen(false)
+    if (deleteCategoryId) {
+      const { status, data } = await $Course.deleteCategory({
+        token,
+        id: deleteCategoryId
+      })
+      if (status) {
+        setCourses((prevCourses) =>
+          prevCourses.filter((course) => course.id !== deleteCategoryId)
+        )
+      }
+    }
+  }
+
+  const handleDelete = (id) => {
+    setDeleteModalOpen(true)
+    setDeleteCategoryId(id)
+  }
+
+  const handleCancelDelete = () => {
+    setDeleteModalOpen(false)
+    setDeleteCategoryId(undefined)
   }
 
   return (
@@ -307,8 +165,11 @@ function Dashboard() {
             justifyContent: "center"
           }}>
           {courses.map((course, index) => (
-            <div
-              onClick={() => navigate(`/course/#${course.title}#${course.id}`)}
+            <Box
+              onClick={(event) => {
+                event.stopPropagation()
+                navigate(`/course/#${course.title}#${course.id}`)
+              }}
               key={index}>
               <CourseCard
                 image="/card-course.png"
@@ -316,12 +177,62 @@ function Dashboard() {
                 videoCount={course.videoCount}
                 title={course.title}
                 progress={course.progress}
+                handleDelete={handleDelete}
+                id={course.id}
               />
-            </div>
+            </Box>
           ))}
         </Box>
       </Box>
       <CreateCourse open={open} onClose={onClose} />
+      <Modal
+        open={deleteModalOpen}
+        onClose={() => setDeleteModalOpen(false)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description">
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "80%",
+            bgcolor: "black",
+            border: "1px solid #ab8e3a",
+            boxShadow: 24,
+            p: 4,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center"
+          }}>
+          <Typography
+            id="modal-modal-title"
+            variant="h2"
+            component="h2"
+            sx={{ color: "white" }}>
+            ¿Estás seguro de eliminar esta categoría?
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2, fontSize: 26 }}>
+            Ten presente que todos los videos asociados a esta ya no estarán
+            disponibles.
+          </Typography>
+          <Grid
+            container
+            spacing={2}
+            sx={{ marginTop: 3 }}
+            justifyContent="center">
+            <Grid item>
+              <GoldButton onClick={handleCancelDelete}>Cancelar</GoldButton>
+            </Grid>
+            <Grid item>
+              <GoldButton onClick={handleDeleteConfirmation}>
+                Eliminar
+              </GoldButton>
+            </Grid>
+          </Grid>
+        </Box>
+      </Modal>
     </PageWrapper>
   )
 }

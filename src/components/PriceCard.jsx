@@ -13,7 +13,7 @@ const PriceCard = ({ header, options }) => {
   return (
     <Box
       sx={{
-        maxWidth: 350,
+        maxWidth: 450,
         minWidth: 300,
         width: "100%",
         overflow: "hidden",
@@ -67,7 +67,7 @@ const PriceCard = ({ header, options }) => {
         </div>
 
         <div style={{ marginTop: 10 }}>
-          <GeneralButton>Get Started</GeneralButton>
+          <GeneralButton>Comenzar</GeneralButton>
         </div>
       </Box>
 

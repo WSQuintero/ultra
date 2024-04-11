@@ -102,4 +102,28 @@ export default class CourseService {
       return { status: false, data: error }
     }
   }
+  async deleteCategory({ token, id }) {
+    try {
+      const response = await fetch(
+        `${this.API_URL}/academy/delete/category/${id}`,
+        {
+          method: "POST",
+          headers: new Headers({
+            Authorization: token,
+            "Content-Type": "application/json"
+          })
+        }
+      )
+
+      if (!response.ok) {
+        throw new Error("Failed to delete category")
+      }
+
+      const data = await response.json()
+
+      return { status: true, data: data }
+    } catch (error) {
+      return { status: false, data: error }
+    }
+  }
 }

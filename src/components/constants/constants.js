@@ -51,3 +51,42 @@ export const optionsPlan90 = [
     price: "Invaluable"
   }
 ]
+export const planFondeo = [
+  {
+    title: "Acceso por 90 días",
+    subtitle: "Acceso completo al contenido durante 90 días.",
+    price: "-"
+  },
+  {
+    title: "Curso de forex",
+    subtitle: "Aprende desde lo básico hasta lo avanzado en Forex.",
+    price: "-"
+  },
+  {
+    title: "Plan de trading",
+    subtitle: "Herramientas y estrategias para mejorar tu plan de trading.",
+    price: "-"
+  },
+  {
+    title: "sesiones en vivo",
+    subtitle: "Participa en sesiones interactivas con expertos en tiempo real.",
+    price: "-"
+  },
+  {
+    title: "espacios de psicotrading",
+    subtitle: "Explora técnicas para manejar la psicología del trading.",
+    price: "-"
+  },
+  {
+    title: "espacio de backtesting",
+    subtitle:
+      "Acceso a herramientas y recursos para realizar backtesting de tus estrategias.",
+    price: "-"
+  },
+  {
+    title: "Sesión de preguntas y respuestas",
+    subtitle:
+      "Obtén respuestas a tus dudas directamente de profesionales en el campo.",
+    price: "-"
+  }
+]

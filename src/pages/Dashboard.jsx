@@ -11,7 +11,7 @@ import { useTheme } from "@emotion/react"
 import Timer from "../components/Timer"
 import GeneralButton from "../components/GeneralButton"
 import PriceCard from "../components/PriceCard"
-import { optionsPlan90 } from "../components/constants/constants"
+import { optionsPlan90, planFondeo } from "../components/constants/constants"
 import CountdownTimer from "../components/CountdownTimer"
 import SuscriptionList from "../components/SuscriptionList"
 import { MyContext } from "../generalContext/GeneralContext"
@@ -338,20 +338,20 @@ function Dashboard() {
               title: "Plan 90",
               price: "$299 usd",
               realPrice: "$3.100 usd",
-              description: "All Courses Now Just Only",
+              description: "Todos los cursos ahora solo por",
               discount: "90.35% Discount 🔥"
             }}
             options={optionsPlan90}
           />
           <PriceCard
             header={{
-              title: "Plan 90",
-              price: "$299 usd",
-              realPrice: "$3.100 usd",
-              description: "All Courses Now Just Only",
-              discount: "90.35% Discount 🔥"
+              title: "Club del fondeo 2.0",
+              price: "$300 usd",
+              realPrice: "$350/month",
+              description: "Todos los cursos ahora solo por",
+              discount: "16.67% Discount 🔥"
             }}
-            options={optionsPlan90}
+            options={planFondeo}
           />
         </Box>
       </Box>
