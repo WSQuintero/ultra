@@ -21,12 +21,13 @@ import { MyContext } from "../generalContext/GeneralContext"
 import { useLocation } from "react-router-dom"
 import DeleteVideoConfirmationModal from "../components/DeleteVideoConfirmationModal"
 import ConfirmationModal from "../components/ConfirmationModal"
+import PriceCards from "../components/PriceCards"
 
 const CoursesSection = () => {
   const [openNewVideo, setOpenNewVideo] = useState(false)
   const [editMode, setEditMode] = useState(false)
   const [actualId, setActualId] = useState()
-  const { token, $Course } = useContext(MyContext)
+  const { token, $Course, actualUser } = useContext(MyContext)
   const location = useLocation()
   const [openDeleteModal, setOpenDeleteModal] = useState()
   const [updateState, setUpdateState] = useState(false)
@@ -57,10 +58,11 @@ const CoursesSection = () => {
   }
 
   useEffect(() => {
+    console.log(actualUser)
+
     const ruta = location.hash
     const category = ruta.split("#")[1]
     const categoryId = ruta.split("#")[2]
-
     const getVideos = async () => {
       const { status, data } = await $Course.getCourses({
         token,
@@ -129,258 +131,267 @@ const CoursesSection = () => {
   }
   return (
     <PageWrapper>
-      <Box sx={{ backgroundColor: "black" }}>
-        <Grid
-          container
-          spacing={1}
-          width={"100%"}
-          sx={{
-            position: "relative",
-            gap: 10,
-            justifyContent: "center",
-            alignItems: "center",
-            height: "calc(100vh - 120px)",
-            paddingTop: 3
-          }}>
-          <Grid
-            item
-            xs={8}
-            sx={{
-              width: "53vw",
-              height: "calc(100vh - 130px)",
-              maxHeight: "700px",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "start",
-              alignItems: "center",
-              border: "1px solid #ab8e3a",
-              padding: 1,
-
-              overflow: "hidden",
-              marginTop: "10px",
-              position: "relative"
-            }}>
-            {selectedVideo && (
-              <div
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  overflow: "hidden",
-                  borderRadius: 10,
-                  flexShrink: 0
-                }}>
-                <Box
-                  sx={{
-                    width: "100%",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    padding: 1,
-                    backgroundColor: "black",
-                    position: "relative",
-                    borderTop: "1px solid #ab8e3a",
-                    top: 5
-                  }}>
-                  <div style={{ position: "relative" }}>
-                    <BackButton handleBack={handleBack} />
-                  </div>
-                  <GoldButton
-                    variant="contained"
-                    color="primary"
-                    startIcon={<AddIcon />}
-                    onClick={handleAddVideo}
-                    sx={{ height: "30px" }}>
-                    Agregar Video
-                  </GoldButton>
-                </Box>
-                <Box
-                  sx={{
-                    width: "100%",
-                    backgroundColor: "white",
-                    height: "50px",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    padding: 2,
-                    flexShrink: 0,
-                    position: "relative",
-                    bottom: 0
-                  }}>
-                  <Typography
-                    variant="h2"
-                    sx={{
-                      fontSize: 25,
-                      color: "black",
-                      textAlign: "center",
-                      width: "100%"
-                    }}>
-                    {selectedVideo.title}
-                  </Typography>
-                </Box>
-                {selectedVideo.url ? (
-                  <iframe
-                    title="Video Player"
-                    width="100%"
-                    height="100%"
-                    style={{ maxHeight: "520px", marginTop: 10 }}
-                    src={selectedVideo.url}
-                    frameBorder="0"
-                    allow="autoplay"
-                  />
-                ) : (
-                  <Box
-                    sx={{
-                      width: "100%",
-                      height: "100%",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center"
-                    }}>
-                    <img
-                      src="/elseimg.png"
-                      title="Video Player"
-                      width="30%"
-                      style={{
-                        marginBottom: "150px"
-                      }}
-                    />
-                  </Box>
-                )}
-              </div>
-            )}
-          </Grid>
-
-          <Grid
-            item
-            sx={{
-              width: "20vw",
-              backgroundColor: "black",
-              border: "1px solid #ab8e3a",
-              height: "calc(100vh - 130px)",
-              marginTop: 2,
-              maxHeight: "700px",
-              overflowY: "auto"
-            }}>
-            <List
-              style={{
-                maxHeight: "calc(100vh - 80px)",
-                overflowY: "auto"
+      {actualUser.membership_status === "Active" || actualUser.rol === 1 ? (
+        <>
+          {" "}
+          <Box sx={{ backgroundColor: "black" }}>
+            <Grid
+              container
+              spacing={1}
+              width={"100%"}
+              sx={{
+                position: "relative",
+                gap: 10,
+                justifyContent: "center",
+                alignItems: "center",
+                height: "calc(100vh - 120px)",
+                paddingTop: 3
               }}>
-              {videos.map((video, index) => (
-                <ListItem
-                  sx={{
-                    height: "calc(20vw * (9 / 16))",
-                    width: "97%",
-                    padding: "20px",
-                    fontSize: "1.2rem",
-                    marginBottom: "10px",
-                    borderRadius: "8px",
-                    backgroundImage: `url(${
-                      video.thumbnail || "/elseimg.png"
-                    })`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    backgroundRepeat: "no-repeat",
-                    color: "#fff",
-                    position: "relative"
-                  }}
-                  button
-                  key={video.id}
-                  onMouseEnter={() =>
-                    setVideos(
-                      videos.map((v, i) =>
-                        i === index ? { ...v, hover: true } : v
-                      )
-                    )
-                  }
-                  onMouseLeave={() =>
-                    setVideos(
-                      videos.map((v, i) =>
-                        i === index ? { ...v, hover: false } : v
-                      )
-                    )
-                  }
-                  onClick={() => handleVideoSelect(video)}>
-                  <Box
-                    sx={{
+              <Grid
+                item
+                xs={8}
+                sx={{
+                  width: "53vw",
+                  height: "calc(100vh - 130px)",
+                  maxHeight: "700px",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "start",
+                  alignItems: "center",
+                  border: "1px solid #ab8e3a",
+                  padding: 1,
+
+                  overflow: "hidden",
+                  marginTop: "10px",
+                  position: "relative"
+                }}>
+                {selectedVideo && (
+                  <div
+                    style={{
                       width: "100%",
                       height: "100%",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "end"
+                      overflow: "hidden",
+                      borderRadius: 10,
+                      flexShrink: 0
                     }}>
-                    <Typography
-                      sx={{
-                        backgroundColor: "rgba(0, 0, 0, 0.8)",
-                        display: "flex",
-                        height: "40px",
-                        width: "85%",
-                        fontSize: 15,
-                        padding: 1,
-                        bottom: 0
-                      }}>
-                      {video.title}
-                    </Typography>
                     <Box
                       sx={{
-                        backgroundColor: "#ab8e3a",
+                        width: "100%",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        padding: 1,
+                        backgroundColor: "black",
+                        position: "relative",
+                        borderTop: "1px solid #ab8e3a",
+                        top: 5
+                      }}>
+                      <div style={{ position: "relative" }}>
+                        <BackButton handleBack={handleBack} />
+                      </div>
+                      <GoldButton
+                        variant="contained"
+                        color="primary"
+                        startIcon={<AddIcon />}
+                        onClick={handleAddVideo}
+                        sx={{ height: "30px" }}>
+                        Agregar Video
+                      </GoldButton>
+                    </Box>
+                    <Box
+                      sx={{
+                        width: "100%",
+                        backgroundColor: "white",
+                        height: "50px",
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
-                        height: "40px",
-                        bottom: 0,
-                        marginBottom: 0.2
+                        padding: 2,
+                        flexShrink: 0,
+                        position: "relative",
+                        bottom: 0
                       }}>
-                      <IconButton
-                        edge="end"
-                        aria-label="edit"
-                        sx={{ marginRight: "4px", color: "white" }}
-                        onClick={() => {
-                          handleEdit(video.id)
-                          handleVideoSelect(video)
+                      <Typography
+                        variant="h2"
+                        sx={{
+                          fontSize: 25,
+                          color: "black",
+                          textAlign: "center",
+                          width: "100%"
                         }}>
-                        <EditIcon />
-                      </IconButton>
-                      <IconButton
-                        edge="end"
-                        aria-label="delete"
-                        sx={{ marginRight: "4px", color: "white" }}
-                        onClick={(event) => {
-                          handleDelete(event, video.id, video)
-                        }}>
-                        <DeleteIcon />
-                      </IconButton>
+                        {selectedVideo.title}
+                      </Typography>
                     </Box>
-                  </Box>
-                </ListItem>
-              ))}
-            </List>
-          </Grid>
-        </Grid>
-      </Box>
-      <CreateCourse
-        open={openNewVideo}
-        onClose={() => {
-          setActualId("")
-          setEditMode(false)
-          setOpenNewVideo(false)
-          setUpdateState(!updateState)
-        }}
-        editMode={editMode}
-        id={actualId}
-        video={selectedVideo}
-      />
-      {/* <DeleteVideoConfirmationModal
-        open={openDeleteModal}
-        onClose={onCloseDeleteModal}
-        onDelete={onDelete}
-      /> */}
-      <ConfirmationModal
-        deleteModalOpen={openDeleteModal}
-        handleCancelDelete={onCloseDeleteModal}
-        handleDeleteConfirmation={onDelete}
-        title={"Confirmar Eliminación de Video"}
-        message={"¿Estás seguro de que deseas eliminar este video?"}
-      />
+                    {selectedVideo.url ? (
+                      <iframe
+                        title="Video Player"
+                        width="100%"
+                        height="100%"
+                        style={{ maxHeight: "520px", marginTop: 10 }}
+                        src={selectedVideo.url}
+                        frameBorder="0"
+                        allow="autoplay"
+                      />
+                    ) : (
+                      <Box
+                        sx={{
+                          width: "100%",
+                          height: "100%",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center"
+                        }}>
+                        <img
+                          src="/elseimg.png"
+                          title="Video Player"
+                          width="30%"
+                          style={{
+                            marginBottom: "150px"
+                          }}
+                        />
+                      </Box>
+                    )}
+                  </div>
+                )}
+              </Grid>
+
+              <Grid
+                item
+                sx={{
+                  width: "20vw",
+                  backgroundColor: "black",
+                  border: "1px solid #ab8e3a",
+                  height: "calc(100vh - 130px)",
+                  marginTop: 2,
+                  maxHeight: "700px",
+                  overflowY: "auto"
+                }}>
+                <List
+                  style={{
+                    maxHeight: "calc(100vh - 80px)",
+                    overflowY: "auto"
+                  }}>
+                  {videos.map((video, index) => (
+                    <ListItem
+                      sx={{
+                        height: "calc(20vw * (9 / 16))",
+                        width: "97%",
+                        padding: "20px",
+                        fontSize: "1.2rem",
+                        marginBottom: "10px",
+                        borderRadius: "8px",
+                        backgroundImage: `url(${
+                          video.thumbnail || "/elseimg.png"
+                        })`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                        backgroundRepeat: "no-repeat",
+                        color: "#fff",
+                        position: "relative"
+                      }}
+                      button
+                      key={video.id}
+                      onMouseEnter={() =>
+                        setVideos(
+                          videos.map((v, i) =>
+                            i === index ? { ...v, hover: true } : v
+                          )
+                        )
+                      }
+                      onMouseLeave={() =>
+                        setVideos(
+                          videos.map((v, i) =>
+                            i === index ? { ...v, hover: false } : v
+                          )
+                        )
+                      }
+                      onClick={() => handleVideoSelect(video)}>
+                      <Box
+                        sx={{
+                          width: "100%",
+                          height: "100%",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "end"
+                        }}>
+                        <Typography
+                          sx={{
+                            backgroundColor: "rgba(0, 0, 0, 0.8)",
+                            display: "flex",
+                            height: "40px",
+                            width: "85%",
+                            fontSize: 15,
+                            padding: 1,
+                            bottom: 0
+                          }}>
+                          {video.title}
+                        </Typography>
+                        <Box
+                          sx={{
+                            backgroundColor: "#ab8e3a",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            height: "40px",
+                            bottom: 0,
+                            marginBottom: 0.2
+                          }}>
+                          <IconButton
+                            edge="end"
+                            aria-label="edit"
+                            sx={{ marginRight: "4px", color: "white" }}
+                            onClick={() => {
+                              handleEdit(video.id)
+                              handleVideoSelect(video)
+                            }}>
+                            <EditIcon />
+                          </IconButton>
+                          <IconButton
+                            edge="end"
+                            aria-label="delete"
+                            sx={{ marginRight: "4px", color: "white" }}
+                            onClick={(event) => {
+                              handleDelete(event, video.id, video)
+                            }}>
+                            <DeleteIcon />
+                          </IconButton>
+                        </Box>
+                      </Box>
+                    </ListItem>
+                  ))}
+                </List>
+              </Grid>
+            </Grid>
+          </Box>
+          <CreateCourse
+            open={openNewVideo}
+            onClose={() => {
+              setActualId("")
+              setEditMode(false)
+              setOpenNewVideo(false)
+              setUpdateState(!updateState)
+            }}
+            editMode={editMode}
+            id={actualId}
+            video={selectedVideo}
+          />
+          {/* <DeleteVideoConfirmationModal
+      open={openDeleteModal}
+      onClose={onCloseDeleteModal}
+      onDelete={onDelete}
+    /> */}
+          <ConfirmationModal
+            deleteModalOpen={openDeleteModal}
+            handleCancelDelete={onCloseDeleteModal}
+            handleDeleteConfirmation={onDelete}
+            title={"Confirmar Eliminación de Video"}
+            message={"¿Estás seguro de que deseas eliminar este video?"}
+          />
+        </>
+      ) : (
+        <>
+          <PriceCards />
+        </>
+      )}
     </PageWrapper>
   )
 }

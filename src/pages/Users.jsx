@@ -9,6 +9,7 @@ import { MyContext } from "../generalContext/GeneralContext"
 import { GoldButton } from "../components/landing/GoldButton"
 import CourseService from "../services/course.service"
 import ConfirmationModal from "../components/ConfirmationModal"
+import PriceCards from "../components/PriceCards"
 
 function Dashboard() {
   const [open, setOpen] = useState(false)
@@ -16,7 +17,7 @@ function Dashboard() {
   const [deleteCategoryId, setDeleteCategoryId] = useState(null)
   const [, { setLoading }] = useConfig()
   const navigate = useNavigate()
-  const { $Course, token } = useContext(MyContext)
+  const { $Course, token, actualUser } = useContext(MyContext)
   const [newCategory, setNewCategory] = useState(0)
   const [textNewCategory, setTextNewCategory] = useState("")
   const [courses, setCourses] = useState([])
@@ -120,73 +121,83 @@ function Dashboard() {
 
   return (
     <PageWrapper expanded>
-      <Box
-        sx={{
-          width: "100%",
-          display: "flex",
-          justifyContent: "end",
-          padding: 2
-        }}>
-        {newCategory === 1 && (
-          <TextField
-            onChange={(event) => setTextNewCategory(event.target.value)}
-            value={textNewCategory}
-          />
-        )}
-        <GoldButton onClick={handleCreateCategory}>Crear categoria</GoldButton>
-      </Box>
-      <Box
-        sx={{
-          paddingY: 1,
-          width: "100%",
-          height: "90%",
-          overflow: "auto"
-        }}>
-        <Typography
-          variant="h2"
-          color="white"
-          marginBottom={5}
-          sx={{ marginLeft: 10 }}>
-          Cursos
-        </Typography>
-        <Box
-          sx={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: 5,
-            paddingBottom: 10,
-            justifyContent: "center"
-          }}>
-          {courses.map((course, index) => (
-            <Box
-              onClick={(event) => {
-                event.stopPropagation()
-                navigate(`/course/#${course.title}#${course.id}`)
-              }}
-              key={index}>
-              <CourseCard
-                image="/card-course.png"
-                duration={course.duration}
-                videoCount={course.videoCount}
-                title={course.title}
-                progress={course.progress}
-                handleDelete={handleDelete}
-                id={course.id}
+      {actualUser?.membership_status === "Active" || actualUser?.rol === 1 ? (
+        <>
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "end",
+              padding: 2
+            }}>
+            {newCategory === 1 && (
+              <TextField
+                onChange={(event) => setTextNewCategory(event.target.value)}
+                value={textNewCategory}
               />
+            )}
+            <GoldButton onClick={handleCreateCategory}>
+              Crear categoria
+            </GoldButton>
+          </Box>
+          <Box
+            sx={{
+              paddingY: 1,
+              width: "100%",
+              height: "90%",
+              overflow: "auto"
+            }}>
+            <Typography
+              variant="h2"
+              color="white"
+              marginBottom={5}
+              sx={{ marginLeft: 10 }}>
+              Cursos
+            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 5,
+                paddingBottom: 10,
+                justifyContent: "center"
+              }}>
+              {courses.map((course, index) => (
+                <Box
+                  onClick={(event) => {
+                    event.stopPropagation()
+                    navigate(`/course/#${course.title}#${course.id}`)
+                  }}
+                  key={index}>
+                  <CourseCard
+                    image="/card-course.png"
+                    duration={course.duration}
+                    videoCount={course.videoCount}
+                    title={course.title}
+                    progress={course.progress}
+                    handleDelete={handleDelete}
+                    id={course.id}
+                  />
+                </Box>
+              ))}
             </Box>
-          ))}
+          </Box>
+          <CreateCourse open={open} onClose={onClose} />
+          <ConfirmationModal
+            deleteModalOpen={deleteModalOpen}
+            handleCancelDelete={handleCancelDelete}
+            handleDeleteConfirmation={handleDeleteConfirmation}
+            title={"¿Estás seguro de eliminar esta categoría?"}
+            message={
+              "Ten presente que todos los videos asociados a esta ya no estarán disponibles."
+            }
+          />
+        </>
+      ) : (
+        <Box sx={{ width: "100%", height: "500px" }}>
+          <PriceCards />
         </Box>
-      </Box>
-      <CreateCourse open={open} onClose={onClose} />
-      <ConfirmationModal
-        deleteModalOpen={deleteModalOpen}
-        handleCancelDelete={handleCancelDelete}
-        handleDeleteConfirmation={handleDeleteConfirmation}
-        title={"¿Estás seguro de eliminar esta categoría?"}
-        message={
-          "Ten presente que todos los videos asociados a esta ya no estarán disponibles."
-        }
-      />
+      )}
     </PageWrapper>
   )
 }

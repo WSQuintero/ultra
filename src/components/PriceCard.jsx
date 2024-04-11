@@ -8,8 +8,34 @@ import {
 } from "@mui/material"
 import { AccountCircle } from "@mui/icons-material"
 import GeneralButton from "./GeneralButton"
+import { useContext, useEffect, useState } from "react"
+import { MyContext } from "../generalContext/GeneralContext"
+import { GoldButton } from "./landing/GoldButton"
 
 const PriceCard = ({ header, options }) => {
+  const { $Buy, token } = useContext(MyContext)
+  const [product, setProduct] = useState("")
+
+  const handleBuy = async () => {
+    const { status, data } = await $Buy.buyMembership(token, product)
+
+    if (status) {
+      console.log(data)
+    } else {
+      console.log(data)
+    }
+  }
+
+  useEffect(() => {
+    if (header.title) {
+      if (header.title === "Plan 90") {
+        setProduct(1)
+      }
+      if (header.title === "Club del fondeo 2.0") {
+        setProduct(2)
+      }
+    }
+  }, [header.title])
   return (
     <Box
       sx={{
@@ -23,7 +49,6 @@ const PriceCard = ({ header, options }) => {
         border: "2px solid #23221c",
         flexShrink: 0
       }}>
-      {/* Sección Inicial */}
       <Box
         sx={{
           height: 170,
@@ -67,7 +92,7 @@ const PriceCard = ({ header, options }) => {
         </div>
 
         <div style={{ marginTop: 10 }}>
-          <GeneralButton>Comenzar</GeneralButton>
+          <GoldButton onClick={handleBuy}>Comenzar</GoldButton>
         </div>
       </Box>
 

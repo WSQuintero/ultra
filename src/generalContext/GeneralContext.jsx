@@ -4,6 +4,7 @@ import useSession from "../hooks/useSession"
 import AuthService from "../services/auth.service"
 import useAuth from "../hooks/useAuth"
 import LiveService from "../services/live.service"
+import BuyService from "../services/buy.service"
 
 const MyContext = createContext()
 
@@ -14,6 +15,7 @@ function GeneralContext({ children }) {
   const $Auth = useMemo(() => new AuthService(auth), [auth])
   const $Course = useMemo(() => new CourseService(), [])
   const $Live = useMemo(() => new LiveService(), [])
+  const $Buy = useMemo(() => new BuyService(), [])
 
   useEffect(() => {
     setActualUser(JSON.parse(localStorage.getItem("user")))
@@ -28,7 +30,8 @@ function GeneralContext({ children }) {
         token: $Auth.token,
         actualUser,
         setActualUser,
-        $Live
+        $Live,
+        $Buy
       }}>
       {children}
     </MyContext.Provider>

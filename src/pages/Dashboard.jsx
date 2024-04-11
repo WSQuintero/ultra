@@ -15,6 +15,7 @@ import { optionsPlan90, planFondeo } from "../components/constants/constants"
 import CountdownTimer from "../components/CountdownTimer"
 import SuscriptionList from "../components/SuscriptionList"
 import { MyContext } from "../generalContext/GeneralContext"
+import PriceCards from "../components/PriceCards"
 
 function Dashboard() {
   const [session] = useSession()
@@ -324,36 +325,7 @@ function Dashboard() {
           </Container>
           <SuscriptionList />
         </Box>
-        <Box
-          style={{
-            width: "80%",
-            display: "flex",
-            justifyContent: "center",
-            padding: 20,
-            flexWrap: "wrap",
-            gap: 20
-          }}>
-          <PriceCard
-            header={{
-              title: "Plan 90",
-              price: "$299 usd",
-              realPrice: "$3.100 usd",
-              description: "Todos los cursos ahora solo por",
-              discount: "90.35% Discount 🔥"
-            }}
-            options={optionsPlan90}
-          />
-          <PriceCard
-            header={{
-              title: "Club del fondeo 2.0",
-              price: "$300 usd",
-              realPrice: "$350/month",
-              description: "Todos los cursos ahora solo por",
-              discount: "16.67% Discount 🔥"
-            }}
-            options={planFondeo}
-          />
-        </Box>
+        <PriceCards />
       </Box>
     </PageWrapper>
   )
