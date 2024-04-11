@@ -5,6 +5,7 @@ import {
   Link as RouterLink,
   Navigate
 } from "react-router-dom"
+import "react-phone-input-2/lib/style.css"
 import PhoneField from "react-phone-input-2"
 
 import {
@@ -450,6 +451,7 @@ export default function Signup() {
                       )
                     }}
                   /> */}
+
                   <PhoneField
                     enableSearch={true}
                     value={user.cellphone}
