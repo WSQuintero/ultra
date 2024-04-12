@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import {
   useNavigate,
   useParams,
@@ -70,6 +70,21 @@ export default function Signup() {
   const [checked, setChecked] = useState(true)
   const $Auth = useMemo(() => new AuthService(), [])
 
+  const generateInvitationSlug = (firstName, lastName) => {
+    const firstNames = firstName.split(" ")
+    const firstLastName = lastName.split(" ")
+
+    const firstFirstName = firstNames[0]
+    const firstLastNameTwo = firstLastName[0]
+
+    const randomNumber = Math.floor(100000 + Math.random() * 900000)
+
+    return `${firstFirstName.toLowerCase()}-${firstLastNameTwo.toLowerCase()}-${randomNumber}`
+  }
+
+  useEffect(() => {
+    console.log(params?.slug)
+  }, [params?.slug])
   const handleChangeUser = (event) => {
     const { name, value } = event.target
     setUser((prev) => ({ ...prev, [name]: value }))
@@ -270,12 +285,15 @@ export default function Signup() {
               <Grid display="flex" flexDirection="column" gap={2}>
                 <Grid display="flex" flexDirection="column" gap={1}>
                   <InputLabel sx={{ color: "white" }}>
-                    Slug de invitación
+                    Tu Slug de invitación
                   </InputLabel>
                   <TextField
                     name="slugInvitation"
                     fullWidth
-                    defaultValue={user.slugInvitation}
+                    value={generateInvitationSlug(
+                      user.firstName,
+                      user.lastName
+                    )}
                     required
                     onChange={handleChangeUser}
                     InputProps={{
@@ -285,7 +303,39 @@ export default function Signup() {
                         </InputAdornment>
                       )
                     }}
+                    // Se establece el valor predeterminado utilizando la función generateInvitationSlug
+                    // Se pasa el nombre y apellido del usuario como argumentos a la función
+                    // Y se asigna el resultado como valor predeterminado del campo
+                    defaultValue={generateInvitationSlug(
+                      user.firstName,
+                      user.lastName
+                    )}
                   />
+                </Grid>
+                <Grid display="flex" flexDirection="column" gap={1}>
+                  {user?.slug && (
+                    <>
+                      <InputLabel sx={{ color: "white" }}>
+                        Slug de quien te invitó
+                      </InputLabel>
+                      <TextField
+                        name="slugInvitate"
+                        fullWidth
+                        defaultValue={user?.slug}
+                        required
+                        disabled
+                        onChange={handleChangeUser}
+                        sx={{ backgroundColor: "black" }}
+                        InputProps={{
+                          style: {
+                            backgroundColor: "black",
+                            border: "1px solid white",
+                            color: "white"
+                          }
+                        }}
+                      />
+                    </>
+                  )}
                 </Grid>
                 <Grid display="flex" flexDirection="column" gap={1}>
                   <TextField
