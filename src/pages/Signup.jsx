@@ -461,10 +461,11 @@ export default function Signup() {
                     inputStyle={{
                       width: "100%",
                       height: 50,
-                      padding: 10,
+                      padding: "10px",
                       backgroundColor: "black",
                       border: "1px solid white",
-                      color: "white"
+                      color: "white",
+                      paddingLeft: 70
                     }}
                     inputProps={{
                       name: "phone",

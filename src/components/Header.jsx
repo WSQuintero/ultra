@@ -1,11 +1,13 @@
 import { AppBar, Toolbar, Box, Avatar } from "@mui/material"
 import { useLocation, useNavigate } from "react-router"
 import SlugInvitation from "./SlugInvitation"
+import { MyContext } from "../generalContext/GeneralContext"
+import { useContext } from "react"
 
 function Header() {
   const location = useLocation()
   const navigate = useNavigate()
-
+  const { actualUser } = useContext(MyContext)
   return (
     <AppBar
       position="static"
@@ -13,12 +15,14 @@ function Header() {
         backgroundColor: "#ab8e3a",
         justifyCenter: "center",
         display:
+          !actualUser?.email ||
           location.pathname.includes("/signin") ||
           location.pathname.includes("/signup") ||
           location.pathname.includes("/forgot-password") ||
           location.pathname.includes("/landing") ||
           location.pathname.includes("/auth/validateEmail") ||
-          location.pathname.includes === "/"
+          location.pathname === "/" ||
+          location.pathname.includes("auth/")
             ? "none"
             : "flex"
       }}>

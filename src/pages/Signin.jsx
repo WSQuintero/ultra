@@ -110,7 +110,14 @@ export default function Signin() {
     const { status, data } = await $Auth.signin(newUser)
 
     if (status) {
-      console.log(data)
+      if (data.message === "Please validate your email first.") {
+        setAlert({
+          show: true,
+          message: "Por favor valida primero tu email",
+          status: "error"
+        })
+        return
+      }
       setActualUser(data.user)
       localStorage.setItem("user", JSON.stringify(data.user))
     }
@@ -413,7 +420,7 @@ export default function Signin() {
               </Grid>
 
               <Grid container alignItems="center">
-                <Grid item md={12} lg={6} textAlign="start">
+                <Grid item md={12} lg={12} textAlign="start">
                   <Link
                     to="/forgot-password"
                     component={RouterLink}
