@@ -129,6 +129,8 @@ const CoursesSection = () => {
     setUpdateState(!updateState)
     setOpenNewVideo(false)
   }
+  const maxHeight = window.innerHeight <= 720 ? 320 : 520
+
   return (
     <PageWrapper>
       {actualUser.membership_status === "Active" || actualUser.rol === 1 ? (
@@ -228,7 +230,12 @@ const CoursesSection = () => {
                         title="Video Player"
                         width="100%"
                         height="100%"
-                        style={{ maxHeight: "520px", marginTop: 10 }}
+                        style={{
+                          marginTop: 10,
+                          objectFit: "contain",
+                          objectPosition: "center",
+                          maxHeight: maxHeight
+                        }}
                         src={selectedVideo.url}
                         frameBorder="0"
                         allow="autoplay"

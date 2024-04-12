@@ -294,7 +294,7 @@ const PriceCard = ({ header, options }) => {
                   backdropFilter: "blur(8px)"
                 }}
                 sx={{
-                  width: "40%",
+                  width: "70%",
                   "& input:disabled": {
                     "-webkit-text-fill-color": "white",
                     color: "white !important"
@@ -303,7 +303,7 @@ const PriceCard = ({ header, options }) => {
                     border: "1px solid white !important"
                   }
                 }}
-                size="small"
+                size="large"
                 color="secondary"
                 value={wallet?.product_wallet_address}
                 disabled

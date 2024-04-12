@@ -16,6 +16,10 @@ import CountdownTimer from "../components/CountdownTimer"
 import SuscriptionList from "../components/SuscriptionList"
 import { MyContext } from "../generalContext/GeneralContext"
 import PriceCards from "../components/PriceCards"
+import PerformanceContainer from "../components/PerformanceContainer"
+import CommissionHistoryContainer from "../components/CommissionHistoryContainer"
+import CommissionContainer from "../components/CommissionContainer"
+import ExpiredMembership from "../components/ExpiredMembership"
 
 function Dashboard() {
   const [session] = useSession()
@@ -54,7 +58,7 @@ function Dashboard() {
   return (
     <PageWrapper expanded>
       {actualUser?.membership_status === "Active" || actualUser?.rol === 1 ? (
-        <>
+        <Box sx={{ maxheight: "100vh", overflow: "auto" }}>
           <Box
             sx={{
               paddingY: 5,
@@ -73,6 +77,51 @@ function Dashboard() {
               sx={{ width: "88%" }}>
               Hola! {actualUser?.firstname} 👋
             </Typography>
+            <Box
+              sx={{
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+                gap: 5
+              }}>
+              {actualUser.membership_status === "Expired" && (
+                <ExpiredMembership />
+              )}
+
+              <Box
+                sx={{ display: "flex", flexShrink: 0, gap: 1, width: "97%" }}>
+                <CommissionContainer
+                  icon="/f1.png"
+                  title="Período de comisión por pago en el plan de renovación"
+                  value={actualUser.months_pay_commission_plan_renovation}
+                />
+                <CommissionContainer
+                  icon="/f2.png"
+                  title="Próxima comisión por pago en el plan de renovación"
+                  value={actualUser.next_pay_commission_plan_renovation}
+                />
+                <CommissionContainer
+                  icon="/f3.png"
+                  title="Ganancias"
+                  value="Xcalper"
+                />
+              </Box>
+              <Box
+                sx={{ display: "flex", flexShrink: 0, gap: 1, width: "97%" }}>
+                <PerformanceContainer />
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexShrink: 0,
+                  gap: 1,
+                  width: "97%",
+                  marginTop: 5
+                }}>
+                <CommissionHistoryContainer />
+              </Box>
+            </Box>
+
             <Box
               sx={{
                 display: "flex",
@@ -272,7 +321,7 @@ function Dashboard() {
             </Box>
             <PriceCards />
           </Box>
-        </>
+        </Box>
       ) : (
         <>
           <PriceCards />

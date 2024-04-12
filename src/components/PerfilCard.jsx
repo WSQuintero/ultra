@@ -18,20 +18,14 @@ import UserInfo from "./UserInfo"
 const PerfilCard = () => {
   const { actualUser } = useContext(MyContext)
 
-  useEffect(() => {
-    console.log(actualUser)
-  }, [])
-
   return (
     <Box
       sx={{
-        maxWidth: 450,
         width: "100%",
-        overflow: "hidden",
+        overflow: "auto",
         borderRadius: 5,
         background: "#010714",
-        height: "auto",
-        maxHeight: "80vh",
+        height: "80vh",
         flexShrink: 0
       }}>
       {/* Sección Inicial */}
