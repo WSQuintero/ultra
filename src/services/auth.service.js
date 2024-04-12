@@ -15,7 +15,7 @@ export default class AuthService {
 
       return { status: true, data: data }
     } catch (error) {
-      return { status: false, data: "" }
+      return { status: false, data: error }
     }
   }
 

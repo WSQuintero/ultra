@@ -1,4 +1,3 @@
-import ReCAPTCHA from "react-google-recaptcha"
 import { useMemo, useState, useEffect, useRef } from "react"
 import {
   useNavigate,
@@ -96,19 +95,18 @@ export default function Signin() {
   const [user, setUser] = useState({ email: "", password: "" })
   const $Auth = useMemo(() => new AuthService(), [])
   const { setActualUser } = useContext(MyContext)
-  const reCaptchaRef = useRef()
 
   const handleChangeUser = (event) => {
     const { name, value } = event.target
     setUser((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = async (token) => {
-    let newUser = user
-
-    const { status, data } = await $Auth.signin(newUser)
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    const { status, data } = await $Auth.signin(user)
 
     if (status) {
+      console.log(data)
       if (data.message === "Please validate your email first.") {
         setAlert({
           show: true,
@@ -149,12 +147,6 @@ export default function Signin() {
       })
       return
     }
-  }
-
-  const handlePreSubmit = async (event) => {
-    event.preventDefault()
-
-    reCaptchaRef.current.execute()
   }
 
   const resetAlert = () => {
@@ -334,11 +326,7 @@ export default function Signin() {
               ¡Bienvenido! Por favor ingresa tus datos de inicio.
             </Typography>
           </Grid>
-          <Box
-            component="form"
-            width="100%"
-            onSubmit={handlePreSubmit}
-            noValidate>
+          <Box component="form" width="100%" onSubmit={handleSubmit} noValidate>
             <Grid display="flex" flexDirection="column" gap={2}>
               <Grid display="flex" flexDirection="column" gap={1}>
                 <InputLabel sx={{ color: "white" }}>Email</InputLabel>
@@ -432,14 +420,13 @@ export default function Signin() {
             <Button
               type="submit"
               variant="contained"
-              onClick={handleSubmit}
               size="large"
               sx={{ mt: 2, backgroundColor: "#ab8e3a", color: "black" }}
               fullWidth>
               Log in
             </Button>
-            {/*
-            <ReCAPTCHA
+
+            {/* <ReCAPTCHA
               style={{ display: "inline-block" }}
               theme="dark"
               size="invisible"
