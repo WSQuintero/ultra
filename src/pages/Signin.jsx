@@ -105,7 +105,6 @@ export default function Signin() {
 
   const handleSubmit = async (token) => {
     let newUser = user
-    newUser.Rtoken = token
 
     const { status, data } = await $Auth.signin(newUser)
 
@@ -433,12 +432,13 @@ export default function Signin() {
             <Button
               type="submit"
               variant="contained"
+              onClick={handleSubmit}
               size="large"
               sx={{ mt: 2, backgroundColor: "#ab8e3a", color: "black" }}
               fullWidth>
               Log in
             </Button>
-
+            {/*
             <ReCAPTCHA
               style={{ display: "inline-block" }}
               theme="dark"
@@ -448,7 +448,7 @@ export default function Signin() {
               }}
               ref={reCaptchaRef}
               sitekey={import.meta.env.VITE_RECAPCHA}
-            />
+            /> */}
           </Box>
           <Grid>
             <Typography>

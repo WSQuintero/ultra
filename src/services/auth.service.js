@@ -6,13 +6,11 @@ export default class AuthService {
     this.token = token
   }
 
-  async signin({ email, password, Rtoken, notRefreshToken }) {
+  async signin({ email, password }) {
     try {
       const { data } = await axios.post(`${this.API_URL}/users/login`, {
         email,
-        password,
-        Rtoken,
-        notRefreshToken
+        password
       })
 
       return { status: true, data: data }
