@@ -20,6 +20,16 @@ const Footer = () => {
   const xxlMatches = useMediaQuery(() => theme.breakpoints.up("xxl"))
   const mdMatches = useMediaQuery(() => theme.breakpoints.up("md"))
   const smMatches = useMediaQuery(() => theme.breakpoints.up("sm"))
+
+  const handleScrollToSection = (sectionId) => {
+    const section = document.getElementById(sectionId)
+    if (section) {
+      window.scrollTo({
+        top: section.offsetTop,
+        behavior: "smooth"
+      })
+    }
+  }
   return (
     <Box sx={{ backgroundColor: "rgba(23, 24, 28, 1)", width: "100%" }}>
       <Box
@@ -58,21 +68,33 @@ const Footer = () => {
               marginRight: xxlMatches && 250
             }}
           />
-          <Button variant="text" sx={{ color: "white", fontWeight: 200 }}>
-            Golden EA
+          <Button
+            variant="text"
+            sx={{ color: "white", fontWeight: 200 }}
+            onClick={() => handleScrollToSection("main-section")}>
+            Quienes somos
           </Button>
-          <Button variant="text" sx={{ color: "white", fontWeight: 200 }}>
-            Funding
+          <Button
+            variant="text"
+            sx={{ color: "white", fontWeight: 200 }}
+            onClick={() => handleScrollToSection("our-mission")}>
+            Servicio
           </Button>
-          <Button variant="text" sx={{ color: "white", fontWeight: 200 }}>
-            Program
+          <Button
+            variant="text"
+            sx={{ color: "white", fontWeight: 200 }}
+            onClick={() => handleScrollToSection("plans-princing")}>
+            Planes
           </Button>
-          <Button variant="text" sx={{ color: "white", fontWeight: 200 }}>
-            Marketplace
+          <Button
+            variant="text"
+            sx={{ color: "white", fontWeight: 200 }}
+            onClick={() => handleScrollToSection("contact")}>
+            MContacto
           </Button>
-          <Button variant="text" sx={{ color: "white", fontWeight: 200 }}>
+          {/* <Button variant="text" sx={{ color: "white", fontWeight: 200 }}>
             Ultra Cards
-          </Button>
+          </Button> */}
 
           {xxlMatches && <SocialMediaIcons />}
         </Box>
