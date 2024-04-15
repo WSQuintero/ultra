@@ -73,7 +73,7 @@ function Dashboard() {
 
   return (
     <PageWrapper expanded>
-      {actualUser?.membership_status === "Active" || actualUser?.rol === 1 ? (
+      {actualUser?.membership_status === "Active" || actualUser?.rol === 0 ? (
         <Box sx={{ maxheight: "100vh", overflow: "auto" }}>
           <Box
             sx={{

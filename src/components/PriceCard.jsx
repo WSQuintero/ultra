@@ -74,7 +74,7 @@ const PriceCard = ({ header, options }) => {
     <>
       <Box
         sx={{
-          maxWidth: 450,
+          maxWidth: 300,
           minWidth: 300,
           width: "100%",
           overflow: "hidden",
@@ -82,7 +82,7 @@ const PriceCard = ({ header, options }) => {
           background: "rgba(0, 0, 0, 0.1)",
           border: "2px solid #ab8e3a",
           flexShrink: 0,
-          maxHeight: "70vh"
+          height: "70vh"
         }}>
         <Box
           sx={{
@@ -93,8 +93,18 @@ const PriceCard = ({ header, options }) => {
             justifyContent: "center",
             padding: 2
           }}>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <Typography sx={{ color: "white" }}>{header?.title}</Typography>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              position: "relative"
+            }}>
+            {/* <Typography sx={{ color: "white" }}>{header?.title}</Typography> */}
+            <img
+              src={header?.urlImg}
+              alt={header.title}
+              style={{ width: "200px", height: "100px", objectFit: "contain" }}
+            />
             <div style={{ display: "flex", gap: 4 }}>
               <Typography sx={{ color: "white" }}>{header?.price}</Typography>
               {/* <Typography sx={{ textDecoration: "line-through" }}>
@@ -126,13 +136,13 @@ const PriceCard = ({ header, options }) => {
           </div>
 
           <div style={{ marginTop: 5 }}>
-            <GoldButton onClick={handleBuy}>Comenzar</GoldButton>
+            <GoldButton onClick={handleBuy}>Comprar</GoldButton>
           </div>
         </Box>
 
         <Box
           sx={{
-            padding: 2,
+            paddingBottom: 4,
             overflow: "auto",
             display: "flex",
             flexDirection: "column",
