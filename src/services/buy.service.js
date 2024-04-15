@@ -10,7 +10,7 @@ export default class BuyService {
     try {
       const { data } = await axios.post(
         `${this.API_URL}/subscription/buy`,
-        { idProduct },
+        { idProduct: String(idProduct) },
         {
           headers: {
             Authorization: token

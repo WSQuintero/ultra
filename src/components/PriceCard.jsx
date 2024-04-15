@@ -27,6 +27,7 @@ const PriceCard = ({ header, options }) => {
     setWallet("")
   }
   const handleBuy = async () => {
+    console.log(product)
     const { status, data } = await $Buy.buyMembership(token, product)
 
     if (status) {
@@ -41,10 +42,10 @@ const PriceCard = ({ header, options }) => {
   useEffect(() => {
     if (header.title) {
       if (header.title === "Plan 90") {
-        setProduct(1)
+        setProduct(4)
       }
       if (header.title === "Club del fondeo 2.0") {
-        setProduct(2)
+        setProduct(1)
       }
     }
   }, [header.title])
