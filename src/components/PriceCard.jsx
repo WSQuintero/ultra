@@ -79,8 +79,8 @@ const PriceCard = ({ header, options }) => {
           width: "100%",
           overflow: "hidden",
           borderRadius: 5,
-          background: "#010714",
-          border: "2px solid #23221c",
+          background: "rgba(0, 0, 0, 0.1)",
+          border: "2px solid #ab8e3a",
           flexShrink: 0,
           maxHeight: "80vh"
         }}>

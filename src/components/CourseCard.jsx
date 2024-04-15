@@ -1,5 +1,5 @@
-import { useState } from "react";
-import PropTypes from "prop-types";
+import { useState } from "react"
+import PropTypes from "prop-types"
 import {
   Card,
   CardActionArea,
@@ -7,9 +7,9 @@ import {
   CardMedia,
   Box,
   IconButton,
-  Typography,
-} from "@mui/material";
-import { MdOutlineDeleteOutline, MdOutlineEdit } from "react-icons/md";
+  Typography
+} from "@mui/material"
+import { MdOutlineDeleteOutline, MdOutlineEdit } from "react-icons/md"
 
 const iconContainerStyle = {
   display: "flex",
@@ -25,7 +25,7 @@ const iconContainerStyle = {
     boxShadow: "0 4px 8px #ab8e3a",
     transform: "scale(1.05)"
   }
-};
+}
 
 function CourseCard({
   duration,
@@ -36,37 +36,37 @@ function CourseCard({
   handleEdit,
   id
 }) {
-  const [isHover, setIsHover] = useState(false);
+  const [isHover, setIsHover] = useState(false)
 
   const handleDeleteCategory = (event) => {
-    event.stopPropagation();
-    handleDelete(id);
-  };
+    event.stopPropagation()
+    handleDelete(id)
+  }
 
   const handleHover = () => {
-    setIsHover(true);
-  };
+    setIsHover(true)
+  }
 
   const handleHoverOut = () => {
-    setIsHover(false);
-  };
+    setIsHover(false)
+  }
 
   const handleEditCategory = (event) => {
-    event.stopPropagation();
+    event.stopPropagation()
     handleEdit(title, id)
-
-  };
+  }
 
   return (
     <Card
       onMouseOver={handleHover}
       onMouseOut={handleHoverOut}
       sx={{
-        maxWidth: "350px",
+        maxWidth: "300px",
         width: "100%",
         minWidth: "200px",
-        maxHeight: "350px",
+        height: "300px",
         borderRadius: 7,
+        backgroundColor: "black",
         transition: "all 0.3s",
         "&:hover": {
           boxShadow: "0 4px 8px #ab8e3a",
@@ -74,8 +74,7 @@ function CourseCard({
         },
         border: "1px solid #ab8e3a",
         position: "relative"
-      }}
-    >
+      }}>
       <CardActionArea>
         <Box
           sx={{
@@ -84,8 +83,7 @@ function CourseCard({
             right: 0,
             display: "flex",
             flexDirection: "column"
-          }}
-        >
+          }}>
           <Box sx={iconContainerStyle}>
             <IconButton aria-label="delete" onClick={handleDeleteCategory}>
               <MdOutlineDeleteOutline color="white" />
@@ -103,20 +101,25 @@ function CourseCard({
           alt="Contemplative Reptile"
           image="/card-course.png"
           title="Contemplative Reptile"
+          sx={{ backgroundColor: "black", paddingBottom: 5, height: "100%" }}
         />
-        <CardContent sx={{ backgroundColor: "black", paddingBottom: 5 }}>
-          <div style={{ display: "flex", gap: "5px" }}>
+        <CardContent
+          sx={{ backgroundColor: "black", paddingBottom: 5, height: "100%" }}>
+          {/* <div style={{ display: "flex", gap: "5px" }}>
             <Box
               sx={{
                 backgroundColor: "rgba(255,255,255,0.4)",
                 padding: "5px",
                 paddingX: "10px",
                 borderRadius: 2
-              }}
-            >
+              }}>
               <Typography sx={{ color: "rgba(255,255,255,0.7)" }}>
                 <span>
-                  <img src="/clock.svg" alt="vector" style={{ width: "15px" }} />
+                  <img
+                    src="/clock.svg"
+                    alt="vector"
+                    style={{ width: "15px" }}
+                  />
                 </span>{" "}
                 {duration}
               </Typography>
@@ -130,29 +133,49 @@ function CourseCard({
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center"
-              }}
-            >
+              }}>
               <Typography sx={{ color: "rgba(255,255,255,0.7)" }}>
                 <span>
-                  <img src="/clock.svg" alt="vector" style={{ width: "15px" }} />
+                  <img
+                    src="/clock.svg"
+                    alt="vector"
+                    style={{ width: "15px" }}
+                  />
                 </span>{" "}
                 {videoCount}
               </Typography>
             </Box>
-          </div>
-          <Typography variant="h5" component="h2" marginLeft={1} marginTop={1} sx={{ color: "white" }}>
-            {title}
-          </Typography>
-          <div style={{ display: "flex", height: "10px", alignItems: "center", gap: "10px" }}>
-            <img src="/charge.png" alt="charge" style={{ marginLeft: "10px", width: "80%" }} />
+          </div> */}
+          <Box sx={{ height: "100%" }}>
+            <Typography
+              variant="h5"
+              component="h2"
+              marginLeft={1}
+              marginTop={1}
+              sx={{ color: "white", fontSize: 16, height: "100%" }}>
+              {title}
+            </Typography>
+            {/* <div
+            style={{
+              display: "flex",
+              height: "10px",
+              alignItems: "center",
+              gap: "10px"
+            }}>
+            <img
+              src="/charge.png"
+              alt="charge"
+              style={{ marginLeft: "10px", width: "80%" }}
+            />
             <span>
               <Typography>{progress}</Typography>
             </span>
-          </div>
+          </div> */}
+          </Box>
         </CardContent>
       </CardActionArea>
     </Card>
-  );
+  )
 }
 
 CourseCard.propTypes = {
@@ -162,7 +185,7 @@ CourseCard.propTypes = {
   progress: PropTypes.string.isRequired,
   handleDelete: PropTypes.func.isRequired,
   id: PropTypes.number.isRequired,
-  handleEdit: PropTypes.func.isRequired,
-};
+  handleEdit: PropTypes.func.isRequired
+}
 
-export default CourseCard;
+export default CourseCard

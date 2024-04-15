@@ -217,7 +217,7 @@ const CoursesSection = () => {
                       <Typography
                         variant="h2"
                         sx={{
-                          fontSize: 25,
+                          fontSize: 20,
                           color: "black",
                           textAlign: "center",
                           width: "100%"
@@ -276,8 +276,7 @@ const CoursesSection = () => {
                 }}>
                 <List
                   style={{
-                    maxHeight: "calc(100vh - 80px)",
-                    overflowY: "auto"
+                    maxHeight: "calc(100vh - 80px)"
                   }}>
                   {videos.map((video, index) => (
                     <ListItem
@@ -328,7 +327,7 @@ const CoursesSection = () => {
                             display: "flex",
                             height: "40px",
                             width: "85%",
-                            fontSize: 15,
+                            fontSize: 10,
                             padding: 1,
                             bottom: 0
                           }}>

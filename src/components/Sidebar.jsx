@@ -18,9 +18,12 @@ import {
   LogoutRounded as LogoutIcon
 } from "@mui/icons-material"
 import useAuth from "../hooks/useAuth"
+import { useContext } from "react"
+import { MyContext } from "../generalContext/GeneralContext"
 
 const Sidebar = () => {
   const [, , logout] = useAuth()
+  const { actualUser } = useContext(MyContext)
 
   const pages = [
     { icon: <DashboardIcon />, name: "Dashboard", route: "/dashboard" },
@@ -54,15 +57,6 @@ const Sidebar = () => {
     {
       icon: (
         <>
-          <img src="/request_quote.svg" alt="request_quote.svg" />
-        </>
-      ),
-      name: "Reportes",
-      route: "/report"
-    },
-    {
-      icon: (
-        <>
           <img src="/video-square.svg" alt="video-square.svg" />
         </>
       ),
@@ -70,6 +64,19 @@ const Sidebar = () => {
       route: "/ultralive"
     }
   ]
+
+  // Condición para omitir "Reportes" si actualUser.role es 0
+  if (actualUser.rol === 1) {
+    pages.splice(4, 0, {
+      icon: (
+        <>
+          <img src="/request_quote.svg" alt="request_quote.svg" />
+        </>
+      ),
+      name: "Reportes",
+      route: "/report"
+    })
+  }
 
   return (
     <Box

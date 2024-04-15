@@ -37,7 +37,7 @@ function SlugInvitation() {
             backdropFilter: "blur(8px)"
           }}
           sx={{
-            width: "40%",
+            width: "50%",
             "& input:disabled": {
               "-webkit-text-fill-color": "white",
               color: "white !important"

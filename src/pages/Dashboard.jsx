@@ -139,7 +139,7 @@ function Dashboard() {
                 gap: 5
               }}>
               {actualUser.membership_status === "Expired" &&
-                actualUser?.rol === 1 && (
+                actualUser?.rol === 0 && (
                   <ExpiredMembership setOpenPrices={setOpenPrices} />
                 )}
 
