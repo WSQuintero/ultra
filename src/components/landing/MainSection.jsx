@@ -70,7 +70,7 @@ const MainSection = () => {
             backgroundClip: "text",
             textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)" // Ajusta los valores de desplazamiento, difuminado y color según tu preferencia
           }}>
-          WELCOME TO ULTRA
+          BIENVENIDO A ULTRA
         </Typography>
         <Typography
           color={"white"}
@@ -88,7 +88,7 @@ const MainSection = () => {
             },
             textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)" // Ajusta los valores de desplazamiento, difuminado y color según tu preferencia
           }}>
-          Ready to Take Your Trading to The Next Level Without Additional Cost?
+          ¿Listo para llevar tu trading al siguiente nivel sin costo adicional?
         </Typography>
         <Typography
           variant="body1"

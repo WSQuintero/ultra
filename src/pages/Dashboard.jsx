@@ -148,7 +148,7 @@ function Dashboard() {
                 <CommissionContainer
                   icon="/f1.png"
                   title="Período de comisión por pago en el plan de renovación"
-                  value={actualUser.months_pay_commission_plan_renovation}
+                  value={actualUser.mess_pay_commission_plan_renovation}
                 />
                 <CommissionContainer
                   icon="/f2.png"

@@ -61,7 +61,7 @@ const PriceCard = ({ header, options }) => {
 
     // Obtener los componentes de la fecha
     const diaSemana = fecha.toLocaleDateString("es-ES", { weekday: "long" })
-    const mes = fecha.toLocaleDateString("es-ES", { month: "long" })
+    const mes = fecha.toLocaleDateString("es-ES", { mes: "long" })
     const dia = fecha.getDate()
     const ano = fecha.getFullYear()
 

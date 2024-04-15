@@ -18,15 +18,16 @@ const PricingSection = () => {
         fontSize={48}
         margin={"auto"}
         marginBottom={2}>
-        Pricing & Plans
+        Precios y Planes
       </BGTypography>
       <Typography
         color="#b6b5b4"
         fontSize={18}
         margin={"auto"}
         textAlign={"center"}>
-        Both a free trial and a free set of features for anyone who wants to{" "}
-        <br /> use them. The more orders your company
+        Tanto una prueba gratuita como un conjunto gratuito de funciones para
+        cualquiera que quiera usarlas.
+        <br /> Cuantas más órdenes realice tu empresa
       </Typography>
       <Box
         sx={{ overflowX: "auto", display: "flex" }}
@@ -128,7 +129,7 @@ const PlanCard = ({
             </>
           )} */}
           <BGTypography display="inline" component="span" fontSize={25}>
-            /month
+            /mes
           </BGTypography>
         </BGTypography>
         <Box
@@ -231,10 +232,10 @@ const plans = [
   {
     title: "Club del fondeo 2.0",
     imageSrc: "/Ultra_files/coins.png",
-    price: 300,
+    price: 399,
     originalPrice: "-",
     chipTitle: "Despues de 3 meses",
-    chipSubtitle: "Continuar con todos los beneficios por 29.9 mensuales",
+    chipSubtitle: "Continuar con todos los beneficios por 39.9 mensuales",
     benefits: [
       "Acceso por 90 días",
       "Curso de forex",

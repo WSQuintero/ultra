@@ -18,9 +18,9 @@ function PriceCards() {
         header={{
           title: "Plan 90",
           price: "$299 usd",
-          realPrice: "$3.100 usd",
+          realPrice: "$299 usd",
           description: "Todos los cursos ahora solo por",
-          discount: "90.35% Discount 🔥"
+          discount: "- Discount 🔥"
         }}
         options={optionsPlan90}
       />
@@ -28,9 +28,9 @@ function PriceCards() {
         header={{
           title: "Club del fondeo 2.0",
           price: "$399 usd",
-          realPrice: "$350/month",
+          realPrice: "$399/mes",
           description: "Todos los cursos ahora solo por",
-          discount: "16.67% Discount 🔥"
+          discount: "- 🔥"
         }}
         options={planFondeo}
       />

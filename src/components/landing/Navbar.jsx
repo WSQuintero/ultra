@@ -57,7 +57,7 @@ function Navbar() {
           <Button
             color="inherit"
             onClick={() => handleScrollToSection("contact")}>
-            CONTACT
+            CONTACTO
           </Button>
         </Box>
         {matches ? (
