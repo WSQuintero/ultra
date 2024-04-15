@@ -78,13 +78,13 @@ export default function Signup() {
     const firstLastNameTwo = firstLastName[0]
 
     const randomNumber = Math.floor(100000 + Math.random() * 900000)
-
-    return `${firstFirstName.toLowerCase()}-${firstLastNameTwo.toLowerCase()}-${randomNumber}`
+    setUser((prev) => ({
+      ...prev,
+      slugInvitation: `${firstFirstName.toLowerCase()}-${firstLastNameTwo.toLowerCase()}-${randomNumber}`
+    }))
+    // return
   }
 
-  useEffect(() => {
-    console.log(params?.slug)
-  }, [params?.slug])
   const handleChangeUser = (event) => {
     const { name, value } = event.target
     setUser((prev) => ({ ...prev, [name]: value }))
@@ -170,6 +170,11 @@ export default function Signup() {
     setAlert({ show: false, message: "", status: "success" })
   }
 
+  useEffect(() => {
+    if (user.firstName || user.lastName) {
+      generateInvitationSlug(user.firstName, user.lastName)
+    }
+  }, [user.firstName, user.lastName])
   return (
     <Grid container minHeight="100vh">
       <ContainerItem
@@ -270,11 +275,11 @@ export default function Signup() {
                 variant="h2"
                 textAlign="center"
                 sx={{ color: "white" }}>
-                Create account
+                Crear cuenta
               </Typography>
               <Typography textAlign="center">
-                Create a new account by completing the registration form with
-                your personal information.
+                Crea una nueva cuenta completando el formulario de registro con
+                tu información personal.
               </Typography>
             </Grid>
             <Box
@@ -290,12 +295,9 @@ export default function Signup() {
                   <TextField
                     name="slugInvitation"
                     fullWidth
-                    value={generateInvitationSlug(
-                      user.firstName,
-                      user.lastName
-                    )}
+                    value={user.slugInvitation}
                     required
-                    onChange={handleChangeUser}
+                    disabled
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
@@ -306,10 +308,6 @@ export default function Signup() {
                     // Se establece el valor predeterminado utilizando la función generateInvitationSlug
                     // Se pasa el nombre y apellido del usuario como argumentos a la función
                     // Y se asigna el resultado como valor predeterminado del campo
-                    defaultValue={generateInvitationSlug(
-                      user.firstName,
-                      user.lastName
-                    )}
                   />
                 </Grid>
                 <Grid display="flex" flexDirection="column" gap={1}>
