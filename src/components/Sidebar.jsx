@@ -103,9 +103,14 @@ const Sidebar = () => {
                 component={NavLink}
                 to={route}
                 sx={{
-                  "&.active": { color: "primary.main", bgcolor: "#ab8e3a" },
+                  "&.active": {
+                    color: "primary.main",
+                    background:
+                      "linear-gradient(140.75deg, #8F5F25 11.94%, #DBBB6F 61.03%, #8F5F25 113.42%)"
+                  },
                   "&:hover": {
-                    bgcolor: "#ab8e3a"
+                    background:
+                      "linear-gradient(140.75deg, #8F5F25 11.94%, #DBBB6F 61.03%, #8F5F25 113.42%)"
                   }
                 }}>
                 <ListItemIcon sx={{ color: "rgba(255, 255, 255, 0.7)" }}>

@@ -27,7 +27,7 @@ function PriceCards() {
       <PriceCard
         header={{
           title: "Club del fondeo 2.0",
-          price: "$300 usd",
+          price: "$399 usd",
           realPrice: "$350/month",
           description: "Todos los cursos ahora solo por",
           discount: "16.67% Discount 🔥"

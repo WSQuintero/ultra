@@ -12,7 +12,8 @@ function Header() {
     <AppBar
       position="static"
       sx={{
-        backgroundColor: "#ab8e3a",
+        background:
+          "linear-gradient(140.75deg, #8F5F25 11.94%, #DBBB6F 61.03%, #8F5F25 113.42%)",
         justifyCenter: "center",
         display:
           !actualUser?.email ||
@@ -37,11 +38,11 @@ function Header() {
         </Box>
         <SlugInvitation />
 
-        <Avatar
+        {/* <Avatar
           alt="Profile"
           src="/profile.webp"
           sx={{ width: 32, height: 32, ml: 2, cursor: "pointer" }}
-        />
+        /> */}
       </Toolbar>
     </AppBar>
   )

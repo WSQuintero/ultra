@@ -188,7 +188,7 @@ function Dashboard() {
               <Box sx={{ display: "flex", gap: 5 }}>
                 <GoldButton onClick={handleOrderCategory}>Ordenar</GoldButton>
                 <GoldButton onClick={handleCreateCategory}>
-                  Crear categoria
+                  Crear Categoría
                 </GoldButton>
               </Box>
             )}

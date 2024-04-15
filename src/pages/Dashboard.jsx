@@ -126,7 +126,7 @@ function Dashboard() {
                       <Typography>-</Typography>
                     </Box>
                   </Box>
-                  <GeneralButton>Pagar ahora</GeneralButton>
+                  <GoldButton>Pagar ahora</GoldButton>
                 </Box>
               </Box>
               <CountdownTimer />
