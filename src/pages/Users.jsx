@@ -26,7 +26,7 @@ function Dashboard() {
   const [newCategory, setNewCategory] = useState(0)
   const [textNewCategory, setTextNewCategory] = useState("")
   const [courses, setCourses] = useState([])
-  const [categoryName, setCategoryName] = useState("");
+  const [categoryName, setCategoryName] = useState("")
   const courseService = useMemo(() => new CourseService(token), [token]) // Instancia del servicio CourseService
   const handleCreateCategory = async (event) => {
     event.preventDefault()
@@ -117,12 +117,12 @@ function Dashboard() {
 
   const handleEditConfirmation = async () => {
     setEditModalOpen(false)
-    if (editCategoryId && categoryName) { 
+    if (editCategoryId && categoryName) {
       const { status, data } = await $Course.upsertCategory({
         token,
         id: editCategoryId,
         name: categoryName,
-        idRole: 1,
+        idRole: 1
       })
 
       if (status) {
@@ -131,17 +131,15 @@ function Dashboard() {
             if (course.id === editCategoryId) {
               return {
                 ...course,
-                title: categoryName 
-              };
+                title: categoryName
+              }
             }
-            return course;
+            return course
           })
         )
       }
     }
   }
-  
-  
 
   const handleDelete = (id) => {
     setDeleteModalOpen(true)
@@ -154,21 +152,19 @@ function Dashboard() {
   }
 
   const handleEdit = (name, id) => {
-    console.log(name)
-    console.log(id)
-
-    setEditModalOpen(true);
-    setEditCategoryId(id);
-    setCategoryName(name);
-  };
-
+    setEditModalOpen(true)
+    setEditCategoryId(id)
+    setCategoryName(name)
+  }
 
   const handleCancelEdit = () => {
-    setEditModalOpen(false);
-    setEditCategoryId(undefined);
-  };
-  
-  
+    setEditModalOpen(false)
+    setEditCategoryId(undefined)
+  }
+
+  const handleOrderCategory = () => {
+    setCourses((prev) => [...prev].reverse())
+  }
 
   return (
     <PageWrapper expanded>
@@ -187,9 +183,15 @@ function Dashboard() {
                 value={textNewCategory}
               />
             )}
-            <GoldButton onClick={handleCreateCategory}>
-              Crear categoria
-            </GoldButton>
+
+            {actualUser.rol === 1 && (
+              <Box sx={{ display: "flex", gap: 5 }}>
+                <GoldButton onClick={handleOrderCategory}>Ordenar</GoldButton>
+                <GoldButton onClick={handleCreateCategory}>
+                  Crear categoria
+                </GoldButton>
+              </Box>
+            )}
           </Box>
           <Box
             sx={{
@@ -244,7 +246,7 @@ function Dashboard() {
               "Ten presente que todos los videos asociados a esta ya no estarán disponibles."
             }
           />
-           <EditModal
+          <EditModal
             editModalOpen={editModalOpen}
             handleCancelEdit={handleCancelEdit}
             handleEditConfirmation={handleEditConfirmation}

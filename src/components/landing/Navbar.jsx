@@ -72,7 +72,7 @@ function Navbar() {
               variant="outlined"
               color="inherit"
               onClick={handleRegisterClick}>
-              REGISTER
+              REGISTRAR
             </Button>
           </Box>
         ) : (
