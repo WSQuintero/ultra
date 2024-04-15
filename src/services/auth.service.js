@@ -101,7 +101,7 @@ export default class AuthService {
 
   async validateAccount(token) {
     try {
-      const { data } = await axios.post(
+      const { data } = await axios.put(
         `${this.API_URL}/users/validateEmail`,
         {},
         {
