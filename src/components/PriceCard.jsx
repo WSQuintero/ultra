@@ -41,11 +41,14 @@ const PriceCard = ({ header, options }) => {
 
   useEffect(() => {
     if (header.title) {
-      if (header.title === "Plan 90") {
+      if (header.title === "PLAN90") {
         setProduct(4)
       }
-      if (header.title === "Club del fondeo 2.0") {
+      if (header.title === "CLUB DE FONDEO") {
         setProduct(1)
+      }
+      if (header.title === "PLAN DE FONDEO SINTETIC") {
+        setProduct(2)
       }
     }
   }, [header.title])
