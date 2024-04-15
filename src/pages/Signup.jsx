@@ -157,7 +157,7 @@ export default function Signup() {
       }
       setAlert({
         show: true,
-        message: "Registro exitoso",
+        message: "Registro exitoso, por favor valida tu correo electrónico.",
         status: "success"
       })
       setTimeout(() => {

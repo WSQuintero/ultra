@@ -225,7 +225,7 @@ const CoursesSection = () => {
                         {selectedVideo.title}
                       </Typography>
                     </Box>
-                    {selectedVideo.url ? (
+                    {selectedVideo?.url ? (
                       <iframe
                         title="Video Player"
                         width="100%"
@@ -236,7 +236,7 @@ const CoursesSection = () => {
                           objectPosition: "center",
                           maxHeight: maxHeight
                         }}
-                        src={selectedVideo.url}
+                        src={selectedVideo?.url}
                         frameBorder="0"
                         allow="autoplay"
                       />
