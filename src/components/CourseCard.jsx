@@ -7,7 +7,7 @@ import {
   CardMedia,
   Box,
   IconButton,
-  Typography
+  Typography,
 } from "@mui/material";
 import { MdOutlineDeleteOutline, MdOutlineEdit } from "react-icons/md";
 
@@ -33,6 +33,7 @@ function CourseCard({
   title,
   progress,
   handleDelete,
+  handleEdit,
   id
 }) {
   const [isHover, setIsHover] = useState(false);
@@ -50,9 +51,11 @@ function CourseCard({
     setIsHover(false);
   };
 
-  const handleEdit = () => {
-    alert('this is an editable element');
-  }
+  const handleEditCategory = (event) => {
+    event.stopPropagation();
+    handleEdit(title, id)
+
+  };
 
   return (
     <Card
@@ -89,8 +92,8 @@ function CourseCard({
             </IconButton>
           </Box>
           <Box sx={iconContainerStyle}>
-            <IconButton aria-label="edit">
-              <MdOutlineEdit color="white" onClick={handleEdit}/>
+            <IconButton aria-label="edit" onClick={handleEditCategory}>
+              <MdOutlineEdit color="white" />
             </IconButton>
           </Box>
         </Box>
@@ -158,7 +161,8 @@ CourseCard.propTypes = {
   title: PropTypes.string.isRequired,
   progress: PropTypes.string.isRequired,
   handleDelete: PropTypes.func.isRequired,
-  id: PropTypes.number.isRequired
+  id: PropTypes.number.isRequired,
+  handleEdit: PropTypes.func.isRequired,
 };
 
 export default CourseCard;
