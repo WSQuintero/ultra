@@ -8,8 +8,9 @@ function PriceCards() {
       style={{
         width: "100%",
         display: "flex",
-        justifyContent: "center",
-        padding: 20,
+        justifyContent: "space-around",
+        marginTop: 20,
+        marginBottom: 20,
         flexWrap: "wrap",
         gap: 20
       }}>

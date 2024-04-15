@@ -19,8 +19,9 @@ function UserInfo({ label, value, icon }) {
           color="textPrimary">
           {label}
         </Typography>
-
-        <IconButton color="inherit">{icon}</IconButton>
+        <IconButton color="inherit" sx={{ color: "white" }}>
+          {icon}
+        </IconButton>
       </Box>
       <Typography sx={{ fontSize: 20 }} color="textPrimary">
         {value}

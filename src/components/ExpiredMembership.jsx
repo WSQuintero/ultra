@@ -1,12 +1,12 @@
 import { Box, Typography } from "@mui/material"
 import { GoldButton } from "./landing/GoldButton"
 
-function ExpiredMembership() {
+function ExpiredMembership({ setOpenPrices }) {
   return (
     <Box
       sx={{
         backgroundColor: "#131006",
-        width: "97%",
+        width: "100%",
         height: "150px",
         borderRadius: 3,
         border: "1px solid #6e5c25",
@@ -34,7 +34,12 @@ function ExpiredMembership() {
             </Typography>
           </Box>
         </Box>
-        <GoldButton>Renovar</GoldButton>
+        <GoldButton
+          onClick={() => {
+            setOpenPrices(true)
+          }}>
+          Renovar
+        </GoldButton>
       </Box>
     </Box>
   )

@@ -4,10 +4,11 @@ function CommissionContainer({ icon, title, value }) {
   return (
     <Container
       sx={{
-        backgroundColor: "#010714",
+        backgroundColor: "rgba(0,0,0)",
         width: "400px",
         height: "250px",
-        borderRadius: 3
+        borderRadius: 3,
+        border: "1px solid #6e5c25"
       }}>
       <img
         src={icon}

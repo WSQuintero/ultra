@@ -1,6 +1,14 @@
 import { useEffect, useState, useMemo, useContext } from "react"
 import useAuth from "../hooks/useAuth"
-import { alpha, Box, Container, Grid, Typography, Button } from "@mui/material"
+import {
+  alpha,
+  Box,
+  Container,
+  Grid,
+  Typography,
+  Button,
+  Modal
+} from "@mui/material"
 
 import PageWrapper from "../components/PageWrapper"
 import useSession from "../hooks/useSession"
@@ -20,6 +28,7 @@ import PerformanceContainer from "../components/PerformanceContainer"
 import CommissionHistoryContainer from "../components/CommissionHistoryContainer"
 import CommissionContainer from "../components/CommissionContainer"
 import ExpiredMembership from "../components/ExpiredMembership"
+import { GoldButton } from "../components/landing/GoldButton"
 
 function Dashboard() {
   const [session] = useSession()
@@ -28,7 +37,7 @@ function Dashboard() {
   const $Subscription = useMemo(() => new SubscriptionService(auth), [auth])
   const { actualUser } = useContext(MyContext)
   const [, { setLoading }] = useConfig()
-
+  const [openPrices, setOpenPrices] = useState(false)
   useEffect(() => {
     setLoading(true)
     setTimeout(() => {
@@ -36,6 +45,13 @@ function Dashboard() {
     }, 500)
   }, [])
 
+  const handleOpen = () => {
+    setOpenPrices(true)
+  }
+
+  const handleClose = () => {
+    setOpenPrices(false)
+  }
   // useEffect(() => {
   //   if (
   //     session?.userSubscription.some(
@@ -61,7 +77,7 @@ function Dashboard() {
         <Box sx={{ maxheight: "100vh", overflow: "auto" }}>
           <Box
             sx={{
-              paddingY: 5,
+              padding: 5,
               height: "calc(100vh - 64px)",
               display: "flex",
               flexDirection: "column",
@@ -74,185 +90,13 @@ function Dashboard() {
               variant="h2"
               color="white"
               marginBottom={5}
-              sx={{ width: "88%" }}>
+              sx={{ width: "100%" }}>
               Hola! {actualUser?.firstname} 👋
             </Typography>
             <Box
               sx={{
-                width: "100%",
-                display: "flex",
-                flexDirection: "column",
-                gap: 5
-              }}>
-              {actualUser.membership_status === "Expired" && (
-                <ExpiredMembership />
-              )}
-
-              <Box
-                sx={{ display: "flex", flexShrink: 0, gap: 1, width: "97%" }}>
-                <CommissionContainer
-                  icon="/f1.png"
-                  title="Período de comisión por pago en el plan de renovación"
-                  value={actualUser.months_pay_commission_plan_renovation}
-                />
-                <CommissionContainer
-                  icon="/f2.png"
-                  title="Próxima comisión por pago en el plan de renovación"
-                  value={actualUser.next_pay_commission_plan_renovation}
-                />
-                <CommissionContainer
-                  icon="/f3.png"
-                  title="Ganancias"
-                  value="Xcalper"
-                />
-              </Box>
-              <Box
-                sx={{ display: "flex", flexShrink: 0, gap: 1, width: "97%" }}>
-                <PerformanceContainer />
-              </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexShrink: 0,
-                  gap: 1,
-                  width: "97%",
-                  marginTop: 5
-                }}>
-                <CommissionHistoryContainer />
-              </Box>
-            </Box>
-
-            <Box
-              sx={{
-                display: "flex",
-                flexShrink: 0,
-                gap: 1,
-                width: "88%",
-                paddingY: 5,
-                flexWrap: "wrap"
-              }}>
-              <Container
-                sx={{
-                  backgroundColor: "#010714",
-                  width: "400px",
-                  height: "250px",
-                  borderRadius: 3
-                }}>
-                <img
-                  src="/frame.png"
-                  alt="frame"
-                  style={{ marginTop: "25px", width: "50px" }}
-                />
-                <Typography sx={{ fontSize: 25, marginTop: 5, color: "white" }}>
-                  Comisiones totales
-                </Typography>
-                <Typography
-                  sx={{ fontSize: 40, color: "white", fontWeight: "bold" }}>
-                  ${actualUser.getTotalCommissions.totalCommissions}
-                </Typography>
-              </Container>
-              <Container
-                sx={{
-                  backgroundColor: "#010714",
-                  width: "400px",
-                  height: "250px",
-                  borderRadius: 3
-                }}>
-                <img
-                  src="/frametwo.png"
-                  alt="frametwo"
-                  style={{ marginTop: "25px", width: "50px" }}
-                />
-                <Typography sx={{ fontSize: 25, marginTop: 5, color: "white" }}>
-                  Total de pagos
-                </Typography>
-                <Typography
-                  sx={{ fontSize: 40, color: "white", fontWeight: "bold" }}>
-                  ${actualUser.getTotalCommissions.ultraPayed}
-                </Typography>
-              </Container>
-              <Container
-                sx={{
-                  backgroundColor: "#010714",
-                  width: "400px",
-                  height: "250px",
-                  borderRadius: 3
-                }}>
-                <img
-                  src="/frametwo.png"
-                  alt="frametwo"
-                  style={{ marginTop: "25px", width: "50px" }}
-                />
-                <Typography sx={{ fontSize: 25, marginTop: 5, color: "white" }}>
-                  Pagos pendientes
-                </Typography>
-                <Typography
-                  sx={{ fontSize: 40, color: "white", fontWeight: "bold" }}>
-                  ${actualUser.getTotalCommissions.ultraPending}
-                </Typography>
-              </Container>
-
-              <Container
-                sx={{
-                  backgroundColor: "#010714",
-                  maxWidth: "400px",
-                  width: "45%",
-                  height: "250px",
-                  borderRadius: 3,
-                  justifyContent: "center",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center"
-                }}>
-                <img
-                  src="/frametwo.png"
-                  alt="frametwo"
-                  style={{ marginTop: "25px", width: "50px", flexShrink: 0 }}
-                />
-                <Typography
-                  sx={{
-                    fontSize: 25,
-                    marginTop: 5,
-                    color: "white",
-                    flexShrink: 0
-                  }}>
-                  Total de afiliados
-                </Typography>
-                <Typography
-                  sx={{ fontSize: 40, color: "white", fontWeight: "bold" }}>
-                  {actualUser.getTotalDirectUsers}
-                </Typography>
-              </Container>
-              <Container
-                sx={{
-                  backgroundColor: "#010714",
-                  maxWidth: "300px",
-                  width: "45%",
-                  height: "250px",
-                  borderRadius: 3,
-                  justifyContent: "center",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center"
-                }}>
-                <img
-                  src="/frametwo.png"
-                  alt="frametwo"
-                  style={{ marginTop: "25px", width: "50px" }}
-                />
-                <Typography sx={{ fontSize: 25, marginTop: 5, color: "white" }}>
-                  Afiliados hoy
-                </Typography>
-                <Typography
-                  sx={{ fontSize: 40, color: "white", fontWeight: "bold" }}>
-                  {actualUser.getTotalDirectUsersToday}
-                </Typography>
-              </Container>
-            </Box>
-            <Box
-              sx={{
                 backgroundColor: "#131006",
-                width: "88%",
+                width: "100%",
                 height: "150px",
                 borderRadius: 3,
                 border: "1px solid #6e5c25",
@@ -289,6 +133,187 @@ function Dashboard() {
             </Box>
             <Box
               sx={{
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+                gap: 5
+              }}>
+              {actualUser.membership_status === "Expired" &&
+                actualUser?.rol === 1 && (
+                  <ExpiredMembership setOpenPrices={setOpenPrices} />
+                )}
+
+              <Box
+                sx={{ display: "flex", flexShrink: 0, gap: 1, width: "100%" }}>
+                <CommissionContainer
+                  icon="/f1.png"
+                  title="Período de comisión por pago en el plan de renovación"
+                  value={actualUser.months_pay_commission_plan_renovation}
+                />
+                <CommissionContainer
+                  icon="/f2.png"
+                  title="Próxima comisión por pago en el plan de renovación"
+                  value={actualUser.next_pay_commission_plan_renovation}
+                />
+                <CommissionContainer
+                  icon="/f3.png"
+                  title="Ganancias"
+                  value="Xcalper"
+                />
+              </Box>
+              {/* <Box
+                sx={{ display: "flex", flexShrink: 0, gap: 1, width: "97%" }}>
+                <PerformanceContainer />
+              </Box> */}
+              {/* <Box
+                sx={{
+                  display: "flex",
+                  flexShrink: 0,
+                  gap: 1,
+                  width: "97%",
+                  marginTop: 5
+                }}>
+                <CommissionHistoryContainer />
+              </Box> */}
+            </Box>
+
+            <Box
+              sx={{
+                display: "flex",
+                flexShrink: 0,
+                gap: 4,
+                width: "100%",
+                paddingY: 5,
+                flexWrap: "wrap",
+                justifyContent: "space-between",
+                alignItems: "center"
+              }}>
+              <Container
+                sx={{
+                  backgroundColor: "rgba(0,0,0)",
+                  width: "400px",
+                  height: "250px",
+                  borderRadius: 3,
+                  border: "1px solid #6e5c25"
+                }}>
+                <img
+                  src="/frame.png"
+                  alt="frame"
+                  style={{ marginTop: "25px", width: "50px" }}
+                />
+                <Typography sx={{ fontSize: 25, marginTop: 5, color: "white" }}>
+                  Comisiones totales
+                </Typography>
+                <Typography
+                  sx={{ fontSize: 40, color: "white", fontWeight: "bold" }}>
+                  ${actualUser.getTotalCommissions.totalCommissions}
+                </Typography>
+              </Container>
+              <Container
+                sx={{
+                  backgroundColor: "rgba(0,0,0)",
+                  width: "400px",
+                  height: "250px",
+                  borderRadius: 3,
+                  border: "1px solid #6e5c25"
+                }}>
+                <img
+                  src="/frametwo.png"
+                  alt="frametwo"
+                  style={{ marginTop: "25px", width: "50px" }}
+                />
+                <Typography sx={{ fontSize: 25, marginTop: 5, color: "white" }}>
+                  Total de pagos
+                </Typography>
+                <Typography
+                  sx={{ fontSize: 40, color: "white", fontWeight: "bold" }}>
+                  ${actualUser.getTotalCommissions.ultraPayed}
+                </Typography>
+              </Container>
+              <Container
+                sx={{
+                  backgroundColor: "rgba(0,0,0)",
+                  width: "400px",
+                  height: "250px",
+                  borderRadius: 3,
+                  border: "1px solid #6e5c25"
+                }}>
+                <img
+                  src="/frametwo.png"
+                  alt="frametwo"
+                  style={{ marginTop: "25px", width: "50px" }}
+                />
+                <Typography sx={{ fontSize: 25, marginTop: 5, color: "white" }}>
+                  Pagos pendientes
+                </Typography>
+                <Typography
+                  sx={{ fontSize: 40, color: "white", fontWeight: "bold" }}>
+                  ${actualUser.getTotalCommissions.ultraPending}
+                </Typography>
+              </Container>
+
+              <Container
+                sx={{
+                  backgroundColor: "rgba(0,0,0)",
+                  maxWidth: "400px",
+                  width: "45%",
+                  height: "250px",
+                  borderRadius: 3,
+                  justifyContent: "center",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  border: "1px solid #6e5c25"
+                }}>
+                <img
+                  src="/frametwo.png"
+                  alt="frametwo"
+                  style={{ marginTop: "25px", width: "50px", flexShrink: 0 }}
+                />
+                <Typography
+                  sx={{
+                    fontSize: 25,
+                    marginTop: 5,
+                    color: "white",
+                    flexShrink: 0
+                  }}>
+                  Total de afiliados
+                </Typography>
+                <Typography
+                  sx={{ fontSize: 40, color: "white", fontWeight: "bold" }}>
+                  {actualUser.getTotalDirectUsers}
+                </Typography>
+              </Container>
+              <Container
+                sx={{
+                  backgroundColor: "rgba(0,0,0)",
+                  maxWidth: "400px",
+                  width: "45%",
+                  height: "250px",
+                  borderRadius: 3,
+                  justifyContent: "center",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  border: "1px solid #6e5c25"
+                }}>
+                <img
+                  src="/frametwo.png"
+                  alt="frametwo"
+                  style={{ marginTop: "25px", width: "50px" }}
+                />
+                <Typography sx={{ fontSize: 25, marginTop: 5, color: "white" }}>
+                  Afiliados hoy
+                </Typography>
+                <Typography
+                  sx={{ fontSize: 40, color: "white", fontWeight: "bold" }}>
+                  {actualUser.getTotalDirectUsersToday}
+                </Typography>
+              </Container>
+            </Box>
+
+            {/* <Box
+              sx={{
                 backgroundColor: "#010714",
                 width: "88%",
                 height: 500,
@@ -307,19 +332,44 @@ function Dashboard() {
                   justifyContent: "space-between",
                   alignItems: "center"
                 }}>
-                <Box>
+                 <Box>
                   <Typography variant="h2" sx={{ color: "white" }}>
                     Lista de suscriptores
                   </Typography>
                   <Typography>Registro de la lista de suscripciones</Typography>
-                </Box>
+                </Box> *
                 <Box>
                   <GeneralButton>+ Buy More</GeneralButton>
                 </Box>
               </Container>
               <SuscriptionList />
-            </Box>
-            <PriceCards />
+            </Box> */}
+            <Modal
+              open={openPrices}
+              onClose={handleClose}
+              aria-labelledby="simple-modal-title"
+              aria-describedby="simple-modal-description">
+              <Box
+                sx={{
+                  width: "100%",
+                  height: "100vh",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center"
+                }}>
+                <Box sx={{ width: "80%" }}>
+                  <PriceCards />
+                </Box>
+                {/* Botón para cerrar el modal */}
+                <GoldButton
+                  variant="contained"
+                  color="secondary"
+                  onClick={handleClose}
+                  sx={{ mt: 2 }}>
+                  Cerrar
+                </GoldButton>
+              </Box>
+            </Modal>
           </Box>
         </Box>
       ) : (

@@ -79,13 +79,12 @@ const PriceCard = ({ header, options }) => {
           overflow: "hidden",
           borderRadius: 5,
           background: "#010714",
-          height: "auto",
           border: "2px solid #23221c",
           flexShrink: 0
         }}>
         <Box
           sx={{
-            height: 170,
+            maxHeight: 150,
             width: "100%",
             backgroundColor: "#13141a",
             backgroundSize: "cover",
@@ -109,7 +108,7 @@ const PriceCard = ({ header, options }) => {
               justifyContent: "space-between",
               alignItems: "center"
             }}>
-            <Typography sx={{ fontSize: 15 }}>{header?.description}</Typography>
+            <Typography sx={{ fontSize: 13 }}>{header?.description}</Typography>
             <div style={{ display: "flex", gap: 4, marginTop: "10px" }}>
               <Typography
                 sx={{
@@ -125,7 +124,7 @@ const PriceCard = ({ header, options }) => {
             </div>
           </div>
 
-          <div style={{ marginTop: 10 }}>
+          <div style={{ marginTop: 5 }}>
             <GoldButton onClick={handleBuy}>Comenzar</GoldButton>
           </div>
         </Box>
@@ -134,10 +133,10 @@ const PriceCard = ({ header, options }) => {
           sx={{
             padding: 2,
             overflow: "auto",
-            height: "100%",
             display: "flex",
             flexDirection: "column",
-            justifyContent: "start"
+            justifyContent: "start",
+            height: "400px"
           }}>
           {/* Sección 2 */}
           {options?.map((option, index) => (
@@ -153,15 +152,15 @@ const PriceCard = ({ header, options }) => {
                   alignItems: "center",
                   justifyContent: "space-between"
                 }}>
-                <Typography variant="body2" color="white" sx={{ fontSize: 20 }}>
+                <Typography variant="body2" color="white" sx={{ fontSize: 13 }}>
                   {option.title}
                 </Typography>
 
-                <Typography variant="body2" color="white" sx={{ fontSize: 20 }}>
+                <Typography variant="body2" color="white" sx={{ fontSize: 13 }}>
                   {option.price}
                 </Typography>
               </Box>
-              <Typography sx={{ fontSize: 15 }} color="textPrimary">
+              <Typography sx={{ fontSize: 10 }} color="textPrimary">
                 {option.subtitle}
               </Typography>
             </Box>
@@ -202,10 +201,10 @@ const PriceCard = ({ header, options }) => {
                 display: "flex",
                 gap: 10,
                 width: "100%",
-                marginTop: 5,
+                marginTop: 1,
                 justifyContent: "space-around"
               }}>
-              <Box sx={{ width: "50%" }}>
+              <Box sx={{ width: "60%" }}>
                 <Box
                   sx={{
                     textAlign: "Left",
@@ -241,27 +240,50 @@ const PriceCard = ({ header, options }) => {
                     width: "100%",
                     borderTop: "1px solid #ab8e3a",
                     borderBottom: "1px solid #ab8e3a",
-                    marginTop: 5,
+                    marginTop: 2,
                     padding: 1,
                     justifyContent: "space-between"
                   }}>
-                  <Box sx={{ padding: 1 }}>
-                    <Typography sx={{ color: "white" }}>Item</Typography>
-                    <Typography sx={{ color: "rgba(255,255,255,0.7)" }}>
-                      Suscripción:{" "}
-                      <span style={{ color: "#ab8e3a" }}>{header.title}</span>
+                  <Box
+                    sx={{
+                      padding: 1,
+                      width: "60%",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "start"
+                    }}>
+                    <Typography sx={{ color: "white" }}>Suscripción</Typography>
+                    <Typography
+                      sx={{
+                        color: "rgba(255,255,255,0.7)",
+                        width: "100%",
+                        textAlign: "start"
+                      }}>
+                      <span style={{ color: "#ab8e3a", fontSize: "13px" }}>
+                        {header.title}
+                      </span>
                     </Typography>
                   </Box>
                   <Box sx={{ padding: 1 }}>
-                    <Typography sx={{ color: "white" }}>
-                      Precio (USD)
+                    <Typography sx={{ color: "white", fontSize: "15px" }}>
+                      Precio (USDT)
                     </Typography>
-                    <Typography sx={{ color: "rgba(255,255,255,0.7)" }}>
-                      ${wallet?.amount_usdt}
+                    <Typography
+                      sx={{ color: "rgba(255,255,255,0.7)", fontSize: "12px" }}>
+                      ${wallet?.amount_usdt - 2}
+                    </Typography>
+                  </Box>
+                  <Box sx={{ padding: 1 }}>
+                    <Typography sx={{ color: "white", fontSize: "15px" }}>
+                      Comisión (USDT)
+                    </Typography>
+                    <Typography
+                      sx={{ color: "rgba(255,255,255,0.7)", fontSize: "12px" }}>
+                      $2
                     </Typography>
                   </Box>
                 </Box>
-                <Box sx={{ marginTop: 3 }}>
+                <Box sx={{ marginTop: 2 }}>
                   <Typography sx={{ color: "#ab8e3a" }}>
                     Total:
                     <span style={{ color: "white" }}>
@@ -271,7 +293,7 @@ const PriceCard = ({ header, options }) => {
                   </Typography>
                 </Box>
               </Box>
-              <Box sx={{ width: "50%" }}>
+              <Box sx={{ width: "40%" }}>
                 <WalletAddressQR address={wallet.product_wallet_address} />
               </Box>
             </Box>

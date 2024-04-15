@@ -24,9 +24,11 @@ const PerfilCard = () => {
         width: "100%",
         overflow: "auto",
         borderRadius: 5,
-        background: "#010714",
+        background: "rgba(0,0,0)",
+        border: "1px solid #ab8e3a",
         height: "80vh",
-        flexShrink: 0
+        flexShrink: 0,
+        padding: 1
       }}>
       {/* Sección Inicial */}
       <Box sx={{ width: "100%" }}>
@@ -34,7 +36,7 @@ const PerfilCard = () => {
           sx={{
             height: 130,
             width: "100%",
-            backgroundImage: "url(/perfil-color.png)",
+            backgroundColor: "#ab8e3a",
             backgroundSize: "cover",
             alignItems: "center",
             justifyContent: "center"
@@ -44,7 +46,7 @@ const PerfilCard = () => {
           sx={{
             height: 130,
             width: "100%",
-            backgroundColor: "#010720",
+            backgroundColor: "rgba(255,255,255,0.04)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
