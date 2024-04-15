@@ -7,6 +7,7 @@ export default class BuyService {
   }
 
   async buyMembership(token, idProduct) {
+    console.log(idProduct)
     try {
       const { data } = await axios.post(
         `${this.API_URL}/subscription/buy`,

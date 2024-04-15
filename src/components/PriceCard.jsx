@@ -85,7 +85,7 @@ const PriceCard = ({ header, options }) => {
         }}>
         <Box
           sx={{
-            maxHeight: 150,
+            maxHeight: window.innerHeight < 1600 ? 110 : 180,
             width: "100%",
             backgroundColor: "#13141a",
             backgroundSize: "cover",
