@@ -5,6 +5,7 @@ import { MyContext } from "../generalContext/GeneralContext"
 import CardLive from "../components/CardLive"
 import { Box, Container } from "@mui/material"
 import { GoldButton } from "../components/landing/GoldButton"
+import PriceCards from "../components/PriceCards"
 
 function Deposits() {
   const [id, setId] = useState(false)
@@ -48,26 +49,35 @@ function Deposits() {
           </GoldButton>
         )}
       </Box>
-      {/* {lives?.map((live) => ( */}
-      <Box
-        sx={{
-          width: "100%",
-          minHeight: "80%",
-          display: "flex",
-          justifyContent: "start",
-          alignItems: "start",
-          flexWrap: "wrap",
-          padding: 3
-        }}>
-        <CardLive
-          setEditMode={setEditMode}
-          setOpen={setOpen}
-          // img={img}
-          // description={description}
-          // title={title}
-        />
-      </Box>
-      {/* ))} */}
+
+      {actualUser?.membership_status === "Active" || actualUser?.rol === 1 ? (
+        <Box
+          sx={{
+            width: "100%",
+            minHeight: "80%",
+            display: "flex",
+            justifyContent: "start",
+            alignItems: "start",
+            flexWrap: "wrap",
+            padding: 3
+          }}>
+          {lives?.map((live) => (
+            <CardLive
+              key={live.id}
+              setEditMode={setEditMode}
+              setOpen={setOpen}
+              img={live.img}
+              description={live.description}
+              title={live.title}
+            />
+          ))}
+        </Box>
+      ) : (
+        <>
+          <PriceCards />
+        </>
+      )}
+
       <CreateUltraLive
         id={id}
         open={open}
