@@ -82,7 +82,7 @@ const PriceCard = ({ header, options }) => {
           background: "rgba(0, 0, 0, 0.1)",
           border: "2px solid #ab8e3a",
           flexShrink: 0,
-          maxHeight: "80vh"
+          maxHeight: "70vh"
         }}>
         <Box
           sx={{
