@@ -1,19 +1,23 @@
-import React from 'react';
-import { Box } from "@mui/material";
+import React from "react"
+import { Box } from "@mui/material"
 
 function Timer({ days, hours, minutes }) {
   const formatToTwoDigits = (value) => {
-    return value < 10 ? `0${value}` : value;
-  };
+    return value < 10 ? `0${value}` : value
+  }
 
-  const formattedDays = formatToTwoDigits(days);
-  const formattedHours = formatToTwoDigits(hours);
-  const formattedMinutes = formatToTwoDigits(minutes);
+  const formattedDays = formatToTwoDigits(days)
+  const formattedHours = formatToTwoDigits(hours)
+  const formattedMinutes = formatToTwoDigits(minutes)
 
-  const hoursFirstDigit = formattedHours < 10 ? formattedHours[0] : Math.floor(formattedHours / 10);
-  const hoursSecondDigit = formattedHours % 10;
-  const minutesFirstDigit = formattedMinutes < 10 ? formattedMinutes[0] : Math.floor(formattedMinutes / 10);
-  const minutesSecondDigit = formattedMinutes % 10;
+  const hoursFirstDigit =
+    formattedHours < 10 ? formattedHours[0] : Math.floor(formattedHours / 10)
+  const hoursSecondDigit = formattedHours % 10
+  const minutesFirstDigit =
+    formattedMinutes < 10
+      ? formattedMinutes[0]
+      : Math.floor(formattedMinutes / 10)
+  const minutesSecondDigit = formattedMinutes % 10
 
   return (
     <Box sx={{ display: "flex", gap: 5 }}>
@@ -39,7 +43,7 @@ function Timer({ days, hours, minutes }) {
         <p style={textAlignCenter}>MINUTES</p>
       </div>
     </Box>
-  );
+  )
 }
 
 const timerBoxStyle = {
@@ -57,7 +61,8 @@ const timerBoxStyle = {
 }
 
 const textAlignCenter = {
-  textAlign: "center"
+  textAlign: "center",
+  color: "white"
 }
 
-export default Timer;
+export default Timer

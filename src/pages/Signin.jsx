@@ -277,7 +277,7 @@ export default function Signin() {
               color: "white",
               fontSize: 25
             }}>
-            Welcome Back !
+            Bienvenido de nuevo !
           </Typography>
           <Typography
             sx={{
@@ -288,7 +288,7 @@ export default function Signin() {
               color: "white",
               fontSize: 15
             }}>
-            Watch your data grow from anywhere with remote analytics.{" "}
+            {" "}
           </Typography>
         </Box>
       </ContainerItem>

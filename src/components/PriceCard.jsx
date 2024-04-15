@@ -97,9 +97,9 @@ const PriceCard = ({ header, options }) => {
             <Typography sx={{ color: "white" }}>{header?.title}</Typography>
             <div style={{ display: "flex", gap: 4 }}>
               <Typography sx={{ color: "white" }}>{header?.price}</Typography>
-              <Typography sx={{ textDecoration: "line-through" }}>
+              {/* <Typography sx={{ textDecoration: "line-through" }}>
                 {header?.realPrice}
-              </Typography>
+              </Typography> */}
             </div>
           </div>
 

@@ -20,7 +20,7 @@ function PriceCards() {
           price: "$299 usd",
           realPrice: "$299 usd",
           description: "Todos los cursos ahora solo por",
-          discount: "- Discount 🔥"
+          discount: "-🔥"
         }}
         options={optionsPlan90}
       />

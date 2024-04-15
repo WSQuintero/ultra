@@ -117,16 +117,16 @@ function Dashboard() {
                     justifyConten: "center",
                     alignItems: "center"
                   }}>
-                  <Box display={"flex"} sx={{ gap: 2 }}>
+                  {/* <Box display={"flex"} sx={{ gap: 2 }}>
                     <Box>
                       <img src="/avatar.png" alt="avatar" />
                     </Box>
                     <Box>
-                      <Typography sx={{ color: "white" }}>Catalog</Typography>
+                      <Typography sx={{ color: "white" }}>Catalogo</Typography>
                       <Typography>-</Typography>
                     </Box>
-                  </Box>
-                  <GoldButton>Pagar ahora</GoldButton>
+                  </Box> */}
+                  {/* <GoldButton>Pagar ahora</GoldButton> */}
                 </Box>
               </Box>
               <CountdownTimer />
