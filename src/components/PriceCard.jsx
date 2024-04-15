@@ -81,11 +81,11 @@ const PriceCard = ({ header, options }) => {
           borderRadius: 5,
           background: "#010714",
           border: "2px solid #23221c",
-          flexShrink: 0
+          flexShrink: 0,
+          maxHeight: "80vh"
         }}>
         <Box
           sx={{
-            maxHeight: window.innerHeight < 1600 ? 110 : 180,
             width: "100%",
             backgroundColor: "#13141a",
             backgroundSize: "cover",
@@ -137,7 +137,7 @@ const PriceCard = ({ header, options }) => {
             display: "flex",
             flexDirection: "column",
             justifyContent: "start",
-            height: "400px"
+            height: "70%"
           }}>
           {/* Sección 2 */}
           {options?.map((option, index) => (

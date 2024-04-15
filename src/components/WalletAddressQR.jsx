@@ -7,7 +7,8 @@ function WalletAddressQR({ address }) {
       style={{
         border: "3px solid white",
         padding: "10px",
-        backgroundColor: "white"
+        backgroundColor: "white",
+        maxWidth: "280px"
       }}>
       <QRCode value={address} size={250} />
     </div>
