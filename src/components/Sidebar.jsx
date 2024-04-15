@@ -33,7 +33,7 @@ const Sidebar = () => {
           <img src="/teacher.svg" alt="teacher.svg" />
         </>
       ),
-      name: "Cursos",
+      name: "Productos",
       route: "/courses"
     },
     {
@@ -42,7 +42,7 @@ const Sidebar = () => {
           <img src="/insert_chart.svg" alt="insert_chart.svg" />
         </>
       ),
-      name: "Earnings",
+      name: "Ganancias",
       route: "/earnings"
     },
     {

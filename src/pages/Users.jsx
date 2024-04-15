@@ -205,7 +205,7 @@ function Dashboard() {
               color="white"
               marginBottom={5}
               sx={{ marginLeft: 10 }}>
-              Cursos
+              Productos
             </Typography>
             <Box
               sx={{

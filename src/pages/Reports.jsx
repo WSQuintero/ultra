@@ -170,7 +170,7 @@ function Reports() {
       </Grid> */}
 
       <Typography sx={{ fontSize: 50, textAlign: "center" }}>
-        Earnings
+        Ganancias
       </Typography>
     </PageWrapper>
   )
