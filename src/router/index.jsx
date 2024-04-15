@@ -58,7 +58,9 @@ function Router() {
     },
     {
       path: "/earnings",
-      element: <PrivateRoute component={Reports} meta={[META.REQUIRES_AUTH]} />
+      element: (
+        <PrivateRoute component={Withdrawals} meta={[META.REQUIRES_AUTH]} />
+      )
     },
     {
       path: "/profile",
@@ -72,9 +74,7 @@ function Router() {
     },
     {
       path: "/report",
-      element: (
-        <PrivateRoute component={Withdrawals} meta={[META.REQUIRES_AUTH]} />
-      )
+      element: <PrivateRoute component={Reports} meta={[META.REQUIRES_AUTH]} />
     },
     {
       path: "/ultralive",
