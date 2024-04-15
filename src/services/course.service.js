@@ -102,6 +102,28 @@ export default class CourseService {
       return { status: false, data: error }
     }
   }
+
+  async upsertCategory({ token, id, name, idRole}) {
+
+
+    try {
+      const { data } = await axios.put(
+        `${this.API_URL}/academy/category/${41}`,
+        { name, idRole },
+        {
+          headers: {
+            Authorization: token
+          }
+        }
+      );
+  
+      return { status: true, data: data };
+    } catch (error) {
+      return { status: false, data: error };
+    }
+  }
+  
+  
   async deleteCategory({ token, id }) {
     try {
       const response = await fetch(

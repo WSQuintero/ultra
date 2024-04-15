@@ -10,19 +10,24 @@ import { GoldButton } from "../components/landing/GoldButton"
 import CourseService from "../services/course.service"
 import ConfirmationModal from "../components/ConfirmationModal"
 import PriceCards from "../components/PriceCards"
+import EditModal from "../components/EditModal"
 
 function Dashboard() {
   const [open, setOpen] = useState(false)
   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
+  const [editModalOpen, setEditModalOpen] = useState(false)
+
   const [deleteCategoryId, setDeleteCategoryId] = useState(null)
+  const [editCategoryId, setEditCategoryId] = useState(false)
+
   const [, { setLoading }] = useConfig()
   const navigate = useNavigate()
   const { $Course, token, actualUser } = useContext(MyContext)
   const [newCategory, setNewCategory] = useState(0)
   const [textNewCategory, setTextNewCategory] = useState("")
   const [courses, setCourses] = useState([])
+  const [categoryName, setCategoryName] = useState("");
   const courseService = useMemo(() => new CourseService(token), [token]) // Instancia del servicio CourseService
-
   const handleCreateCategory = async (event) => {
     event.preventDefault()
     if (newCategory === 0) {
@@ -95,6 +100,7 @@ function Dashboard() {
   }
 
   const handleDeleteConfirmation = async () => {
+    console.log(deleteCategoryId)
     setDeleteModalOpen(false)
     if (deleteCategoryId) {
       const { status, data } = await $Course.deleteCategory({
@@ -109,6 +115,34 @@ function Dashboard() {
     }
   }
 
+  const handleEditConfirmation = async () => {
+    setEditModalOpen(false)
+    if (editCategoryId && categoryName) { 
+      const { status, data } = await $Course.upsertCategory({
+        token,
+        id: editCategoryId,
+        name: categoryName,
+        idRole: 1,
+      })
+
+      if (status) {
+        setCourses((prevCourses) =>
+          prevCourses.map((course) => {
+            if (course.id === editCategoryId) {
+              return {
+                ...course,
+                title: categoryName 
+              };
+            }
+            return course;
+          })
+        )
+      }
+    }
+  }
+  
+  
+
   const handleDelete = (id) => {
     setDeleteModalOpen(true)
     setDeleteCategoryId(id)
@@ -118,6 +152,23 @@ function Dashboard() {
     setDeleteModalOpen(false)
     setDeleteCategoryId(undefined)
   }
+
+  const handleEdit = (name, id) => {
+    console.log(name)
+    console.log(id)
+
+    setEditModalOpen(true);
+    setEditCategoryId(id);
+    setCategoryName(name);
+  };
+
+
+  const handleCancelEdit = () => {
+    setEditModalOpen(false);
+    setEditCategoryId(undefined);
+  };
+  
+  
 
   return (
     <PageWrapper expanded>
@@ -176,6 +227,7 @@ function Dashboard() {
                     title={course.title}
                     progress={course.progress}
                     handleDelete={handleDelete}
+                    handleEdit={handleEdit}
                     id={course.id}
                   />
                 </Box>
@@ -191,6 +243,14 @@ function Dashboard() {
             message={
               "Ten presente que todos los videos asociados a esta ya no estarán disponibles."
             }
+          />
+           <EditModal
+            editModalOpen={editModalOpen}
+            handleCancelEdit={handleCancelEdit}
+            handleEditConfirmation={handleEditConfirmation}
+            title={"Editar esta categoría"}
+            categoryName={categoryName}
+            setCategoryName={setCategoryName}
           />
         </>
       ) : (
