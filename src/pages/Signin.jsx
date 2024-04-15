@@ -115,8 +115,19 @@ export default function Signin() {
         })
         return
       }
-      setActualUser(data.user)
-      localStorage.setItem("user", JSON.stringify(data.user))
+      if (data.message === "Information provided is incorrect.") {
+        setAlert({
+          show: true,
+          message:
+            "Por favor verifica que tu usuario o contraseña sean correctos",
+          status: "error"
+        })
+        return
+      }
+      if (data?.user) {
+        setActualUser(data.user)
+        localStorage.setItem("user", JSON.stringify(data.user))
+      }
     }
     if (data.message) {
       setAlert({
