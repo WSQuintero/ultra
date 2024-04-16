@@ -93,9 +93,14 @@ function CreateCourse({ id, open, onClose, editMode, video }) {
     setFormData({
       ...initialState,
       title: video?.title,
-      url_resource: video?.url
+      url_resource: video?.url,
+      description: video?.description
     })
   }, [video])
+
+  const ruta = location.hash
+  const fragmento = ruta.split("#")[1]
+  const idProduct = ruta.split("#")[3]
   return (
     <>
       <Modal
@@ -173,9 +178,10 @@ function CreateCourse({ id, open, onClose, editMode, video }) {
               label="Producto"
               variant="outlined"
               fullWidth
-              value={formData.product}
+              value={idProduct}
               sx={{ borderRadius: 5, marginTop: 2 }}
               onChange={handleInputChange}
+              disabled
               InputLabelProps={{
                 style: {
                   color: "black",
@@ -188,7 +194,7 @@ function CreateCourse({ id, open, onClose, editMode, video }) {
               label="Categoría"
               variant="outlined"
               fullWidth
-              value={location?.hash?.split("#")[1]}
+              value={decodeURIComponent(fragmento).replace(/-/g, " ")}
               disabled
               sx={{ borderRadius: 5 }}
               // onChange={handleInputChange}

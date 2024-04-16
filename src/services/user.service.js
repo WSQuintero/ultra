@@ -1,27 +1,27 @@
-import axios from "axios";
+import axios from "axios"
 
 export default class UserService {
   constructor(token) {
-    this.token = token;
-    this.API_URL = `${import.meta.env.VITE_API_URL}`;
+    this.token = token
+    this.API_URL = `${import.meta.env.VITE_API_URL}`
   }
 
   async get({ id = null } = {}) {
     try {
       if (id) {
         const { data } = await axios.get(`${this.API_URL}/users/${id}`, {
-          headers: { Authorization: this.token },
-        });
-        return { status: true, data };
+          headers: { Authorization: this.token }
+        })
+        return { status: true, data }
       }
 
       const { data } = await axios.get(`${this.API_URL}/users`, {
-        headers: { Authorization: this.token },
-      });
+        headers: { Authorization: this.token }
+      })
 
-      return { status: true, data };
+      return { status: true, data }
     } catch (error) {
-      return { status: false, data: error };
+      return { status: false, data: error }
     }
   }
 
@@ -31,23 +31,23 @@ export default class UserService {
         `${this.API_URL}/users`,
         { firstName, lastName, phone },
         { headers: { Authorization: this.token } }
-      );
-      return { status: true, data };
+      )
+      return { status: true, data }
     } catch (error) {
-      return { status: false, data: error };
+      return { status: false, data: error }
     }
   }
-  
+
   async resendEmail({ idUser }) {
     try {
       const { data } = await axios.put(
         `${this.API_URL}/users/resendEmail`,
         { idUser },
         { headers: { Authorization: this.token } }
-      );
-      return { status: true, data };
+      )
+      return { status: true, data }
     } catch (error) {
-      return { status: false, data: error };
+      return { status: false, data: error }
     }
   }
 
@@ -57,10 +57,10 @@ export default class UserService {
         `${this.API_URL}/users/changeWallet`,
         { walletAddress, password },
         { headers: { Authorization: this.token } }
-      );
-      return { status: true, data };
+      )
+      return { status: true, data }
     } catch (error) {
-      return { status: false, data: error };
+      return { status: false, data: error }
     }
   }
 
@@ -70,10 +70,10 @@ export default class UserService {
         `${this.API_URL}/users/changePassAdmin`,
         { idUser, password, newPassword },
         { headers: { Authorization: this.token } }
-      );
-      return { status: true, data };
+      )
+      return { status: true, data }
     } catch (error) {
-      return { status: false, data: error };
+      return { status: false, data: error }
     }
   }
 
@@ -83,34 +83,31 @@ export default class UserService {
         `${this.API_URL}/users/changeParent`,
         { idUser, password, parent, email },
         { headers: { Authorization: this.token } }
-      );
-      return { status: true, data };
+      )
+      return { status: true, data }
     } catch (error) {
-      return { status: false, data: error };
+      return { status: false, data: error }
     }
   }
-  
+
   async changeAvatar({ avatar }) {
     try {
-      const formData = new FormData();
-      formData.append('image', avatar);
-
-      console.log('formData');
-      console.log(formData);
+      const formData = new FormData()
+      formData.append("image", avatar)
 
       const { data } = await axios.post(
         `${this.API_URL}/users/photoProfile`,
         formData,
-        { 
+        {
           headers: {
-            'Content-Type': 'multipart/form-data',
+            "Content-Type": "multipart/form-data",
             Authorization: this.token
-          } 
+          }
         }
-      );
-      return { status: true, data };
+      )
+      return { status: true, data }
     } catch (error) {
-      return { status: false, data: error };
+      return { status: false, data: error }
     }
   }
 
@@ -120,35 +117,34 @@ export default class UserService {
         `${this.API_URL}/users/withdrawal`,
         { amount, origin },
         { headers: { Authorization: this.token } }
-      );
-      return { status: true, data };
+      )
+      return { status: true, data }
     } catch (error) {
-      return { status: false, data: error };
+      return { status: false, data: error }
     }
   }
-  
+
   async reinvest({ amount, origin }) {
     try {
       const { data } = await axios.post(
         `${this.API_URL}/users/reinvest`,
         { amount, origin },
         { headers: { Authorization: this.token } }
-      );
-      return { status: true, data };
+      )
+      return { status: true, data }
     } catch (error) {
-      return { status: false, data: error };
+      return { status: false, data: error }
     }
   }
 
   async getWithdrawals() {
     try {
-      const { data } = await axios.get(
-        `${this.API_URL}/users/withdrawals`,
-        { headers: { Authorization: this.token } }
-      );
-      return { status: true, data };
+      const { data } = await axios.get(`${this.API_URL}/users/withdrawals`, {
+        headers: { Authorization: this.token }
+      })
+      return { status: true, data }
     } catch (error) {
-      return { status: false, data: error };
+      return { status: false, data: error }
     }
   }
 
@@ -157,10 +153,10 @@ export default class UserService {
       const { data } = await axios.get(
         `${this.API_URL}/users/withdrawals-all`,
         { headers: { Authorization: this.token } }
-      );
-      return { status: true, data };
+      )
+      return { status: true, data }
     } catch (error) {
-      return { status: false, data: error };
+      return { status: false, data: error }
     }
   }
 }

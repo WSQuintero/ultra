@@ -48,7 +48,6 @@ function VideoProducts() {
     if (newCategory === 1) {
       setTextNewCategory("")
       setNewCategory(0)
-      console.log("Here is it?")
 
       try {
         const { status, data } = await courseService.updateCategory({
@@ -111,7 +110,6 @@ function VideoProducts() {
   }
 
   const handleDeleteConfirmation = async () => {
-    console.log(deleteCategoryId)
     setDeleteModalOpen(false)
     if (deleteCategoryId) {
       const { status, data } = await $Course.deleteCategory({
@@ -182,7 +180,6 @@ function VideoProducts() {
       const { status, data } = await $Products.getProducts(token)
 
       if (status) {
-        console.log(data)
         setProducts(data)
       } else {
         console.log(data)

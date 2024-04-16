@@ -159,7 +159,6 @@ function ForgotPassword() {
 
   const handleSubmitVerifyOTP = (event, value) => {
     event.preventDefault()
-    console.log(value)
     navigate("/reset-password")
   }
 

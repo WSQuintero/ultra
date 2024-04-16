@@ -38,7 +38,8 @@ const CoursesSection = () => {
       id: 1,
       title: "",
       url: "",
-      thumbnail: ""
+      thumbnail: "",
+      description: ""
     }
   ])
 
@@ -60,7 +61,6 @@ const CoursesSection = () => {
   }
 
   useEffect(() => {
-    console.log(actualUser)
 
     const ruta = location.hash
     const category = ruta.split("#")[1]
@@ -76,7 +76,8 @@ const CoursesSection = () => {
             id: course.idResource,
             url: course.url_resource,
             title: course.title,
-            thumbnail: course.image
+            thumbnail: course.image,
+            description: course.description
           }))
         )
       } else {
@@ -290,9 +291,7 @@ const CoursesSection = () => {
                   {videos.map((video, index) => (
                     <ListItem
                       sx={{
-                        height: isMobile
-                          ? "calc(40vw * (9 / 16))"
-                          : "calc(20vw * (9 / 16))",
+                        height: "300px",
                         width: "97%",
                         padding: "20px",
                         fontSize: "1.2rem",

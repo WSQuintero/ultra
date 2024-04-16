@@ -108,7 +108,6 @@ export default function Signin() {
     const { status, data } = await $Auth.signin(user)
 
     if (status) {
-      console.log(data)
       if (data.message === "Please validate your email first.") {
         setAlert({
           show: true,
@@ -149,7 +148,6 @@ export default function Signin() {
       const { status, data } = await $Auth.validate()
 
       if (status) {
-        console.log(data)
         console.log(data)
       }
     } else {

@@ -4,7 +4,7 @@ import PageWrapper from "../components/PageWrapper"
 import useConfig from "../hooks/useConfig"
 import CourseCard from "../components/CourseCard"
 import CreateCourse from "../components/CreateCourse"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 import { MyContext } from "../generalContext/GeneralContext"
 import { GoldButton } from "../components/landing/GoldButton"
 import CourseService from "../services/course.service"
@@ -28,7 +28,9 @@ function Categories() {
   const [courses, setCourses] = useState([])
   const [categoryName, setCategoryName] = useState("")
   const [products, setProducts] = useState(null)
-  const courseService = useMemo(() => new CourseService(token), [token]) // Instancia del servicio CourseService
+  const courseService = useMemo(() => new CourseService(token), [token])
+  const productIdHash = useLocation()
+  const productId = productIdHash.hash.split("#")[1]
   const handleCreateCategory = async (event) => {
     event.preventDefault()
     if (newCategory === 0) {
@@ -38,7 +40,6 @@ function Categories() {
     if (newCategory === 1) {
       setTextNewCategory("")
       setNewCategory(0)
-      console.log("Here is it?")
 
       try {
         const { status, data } = await courseService.updateCategory({
@@ -78,7 +79,6 @@ function Categories() {
     const { status, data } = await $Course.getCategories(token)
 
     if (status) {
-      console.log(data)
       setCourses(
         data.data.map((item) => ({
           id: item.id,
@@ -100,7 +100,6 @@ function Categories() {
   }
 
   const handleDeleteConfirmation = async () => {
-    console.log(deleteCategoryId)
     setDeleteModalOpen(false)
     if (deleteCategoryId) {
       const { status, data } = await $Course.deleteCategory({
@@ -219,15 +218,16 @@ function Categories() {
                 <Box
                   onClick={(event) => {
                     event.stopPropagation()
-                    navigate(`/course/#${course.title}#${course.id}`)
+                    navigate(
+                      `/course/#${course.category.replace(/\s+/g, "-")}#${
+                        course.id
+                      }#${productId}`
+                    )
                   }}
                   key={index}>
                   <CourseCard
                     image="/card-course.png"
-                    duration={course.duration}
-                    videoCount={course.videoCount}
                     title={course.category}
-                    progress={course.progress}
                     handleDelete={handleDelete}
                     handleEdit={handleEdit}
                     id={course.id}

@@ -14,7 +14,6 @@ function PriceCards() {
       const { status, data } = await $Products.getProducts(token)
 
       if (status) {
-        console.log(data)
         setProducts(data)
       } else {
         console.log(data)
