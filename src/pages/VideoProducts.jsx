@@ -38,7 +38,8 @@ function VideoProducts() {
   const [courses, setCourses] = useState([])
   const [categoryName, setCategoryName] = useState("")
   const [products, setProducts] = useState(null)
-  const courseService = useMemo(() => new CourseService(token), [token]) // Instancia del servicio CourseService
+  const courseService = useMemo(() => new CourseService(token), [token])
+  const [hasProducts, setHasProducts] = useState(false)
   const handleCreateCategory = async (event) => {
     event.preventDefault()
     if (newCategory === 0) {
@@ -75,7 +76,7 @@ function VideoProducts() {
       }
     }
   }
-
+  const [openPrices, setOpenPrices] = useState(false)
   useEffect(() => {
     setLoading(true)
     setTimeout(() => {
@@ -189,13 +190,14 @@ function VideoProducts() {
     getPlans()
   }, [])
 
-  if (actualUser?.membership_status === "Active" && actualUser?.rol === 0) {
-    navigate("/categories")
-  }
-
+  useEffect(() => {
+    setHasProducts(actualUser.getProductActiveUser.length > 0)
+    console.log(actualUser)
+  }, [])
   return (
     <PageWrapper expanded>
-      {actualUser?.membership_status === "Active" || actualUser?.rol === 1 ? (
+      {actualUser?.membership_status === "Active" &&
+      actualUser.getProductActiveUser.length > 0 ? (
         <>
           <Box
             sx={{
@@ -219,7 +221,75 @@ function VideoProducts() {
                 paddingBottom: 10,
                 justifyContent: "center"
               }}>
-              {products?.map((product, index) => (
+              {products
+                ?.filter((pr) => {
+                  const activeProductIds = actualUser?.getProductActiveUser.map(
+                    (p) => p.id_product
+                  )
+                  return activeProductIds?.includes(pr.id) || pr.id === 5
+                })
+                .map((product, index) => (
+                  <Box
+                    sx={{ width: isMobile ? "100%" : "auto" }}
+                    onClick={(event) => {
+                      event.stopPropagation()
+                      navigate(`/categories/#${product.id}`)
+                    }}
+                    key={index}>
+                    <ProductCard
+                      image={product.image}
+                      name={product.name}
+                      handleEdit={handleEdit}
+                      id={product.id}
+                    />
+                  </Box>
+                ))}
+            </Box>
+          </Box>
+          <CreateCourse open={open} onClose={onClose} />
+          <ConfirmationModal
+            deleteModalOpen={deleteModalOpen}
+            handleCancelDelete={handleCancelDelete}
+            handleDeleteConfirmation={handleDeleteConfirmation}
+            title={"¿Estás seguro de eliminar esta categoría?"}
+            message={
+              "Ten presente que todos los videos asociados a esta ya no estarán disponibles."
+            }
+          />
+          <EditModal
+            editModalOpen={editModalOpen}
+            handleCancelEdit={handleCancelEdit}
+            handleEditConfirmation={handleEditConfirmation}
+            title={"Editar esta categoría"}
+            categoryName={categoryName}
+            setCategoryName={setCategoryName}
+          />
+        </>
+      ) : actualUser.role === 1 ? (
+        <>
+          <Box
+            sx={{
+              paddingY: 1,
+              width: "100%",
+              height: "90%",
+              overflow: "auto"
+            }}>
+            <Typography
+              variant="h2"
+              color="white"
+              marginBottom={5}
+              sx={{ marginLeft: 10 }}>
+              Academia
+            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 5,
+                paddingBottom: 10,
+                justifyContent: "center"
+              }}>
+              {products.map((product, index) => (
                 <Box
                   sx={{ width: isMobile ? "100%" : "auto" }}
                   onClick={(event) => {
@@ -257,9 +327,95 @@ function VideoProducts() {
           />
         </>
       ) : (
-        <Box sx={{ width: "100%", height: "500px" }}>
-          <PriceCards />
-        </Box>
+        <>
+          {openPrices ? (
+            <>
+              {" "}
+              <Box sx={{ width: "100%", height: "500px" }}>
+                <PriceCards />
+              </Box>
+            </>
+          ) : (
+            <>
+              <Box
+                sx={{
+                  paddingY: 1,
+                  width: "100%",
+                  height: "90%",
+                  overflow: "auto"
+                }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    width: "100%",
+                    justifyContent: "space-around",
+                    padding: 2,
+                    alignItems: "center"
+                  }}>
+                  <Typography
+                    variant="h2"
+                    color="white"
+                    marginBottom={5}
+                    sx={{ marginLeft: 10 }}>
+                    Academia
+                  </Typography>
+                  <Box sx={{ width: "10%", padding: 2 }}>
+                    <GoldButton onClick={() => setOpenPrices(true)}>
+                      Comprar
+                    </GoldButton>
+                  </Box>
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    gap: 5,
+                    paddingBottom: 10,
+                    justifyContent: "center"
+                  }}>
+                  {products
+                    ?.filter((pr) => {
+                      return pr.id === 5
+                    })
+                    .map((product, index) => (
+                      <Box
+                        sx={{ width: isMobile ? "100%" : "auto" }}
+                        onClick={(event) => {
+                          event.stopPropagation()
+                          navigate(`/categories/#${product.id}`)
+                        }}
+                        key={index}>
+                        <ProductCard
+                          image={product.image}
+                          name={product.name}
+                          handleEdit={handleEdit}
+                          id={product.id}
+                        />
+                      </Box>
+                    ))}
+                </Box>
+              </Box>
+              <CreateCourse open={open} onClose={onClose} />
+              <ConfirmationModal
+                deleteModalOpen={deleteModalOpen}
+                handleCancelDelete={handleCancelDelete}
+                handleDeleteConfirmation={handleDeleteConfirmation}
+                title={"¿Estás seguro de eliminar esta categoría?"}
+                message={
+                  "Ten presente que todos los videos asociados a esta ya no estarán disponibles."
+                }
+              />
+              <EditModal
+                editModalOpen={editModalOpen}
+                handleCancelEdit={handleCancelEdit}
+                handleEditConfirmation={handleEditConfirmation}
+                title={"Editar esta categoría"}
+                categoryName={categoryName}
+                setCategoryName={setCategoryName}
+              />
+            </>
+          )}
+        </>
       )}
     </PageWrapper>
   )

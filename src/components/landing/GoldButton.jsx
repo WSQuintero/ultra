@@ -14,5 +14,6 @@ export const GoldButton = styled(Button)({
     background: "#0062cc",
     borderColor: "#005cbf"
   },
-  textShadow: "1px 1px 1px rgba(0, 0, 0, 1)"
+  textShadow: "1px 1px 1px rgba(0, 0, 0, 1)",
+  flexShrink: 0
 })
