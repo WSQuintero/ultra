@@ -4,12 +4,13 @@ import { styled, useMediaQuery } from '@mui/system';
 import theme from '../../theme';
 
 const KeepUpdatedSection = () => {
+  const matches500 = useMediaQuery('(max-width:500px)');
   const xxlMatches = useMediaQuery(() => theme.breakpoints.up('xxl'));
   return (
     <Box
       id="contact"
       width="100%"
-      height="100vh"
+      height={"60vh"}
       display="flex"
       alignItems="center"
       justifyContent="center"
