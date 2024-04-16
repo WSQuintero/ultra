@@ -31,6 +31,7 @@ function CourseCard({
   duration,
   videoCount,
   title,
+  image,
   progress,
   handleDelete,
   handleEdit,
@@ -99,7 +100,7 @@ function CourseCard({
         <CardMedia
           component="img"
           alt="Contemplative Reptile"
-          image="/card-course.png"
+          image={(image||"/card-course.png")}
           title="Contemplative Reptile"
           sx={{ backgroundColor: "black", paddingBottom: 5, height: "100%" }}
         />

@@ -88,11 +88,26 @@ export default class CourseService {
       return { status: false, data: error }
     }
   }
-  async updateCategory({ token, name }) {
+
+  async createCategory(token, formdata) {
     try {
-      const { data } = await axios.post(
-        `${this.API_URL}/academy/category`,
-        { name },
+      const { data } = await axios.post(`${this.API_URL}/academy/category`, formdata, {
+        headers: {
+          Authorization: token
+        }
+      })
+
+      return { status: true, data: data }
+    } catch (error) {
+      return { status: false, data: error.response }
+    }
+  }
+
+  async updateCategory(token, id, formdata) {
+    try {
+      const { data } = await axios.put(
+        `${this.API_URL}/academy/category/${id}`,
+        formdata,
         {
           headers: {
             Authorization: token
@@ -102,7 +117,7 @@ export default class CourseService {
 
       return { status: true, data: data }
     } catch (error) {
-      return { status: false, data: error }
+      return { status: false, data: error.response }
     }
   }
 
