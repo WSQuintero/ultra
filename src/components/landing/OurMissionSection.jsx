@@ -10,7 +10,6 @@ const OurMissionSection = () => {
       id="our-mission"
       display="flex"
       padding={10}
-      marginTop={10}
       sx={{
         marginTop: {
           xs: '0',
@@ -57,8 +56,16 @@ const OurMissionSection = () => {
           sx={{
             fontFamily: 'Bricolage Grotesque, sans-serif',
             fontWeight: 600,
-            fontSize: '48px',
-            lineHeight: '57.6px',
+            fontSize: {
+              xs: '23px',
+              md: '30px',
+              lg: '48px'
+            },
+            lineHeight: {
+              xs: '35px',
+              md: '42px',
+              lg: '57.6px'
+            },
             color: 'white',
             marginBottom: '20px',
           }}
@@ -81,8 +88,14 @@ const OurMissionSection = () => {
             sx={{
               fontFamily: 'Inter, sans-serif',
               fontWeight: 400,
-              fontSize: '16px',
-              lineHeight: '28.8px',
+              fontSize: {
+                xs: '14px',
+                lg: '16px'
+              },
+              lineHeight: {
+                xs: '25px',
+                lg: '28.8px'
+              },
               color: 'white',
               marginBottom: '20px',
             }}
