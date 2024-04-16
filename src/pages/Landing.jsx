@@ -19,7 +19,7 @@ function Landing() {
       </div>
       <OurMissionSection />
       <OurServicesSection />
-      <PriceCards />
+      <PriceCards fromDashboard={true} />
       <KeepUpdatedSection />
       <Footer />
       <TelegramIcon />

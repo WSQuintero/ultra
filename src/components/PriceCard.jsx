@@ -15,7 +15,7 @@ import { GoldButton } from "./landing/GoldButton"
 import WalletAddressQR from "./WalletAddressQR"
 import { ContentCopyRounded as CopyIcon } from "@mui/icons-material"
 
-const PriceCard = ({ header, options }) => {
+const PriceCard = ({ header, options, fromDashboard = false }) => {
   const { $Buy, token, actualUser } = useContext(MyContext)
   const [product, setProduct] = useState("")
   const [wallet, setWallet] = useState("")
@@ -27,13 +27,17 @@ const PriceCard = ({ header, options }) => {
     setWallet("")
   }
   const handleBuy = async () => {
-    const { status, data } = await $Buy.buyMembership(token, product)
-
-    if (status) {
-      setWallet(data[0])
-      setOpen(true)
-    } else {
-      console.log(data)
+    if(!fromDashboard){
+      const { status, data } = await $Buy.buyMembership(token, product)
+  
+      if (status) {
+        setWallet(data[0])
+        setOpen(true)
+      } else {
+        console.log(data)
+      }
+    }else{
+      window.location.href = "/signin";
     }
   }
 
@@ -83,7 +87,7 @@ const PriceCard = ({ header, options }) => {
           background: "rgba(0, 0, 0, 0.1)",
           border: "2px solid #ab8e3a",
           flexShrink: 0,
-          height: "70vh"
+          height: "75vh"
         }}>
         <Box
           sx={{
@@ -148,7 +152,7 @@ const PriceCard = ({ header, options }) => {
             display: "flex",
             flexDirection: "column",
             justifyContent: "start",
-            height: "70%"
+            height: "80%"
           }}>
           {/* Sección 2 */}
           {options?.map((option, index) => (

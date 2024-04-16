@@ -3,7 +3,7 @@ import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 
-function ProductSlider({ products }) {
+function ProductSlider({ products, fromDashboard = false }) {
   const settings = {
     dots: true,
     infinite: true,
@@ -40,6 +40,7 @@ function ProductSlider({ products }) {
           <div key={product.id}>
             {product.name !== "EXCALPER" && (
               <PriceCard
+                fromDashboard={fromDashboard}
                 header={{
                   title: product.name,
                   price: `$${product.amount_usdt} USDT`,

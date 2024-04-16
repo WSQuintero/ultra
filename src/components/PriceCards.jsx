@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from "react"
 import { MyContext } from "../generalContext/GeneralContext"
 import ProductSlider from "./ProductSlider"
 
-function PriceCards() {
+function PriceCards({fromDashboard = false}) {
   const { $Products, token } = useContext(MyContext)
   const [products, setProducts] = useState(null)
 
@@ -30,12 +30,12 @@ function PriceCards() {
         marginTop: 10,
         marginBottom: 20
       }}>
-      <Typography
+      {!fromDashboard&&(<Typography
         variant="h5"
         gutterBottom
         sx={{ width: "100%", textAlign: "left", padding: 2, color: "white" }}>
         Para acceder a esta sección debes comprar una Membresía:
-      </Typography>
+      </Typography>)}
       {/* <Box
         style={{
           display: "flex",
@@ -69,7 +69,7 @@ function PriceCards() {
           options={planFondeo}
         />
       </Box> */}
-      <ProductSlider products={products} />
+      <ProductSlider products={products} fromDashboard={fromDashboard} />
     </Box>
   )
 }
