@@ -170,7 +170,7 @@ function Categories() {
 
   return (
     <PageWrapper expanded>
-      {actualUser?.membership_status === "Active" || actualUser?.rol === 1 ? (
+      {actualUser?.membership_status === "Expired" || actualUser?.rol === 1 ? (
         <>
           <Box
             sx={{
