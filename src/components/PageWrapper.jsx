@@ -2,10 +2,12 @@ import { useTheme } from "@emotion/react"
 import { Box, Container } from "@mui/material"
 import BackgroundImage from "../assets/img/common/city_background.png"
 import Sidebar from "./Sidebar"
+import { useContext } from "react"
+import { MyContext } from "../generalContext/GeneralContext"
 
 function PageWrapper({ sx = {}, expanded = false, empty = false, children }) {
   const theme = useTheme()
-
+  const { openSidebar } = useContext(MyContext)
   const containerExpanded = (
     <Box
       sx={{
@@ -16,16 +18,19 @@ function PageWrapper({ sx = {}, expanded = false, empty = false, children }) {
         overflow: "hidden",
         justifyContent: "space-evenly"
       }}>
-      <Box
-        sx={{
-          position: "relative",
-          zIndex: 0,
-          flex: 1,
-          backgroundColor: "black",
-          maxWidth: "20%"
-        }}>
-        <Sidebar />
-      </Box>
+      {openSidebar && (
+        <Box
+          sx={{
+            position: "relative",
+            zIndex: 0,
+            flex: 1,
+            backgroundColor: "black",
+            maxWidth: "20%"
+          }}>
+          <Sidebar />
+        </Box>
+      )}
+
       <Box
         sx={{
           position: "relative",

@@ -77,7 +77,7 @@ function ProductCard({
         position: "relative"
       }}>
       <CardActionArea sx={{ height: "100%" }}>
-        <Box
+        {/* <Box
           sx={{
             position: "absolute",
             top: 0,
@@ -96,7 +96,7 @@ function ProductCard({
               <MdOutlineEdit color="white" />
             </IconButton>
           </Box>
-        </Box>
+        </Box> */}
 
         <Box
           sx={{

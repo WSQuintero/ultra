@@ -3,11 +3,12 @@ import { useLocation, useNavigate } from "react-router"
 import SlugInvitation from "./SlugInvitation"
 import { MyContext } from "../generalContext/GeneralContext"
 import { useContext } from "react"
+import { IoMenu } from "react-icons/io5"
 
 function Header() {
   const location = useLocation()
   const navigate = useNavigate()
-  const { actualUser } = useContext(MyContext)
+  const { actualUser, openSidebar, setOpenSideBar } = useContext(MyContext)
   return (
     <AppBar
       position="static"
@@ -43,6 +44,11 @@ function Header() {
           src="/profile.webp"
           sx={{ width: 32, height: 32, ml: 2, cursor: "pointer" }}
         /> */}
+        <Box
+          onClick={() => setOpenSideBar(!openSidebar)}
+          sx={{ cursor: "pointer" }}>
+          <IoMenu size={40} />
+        </Box>
       </Toolbar>
     </AppBar>
   )

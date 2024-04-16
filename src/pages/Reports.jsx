@@ -14,7 +14,6 @@ function Reports() {
   const handlePayComissions = async () => {
     const { status, data } = await $Reports.payComissions(token)
     if (status) {
-      console.log(data)
       setAlert({
         show: true,
         message: "Pagos realizados correctamente",

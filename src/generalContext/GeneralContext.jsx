@@ -15,6 +15,8 @@ function GeneralContext({ children }) {
   const [auth, , logout] = useAuth()
   const [actualUser, setActualUser] = useState({})
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [openSidebar, setOpenSideBar] = useState(false)
+
   const $Auth = useMemo(() => new AuthService(auth), [auth])
   const $Course = useMemo(() => new CourseService(), [])
   const $Live = useMemo(() => new LiveService(), [])
@@ -32,6 +34,8 @@ function GeneralContext({ children }) {
       value={{
         isAuthenticated,
         setIsAuthenticated,
+        openSidebar,
+        setOpenSideBar,
         $Course,
         token: $Auth.token,
         actualUser,

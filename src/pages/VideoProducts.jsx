@@ -189,33 +189,14 @@ function VideoProducts() {
     getPlans()
   }, [])
 
+  if (actualUser?.membership_status === "Active" && actualUser?.rol === 0) {
+    navigate("/categories")
+  }
+
   return (
     <PageWrapper expanded>
       {actualUser?.membership_status === "Active" || actualUser?.rol === 1 ? (
         <>
-          {/* <Box
-            sx={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "end",
-              padding: 2
-            }}>
-            {newCategory === 1 && (
-              <TextField
-                onChange={(event) => setTextNewCategory(event.target.value)}
-                value={textNewCategory}
-              />
-            )}
-
-            {actualUser.rol === 1 && (
-              <Box sx={{ display: "flex", gap: 5 }}>
-                <GoldButton onClick={handleOrderCategory}>Ordenar</GoldButton>
-                <GoldButton onClick={handleCreateCategory}>
-                  Crear Categoría
-                </GoldButton>
-              </Box>
-            )}
-          </Box> */}
           <Box
             sx={{
               paddingY: 1,

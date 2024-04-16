@@ -61,7 +61,6 @@ const CoursesSection = () => {
   }
 
   useEffect(() => {
-
     const ruta = location.hash
     const category = ruta.split("#")[1]
     const categoryId = ruta.split("#")[2]
@@ -143,7 +142,7 @@ const CoursesSection = () => {
             sx={{
               backgroundColor: "black",
               width: "100%",
-              overflow: "scroll"
+              overflow: "auto"
             }}>
             <Grid
               container
@@ -161,7 +160,7 @@ const CoursesSection = () => {
                 item
                 sx={{
                   width: isMobile ? "100%" : "53vw",
-                  height: "calc(100vh - 130px)",
+                  height: "calc(100vh - 150px)",
                   maxHeight: "700px",
                   display: "flex",
                   flexDirection: "column",
@@ -172,6 +171,7 @@ const CoursesSection = () => {
 
                   overflow: "hidden",
                   marginTop: "10px",
+                  marginLeft: "10px",
                   position: "relative"
                 }}>
                 {selectedVideo && (
@@ -273,7 +273,7 @@ const CoursesSection = () => {
               <Grid
                 item
                 sx={{
-                  width: isMobile ? "100%" : "20vw",
+                  width: isMobile ? "100%" : "19vw",
                   backgroundColor: "black",
                   border: "1px solid #ab8e3a",
                   height: "calc(100vh - 130px)",
@@ -283,6 +283,10 @@ const CoursesSection = () => {
                 }}>
                 <List
                   style={{
+                    display: "flex",
+                    justifyContent: "start",
+                    flexDirection: "Column",
+                    alignItems: "center",
                     maxHeight: isMobile
                       ? "calc(100vh - 200px)"
                       : "calc(100vh - 80px)",
@@ -291,16 +295,16 @@ const CoursesSection = () => {
                   {videos.map((video, index) => (
                     <ListItem
                       sx={{
-                        height: "300px",
-                        width: "97%",
-                        padding: "20px",
+                        height: "200px",
+                        width: "200px",
+
                         fontSize: "1.2rem",
                         marginBottom: "10px",
                         borderRadius: "8px",
                         backgroundImage: `url(${
                           video.thumbnail || "/elseimg.png"
                         })`,
-                        backgroundSize: "cover",
+                        backgroundSize: "contain",
                         backgroundPosition: "center",
                         backgroundRepeat: "no-repeat",
                         color: "#fff",

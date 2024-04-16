@@ -214,26 +214,53 @@ function Categories() {
                 paddingBottom: 10,
                 justifyContent: "center"
               }}>
-              {courses.map((course, index) => (
-                <Box
-                  onClick={(event) => {
-                    event.stopPropagation()
-                    navigate(
-                      `/course/#${course.category.replace(/\s+/g, "-")}#${
-                        course.id
-                      }#${productId}`
-                    )
-                  }}
-                  key={index}>
-                  <CourseCard
-                    image="/card-course.png"
-                    title={course.category}
-                    handleDelete={handleDelete}
-                    handleEdit={handleEdit}
-                    id={course.id}
-                  />
-                </Box>
-              ))}
+              {actualUser.rol === 1 ? (
+                <>
+                  {courses.map((course, index) => (
+                    <Box
+                      onClick={(event) => {
+                        event.stopPropagation()
+                        navigate(
+                          `/course/#${course.category.replace(/\s+/g, "-")}#${
+                            course.id
+                          }#${productId}`
+                        )
+                      }}
+                      key={index}>
+                      <CourseCard
+                        image="/card-course.png"
+                        title={course.category}
+                        handleDelete={handleDelete}
+                        handleEdit={handleEdit}
+                        id={course.id}
+                      />
+                    </Box>
+                  ))}
+                </>
+              ) : (
+                <>
+                  {courses.map((course, index) => (
+                    <Box
+                      onClick={(event) => {
+                        event.stopPropagation()
+                        navigate(
+                          `/course/#${course.category.replace(/\s+/g, "-")}#${
+                            course.id
+                          }#${productId}`
+                        )
+                      }}
+                      key={index}>
+                      <CourseCard
+                        image="/card-course.png"
+                        title={course.category}
+                        handleDelete={handleDelete}
+                        handleEdit={handleEdit}
+                        id={course.id}
+                      />
+                    </Box>
+                  ))}
+                </>
+              )}
             </Box>
           </Box>
           <CreateCourse open={open} onClose={onClose} />

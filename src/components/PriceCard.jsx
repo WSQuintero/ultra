@@ -27,13 +27,11 @@ const PriceCard = ({ header, options }) => {
     setWallet("")
   }
   const handleBuy = async () => {
-    console.log(product)
     const { status, data } = await $Buy.buyMembership(token, product)
 
     if (status) {
       setWallet(data[0])
       setOpen(true)
-      console.log(data[0])
     } else {
       console.log(data)
     }
