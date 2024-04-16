@@ -138,24 +138,28 @@ const CoursesSection = () => {
       {actualUser.membership_status === "Active" || actualUser.rol === 1 ? (
         <>
           {" "}
-          <Box sx={{ backgroundColor: "black" }}>
+          <Box
+            sx={{
+              backgroundColor: "black",
+              width: "100%",
+              overflow: "scroll"
+            }}>
             <Grid
               container
               spacing={1}
-              width={"100%"}
               sx={{
                 position: "relative",
                 gap: 10,
                 justifyContent: "center",
                 alignItems: "center",
                 height: "calc(100vh - 120px)",
-                paddingTop: 3
+                paddingTop: 3,
+                width: "100%"
               }}>
               <Grid
                 item
-                xs={8}
                 sx={{
-                  width: "53vw",
+                  width: isMobile ? "100%" : "53vw",
                   height: "calc(100vh - 130px)",
                   maxHeight: "700px",
                   display: "flex",
@@ -268,7 +272,7 @@ const CoursesSection = () => {
               <Grid
                 item
                 sx={{
-                  width: "20vw",
+                  width: isMobile ? "100%" : "20vw",
                   backgroundColor: "black",
                   border: "1px solid #ab8e3a",
                   height: "calc(100vh - 130px)",

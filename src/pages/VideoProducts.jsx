@@ -1,5 +1,13 @@
 import { useEffect, useState, useMemo, useContext } from "react"
-import { Box, Typography, TextField, Modal, Button, Grid } from "@mui/material"
+import {
+  Box,
+  Typography,
+  TextField,
+  Modal,
+  Button,
+  Grid,
+  useMediaQuery
+} from "@mui/material"
 import PageWrapper from "../components/PageWrapper"
 import useConfig from "../hooks/useConfig"
 import CourseCard from "../components/CourseCard"
@@ -11,8 +19,9 @@ import CourseService from "../services/course.service"
 import ConfirmationModal from "../components/ConfirmationModal"
 import PriceCards from "../components/PriceCards"
 import EditModal from "../components/EditModal"
+import ProductCard from "../components/ProductCard"
 
-function Dashboard() {
+function VideoProducts() {
   const [open, setOpen] = useState(false)
   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
   const [editModalOpen, setEditModalOpen] = useState(false)
@@ -22,6 +31,7 @@ function Dashboard() {
 
   const [, { setLoading }] = useConfig()
   const navigate = useNavigate()
+  const isMobile = useMediaQuery("(max-width:600px)")
   const { $Course, token, actualUser, $Products } = useContext(MyContext)
   const [newCategory, setNewCategory] = useState(0)
   const [textNewCategory, setTextNewCategory] = useState("")
@@ -186,7 +196,7 @@ function Dashboard() {
     <PageWrapper expanded>
       {actualUser?.membership_status === "Active" || actualUser?.rol === 1 ? (
         <>
-          <Box
+          {/* <Box
             sx={{
               width: "100%",
               display: "flex",
@@ -208,7 +218,7 @@ function Dashboard() {
                 </GoldButton>
               </Box>
             )}
-          </Box>
+          </Box> */}
           <Box
             sx={{
               paddingY: 1,
@@ -231,22 +241,19 @@ function Dashboard() {
                 paddingBottom: 10,
                 justifyContent: "center"
               }}>
-              {courses.map((course, index) => (
+              {products?.map((product, index) => (
                 <Box
+                  sx={{ width: isMobile ? "100%" : "auto" }}
                   onClick={(event) => {
                     event.stopPropagation()
-                    navigate(`/course/#${course.title}#${course.id}`)
+                    navigate(`/categories/#${product.id}`)
                   }}
                   key={index}>
-                  <CourseCard
-                    image="/card-course.png"
-                    duration={course.duration}
-                    videoCount={course.videoCount}
-                    title={course.title}
-                    progress={course.progress}
-                    handleDelete={handleDelete}
+                  <ProductCard
+                    image={product.image}
+                    name={product.name}
                     handleEdit={handleEdit}
-                    id={course.id}
+                    id={product.id}
                   />
                 </Box>
               ))}
@@ -280,4 +287,4 @@ function Dashboard() {
   )
 }
 
-export default Dashboard
+export default VideoProducts

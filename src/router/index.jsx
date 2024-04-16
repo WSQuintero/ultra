@@ -3,7 +3,7 @@ import Signin from "../pages/Signin"
 import Signup from "../pages/Signup"
 import Dashboard from "../pages/Dashboard"
 import Network from "../pages/Network"
-import Users from "../pages/Users"
+import Users from "../pages/Categories"
 import Reports from "../pages/Reports"
 import Deposits from "../pages/Deposits"
 import Withdrawals from "../pages/Withdrawals"
@@ -16,6 +16,8 @@ import { useMemo } from "react"
 import Landing from "../pages/Landing"
 import ValidateEmail from "../pages/ValidateEmail"
 import CoursesSection from "../pages/CoursesSection"
+import VideoProducts from "../pages/VideoProducts"
+import Categories from "../pages/Categories"
 
 const META = {
   REQUIRES_AUTH: Symbol("REQUIRES_AUTH"),
@@ -54,7 +56,9 @@ function Router() {
     },
     {
       path: "/courses",
-      element: <PrivateRoute component={Users} meta={[META.REQUIRES_AUTH]} />
+      element: (
+        <PrivateRoute component={VideoProducts} meta={[META.REQUIRES_AUTH]} />
+      )
     },
     {
       path: "/earnings",
@@ -75,6 +79,12 @@ function Router() {
     {
       path: "/report",
       element: <PrivateRoute component={Reports} meta={[META.REQUIRES_AUTH]} />
+    },
+    {
+      path: "/categories",
+      element: (
+        <PrivateRoute component={Categories} meta={[META.REQUIRES_AUTH]} />
+      )
     },
     {
       path: "/ultralive",
