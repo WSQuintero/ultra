@@ -72,13 +72,16 @@ export default class CourseService {
       return { status: false, data: error.response }
     }
   }
-  async getCategories(token) {
+  async getCategories(token, id) {
     try {
-      const { data } = await axios.get(`${this.API_URL}/academy/categories`, {
-        headers: {
-          Authorization: token
+      const { data } = await axios.get(
+        `${this.API_URL}/academy/categories?product=${id}`,
+        {
+          headers: {
+            Authorization: token
+          }
         }
-      })
+      )
 
       return { status: true, data: data }
     } catch (error) {
@@ -103,9 +106,7 @@ export default class CourseService {
     }
   }
 
-  async upsertCategory({ token, id, name, idRole}) {
-
-
+  async upsertCategory({ token, id, name, idRole }) {
     try {
       const { data } = await axios.put(
         `${this.API_URL}/academy/category/${41}`,
@@ -115,15 +116,14 @@ export default class CourseService {
             Authorization: token
           }
         }
-      );
-  
-      return { status: true, data: data };
+      )
+
+      return { status: true, data: data }
     } catch (error) {
-      return { status: false, data: error };
+      return { status: false, data: error }
     }
   }
-  
-  
+
   async deleteCategory({ token, id }) {
     try {
       const response = await fetch(

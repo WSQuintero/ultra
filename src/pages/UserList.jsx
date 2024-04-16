@@ -7,13 +7,13 @@ import { Box } from "@mui/material"
 function UserList() {
   const { $Users, token } = useContext(MyContext)
   const [users, setUsers] = useState()
+  const [openNewRol, setOpenNewRol] = useState(false)
 
   useEffect(() => {
     const getUsers = async () => {
       const { status, data } = await $Users.get({ token })
 
       if (status) {
-        console.log(data)
         setUsers(data)
       } else {
         console.log(data)
@@ -21,12 +21,18 @@ function UserList() {
     }
 
     getUsers()
-  }, [])
+  }, [openNewRol])
 
   return (
     <PageWrapper>
       <Box sx={{ height: "60vh" }}>
-        {users?.length && <SuscriptionList users={users} />}
+        {users?.length && (
+          <SuscriptionList
+            users={users}
+            openNewRol={openNewRol}
+            setOpenNewRol={setOpenNewRol}
+          />
+        )}
       </Box>
     </PageWrapper>
   )

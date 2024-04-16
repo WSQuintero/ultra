@@ -2,22 +2,27 @@ import { useContext, useEffect, useMemo, useState } from "react"
 import { MaterialReactTable } from "material-react-table"
 import { MRT_Localization_ES } from "material-react-table/locales/es"
 import {
+  Alert,
   Box,
   Button,
   FormControl,
   InputLabel,
   MenuItem,
   Modal,
-  Select
+  Select,
+  Snackbar,
+  Typography
 } from "@mui/material"
 import { MyContext } from "../generalContext/GeneralContext"
+import { GoldButton } from "./landing/GoldButton"
 
-const SuscriptionList = ({ users }) => {
+const SuscriptionList = ({ users, openNewRol, setOpenNewRol }) => {
   const { $Users, token } = useContext(MyContext)
-  const [openNewRol, setOpenNewRol] = useState(false)
   const [selectedOption, setSelectedOption] = useState("")
   const [roles, setRoles] = useState(null)
   const [selectedUser, setSelectedUser] = useState(null)
+  const [alert, setAlert] = useState({ show: false, message: "" })
+
   const columns = useMemo(
     () => [
       {
@@ -50,7 +55,11 @@ const SuscriptionList = ({ users }) => {
         accessorKey: "email_validated",
         id: "email_validated",
         header: "Email validado?",
-        Cell: ({ value }) => (value === "0" ? "No" : "Si")
+        Cell: ({ row }) => (
+          <Typography>
+            {row.original.email_validated == !0 ? "Si" : "No"}
+          </Typography>
+        )
       },
 
       {
@@ -68,12 +77,12 @@ const SuscriptionList = ({ users }) => {
         id: "edit",
         header: "Editar role",
         Cell: ({ row }) => (
-          <Button
+          <GoldButton
             variant="contained"
             color="primary"
             onClick={() => handleEdit(row)}>
             Editar
-          </Button>
+          </GoldButton>
         )
       }
     ],
@@ -105,18 +114,24 @@ const SuscriptionList = ({ users }) => {
     }
     getRoles()
   }, [])
-  const options = ["Opción 1", "Opción 2", "Opción 3"] // Tus opciones
 
   const handleSend = async () => {
     const { status, data } = await $Users.updateUser({
-      user: selectedUser.id,
-      subrole: selectedOption
+      user: selectedUser.original.id,
+      subrole: selectedOption,
+      token
     })
 
     if (status) {
-      console.log(data)
+      setAlert({ show: true, message: "Rol actualizado correctamente" })
+      setOpenNewRol(false)
     } else {
-      console.log(data)
+      setOpenNewRol(false)
+      setAlert({
+        show: true,
+        message: "Error al actualizar el rol",
+        severity: "error"
+      })
     }
   }
 
@@ -154,7 +169,11 @@ const SuscriptionList = ({ users }) => {
             boxShadow: 24,
             p: 4
           }}>
-          <h2 id="modal-modal-title">Selecciona una opción</h2>
+          <h2
+            id="modal-modal-title"
+            style={{ color: "black", marginBottom: "30px" }}>
+            Selecciona una opción
+          </h2>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Opción</InputLabel>
             <Select
@@ -170,15 +189,25 @@ const SuscriptionList = ({ users }) => {
               ))}
             </Select>
           </FormControl>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleSend}
-            style={{ marginTop: "20px" }}>
-            Confirmar
-          </Button>
+          <Box sx={{ marginTop: 5 }}>
+            <GoldButton
+              variant="contained"
+              color="primary"
+              onClick={handleSend}>
+              Confirmar
+            </GoldButton>
+          </Box>
         </Box>
       </Modal>
+      <Snackbar
+        open={alert.show}
+        autoHideDuration={3000}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        onClose={() => setAlert({ show: false, message: "" })}>
+        <Alert severity="success" sx={{ width: "100%" }}>
+          {alert.message}
+        </Alert>
+      </Snackbar>
     </div>
   )
 }

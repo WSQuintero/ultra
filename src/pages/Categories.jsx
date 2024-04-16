@@ -76,7 +76,7 @@ function Categories() {
   }, [])
 
   const getCourses = async () => {
-    const { status, data } = await $Course.getCategories(token)
+    const { status, data } = await $Course.getCategories(token, productId)
 
     if (status) {
       setCourses(
