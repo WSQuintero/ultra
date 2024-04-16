@@ -294,8 +294,8 @@ const CoursesSection = () => {
                 {videos.map((video, index) => (
                   <ListItem
                     sx={{
-                      height: "200px",
-                      width: "200px",
+                      height: "300px",
+                      width: "300px",
 
                       fontSize: "1.2rem",
                       marginBottom: "10px",
@@ -303,11 +303,12 @@ const CoursesSection = () => {
                       backgroundImage: `url(${
                         video.thumbnail || "/elseimg.png"
                       })`,
-                      backgroundSize: "contain",
+                      backgroundSize: "cover",
                       backgroundPosition: "center",
                       backgroundRepeat: "no-repeat",
                       color: "#fff",
-                      position: "relative"
+                      position: "relative",
+                      flexShrink: 0
                     }}
                     button
                     key={video.id}

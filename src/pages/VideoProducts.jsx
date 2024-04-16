@@ -89,7 +89,7 @@ function VideoProducts() {
 
     if (status) {
       setCourses(
-        data.map((item) => ({
+        data?.map((item) => ({
           title: item.name,
           duration: "24 hours",
           videoCount: "8 videos",
@@ -137,7 +137,7 @@ function VideoProducts() {
 
       if (status) {
         setCourses((prevCourses) =>
-          prevCourses.map((course) => {
+          prevCourses?.map((course) => {
             if (course.id === editCategoryId) {
               return {
                 ...course,
@@ -197,7 +197,8 @@ function VideoProducts() {
   return (
     <PageWrapper expanded>
       {actualUser?.membership_status === "Active" &&
-      actualUser.getProductActiveUser.length > 0 ? (
+      actualUser.getProductActiveUser.length > 0 &&
+      actualUser.rol === 0 ? (
         <>
           <Box
             sx={{
@@ -223,9 +224,8 @@ function VideoProducts() {
               }}>
               {products
                 ?.filter((pr) => {
-                  const activeProductIds = actualUser?.getProductActiveUser.map(
-                    (p) => p.id_product
-                  )
+                  const activeProductIds =
+                    actualUser?.getProductActiveUser?.map((p) => p.id_product)
                   return activeProductIds?.includes(pr.id) || pr.id === 5
                 })
                 .map((product, index) => (
@@ -265,7 +265,7 @@ function VideoProducts() {
             setCategoryName={setCategoryName}
           />
         </>
-      ) : actualUser.role === 1 ? (
+      ) : actualUser.rol === 1 ? (
         <>
           <Box
             sx={{
@@ -289,7 +289,7 @@ function VideoProducts() {
                 paddingBottom: 10,
                 justifyContent: "center"
               }}>
-              {products.map((product, index) => (
+              {products?.map((product, index) => (
                 <Box
                   sx={{ width: isMobile ? "100%" : "auto" }}
                   onClick={(event) => {
