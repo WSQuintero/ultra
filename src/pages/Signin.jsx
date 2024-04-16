@@ -17,7 +17,8 @@ import {
   IconButton,
   Typography,
   InputAdornment,
-  Avatar
+  Avatar,
+  useMediaQuery
 } from "@mui/material"
 
 import styled from "@emotion/styled"
@@ -95,6 +96,7 @@ export default function Signin() {
   const [user, setUser] = useState({ email: "", password: "" })
   const $Auth = useMemo(() => new AuthService(), [])
   const { setActualUser } = useContext(MyContext)
+  const isMobile = useMediaQuery("(max-width:600px)")
 
   const handleChangeUser = (event) => {
     const { name, value } = event.target
@@ -305,7 +307,7 @@ export default function Signin() {
           justifyContent: "center",
           alignItems: "center",
           zIndex: 50,
-          width: "50%",
+          width: isMobile ? "100%" : "50%",
           backgroundColor: "rgba(255,255,255,0.05)",
           position: "relative"
         }}>
@@ -316,7 +318,6 @@ export default function Signin() {
           alignItems="center"
           justifyContent="center"
           gap={3}
-          maxWidth={550}
           marginX="auto"
           sx={{
             justifyContent: "center",

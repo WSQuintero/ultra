@@ -22,11 +22,12 @@ function Dashboard() {
 
   const [, { setLoading }] = useConfig()
   const navigate = useNavigate()
-  const { $Course, token, actualUser } = useContext(MyContext)
+  const { $Course, token, actualUser, $Products } = useContext(MyContext)
   const [newCategory, setNewCategory] = useState(0)
   const [textNewCategory, setTextNewCategory] = useState("")
   const [courses, setCourses] = useState([])
   const [categoryName, setCategoryName] = useState("")
+  const [products, setProducts] = useState(null)
   const courseService = useMemo(() => new CourseService(token), [token]) // Instancia del servicio CourseService
   const handleCreateCategory = async (event) => {
     event.preventDefault()
@@ -166,6 +167,21 @@ function Dashboard() {
     setCourses((prev) => [...prev].reverse())
   }
 
+  useEffect(() => {
+    const getPlans = async () => {
+      const { status, data } = await $Products.getProducts(token)
+
+      if (status) {
+        console.log(data)
+        setProducts(data)
+      } else {
+        console.log(data)
+      }
+    }
+
+    getPlans()
+  }, [])
+
   return (
     <PageWrapper expanded>
       {actualUser?.membership_status === "Active" || actualUser?.rol === 1 ? (
@@ -205,7 +221,7 @@ function Dashboard() {
               color="white"
               marginBottom={5}
               sx={{ marginLeft: 10 }}>
-              Productos
+              Academia
             </Typography>
             <Box
               sx={{

@@ -1,10 +1,11 @@
 import React from "react"
-import { Box } from "@mui/material"
+import { Box, useMediaQuery } from "@mui/material"
 
 function Timer({ days, hours, minutes }) {
   const formatToTwoDigits = (value) => {
     return value < 10 ? `0${value}` : value
   }
+  const isMobile = useMediaQuery("(max-width:600px)")
 
   const formattedDays = formatToTwoDigits(days)
   const formattedHours = formatToTwoDigits(hours)
@@ -20,7 +21,12 @@ function Timer({ days, hours, minutes }) {
   const minutesSecondDigit = formattedMinutes % 10
 
   return (
-    <Box sx={{ display: "flex", gap: 5 }}>
+    <Box
+      sx={{
+        display: "flex",
+        gap: 5,
+        flexDirection: isMobile ? "column" : "row" // Cambia a column en móvil
+      }}>
       <div>
         <div style={{ display: "flex", gap: "5px" }}>
           <div style={timerBoxStyle}>{formattedDays[0]}</div>

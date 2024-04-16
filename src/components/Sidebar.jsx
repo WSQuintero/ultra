@@ -33,7 +33,7 @@ const Sidebar = () => {
           <img src="/teacher.svg" alt="teacher.svg" />
         </>
       ),
-      name: "Productos",
+      name: "Academia",
       route: "/courses"
     },
     {
@@ -133,7 +133,10 @@ const Sidebar = () => {
                 fontSize: "14px"
               }}
               startIcon={<LogoutIcon style={{ color: "red" }} />}>
-              Logout
+              <span
+                style={{ display: window.innerWidth <= 440 ? "none" : "flex" }}>
+                Logout
+              </span>
             </Button>
           </ListItem>
         </List>

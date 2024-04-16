@@ -7,7 +7,8 @@ import {
   Grid,
   Typography,
   Button,
-  Modal
+  Modal,
+  useMediaQuery
 } from "@mui/material"
 
 import PageWrapper from "../components/PageWrapper"
@@ -37,6 +38,8 @@ function Dashboard() {
   const $Subscription = useMemo(() => new SubscriptionService(auth), [auth])
   const { actualUser } = useContext(MyContext)
   const [, { setLoading }] = useConfig()
+  const isMobile = useMediaQuery("(max-width:600px)")
+
   const [openPrices, setOpenPrices] = useState(false)
   useEffect(() => {
     setLoading(true)
@@ -73,7 +76,7 @@ function Dashboard() {
 
   return (
     <PageWrapper expanded>
-      {actualUser?.membership_status === "Active" || actualUser?.rol === 0 ? (
+      {actualUser?.membership_status === "Active" || actualUser?.rol === 1 ? (
         <Box sx={{ maxheight: "100vh", overflow: "auto" }}>
           <Box
             sx={{
@@ -97,13 +100,14 @@ function Dashboard() {
               sx={{
                 backgroundColor: "#131006",
                 width: "100%",
-                height: "150px",
+                minHeight: "150px",
                 borderRadius: 3,
                 border: "1px solid #6e5c25",
                 display: "flex",
                 justifyContent: "space-around",
                 alignItems: "center",
-                flexShrink: 0
+                flexShrink: 0,
+                flexWrap: "wrap"
               }}>
               <Box sx={{ padding: 4 }}>
                 <Typography sx={{ fontSize: 20, color: "white" }}>
@@ -135,7 +139,7 @@ function Dashboard() {
               sx={{
                 width: "100%",
                 display: "flex",
-                flexDirection: "column",
+                flexDirection: isMobile ? "column" : "row", // Cambia a column en móvil
                 gap: 5
               }}>
               {actualUser.membership_status === "Expired" &&
@@ -144,7 +148,13 @@ function Dashboard() {
                 )}
 
               <Box
-                sx={{ display: "flex", flexShrink: 0, gap: 1, width: "100%" }}>
+                sx={{
+                  display: "flex",
+                  flexShrink: 0,
+                  gap: 1,
+                  width: "100%",
+                  flexDirection: isMobile ? "column" : "row"
+                }}>
                 <CommissionContainer
                   icon="/f1.png"
                   title="Período de comisión por pago en el plan de renovación"
@@ -162,19 +172,19 @@ function Dashboard() {
                 />
               </Box>
               {/* <Box
-                sx={{ display: "flex", flexShrink: 0, gap: 1, width: "97%" }}>
-                <PerformanceContainer />
-              </Box> */}
+        sx={{ display: "flex", flexShrink: 0, gap: 1, width: "97%" }}>
+        <PerformanceContainer />
+      </Box> */}
               {/* <Box
-                sx={{
-                  display: "flex",
-                  flexShrink: 0,
-                  gap: 1,
-                  width: "97%",
-                  marginTop: 5
-                }}>
-                <CommissionHistoryContainer />
-              </Box> */}
+        sx={{
+          display: "flex",
+          flexShrink: 0,
+          gap: 1,
+          width: "97%",
+          marginTop: 5
+        }}>
+        <CommissionHistoryContainer />
+      </Box> */}
             </Box>
 
             <Box
@@ -256,14 +266,16 @@ function Dashboard() {
                 sx={{
                   backgroundColor: "rgba(0,0,0)",
                   maxWidth: "400px",
-                  width: "45%",
-                  height: "250px",
+                  width: isMobile ? "90%" : "45%", // Ajuste de ancho en móvil
+                  height: isMobile ? "200px" : "250px", // Ajuste de altura en móvil
                   borderRadius: 3,
                   justifyContent: "center",
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                  border: "1px solid #6e5c25"
+                  border: "1px solid #6e5c25",
+                  padding: "20px",
+                  boxSizing: "border-box" // Para que el padding no afecte el ancho y alto
                 }}>
                 <img
                   src="/frametwo.png"
@@ -272,7 +284,7 @@ function Dashboard() {
                 />
                 <Typography
                   sx={{
-                    fontSize: 25,
+                    fontSize: isMobile ? 18 : 25, // Tamaño de fuente ajustado para móvil
                     marginTop: 5,
                     color: "white",
                     flexShrink: 0
@@ -280,7 +292,11 @@ function Dashboard() {
                   Total de afiliados
                 </Typography>
                 <Typography
-                  sx={{ fontSize: 40, color: "white", fontWeight: "bold" }}>
+                  sx={{
+                    fontSize: isMobile ? 30 : 40, // Tamaño de fuente ajustado para móvil
+                    color: "white",
+                    fontWeight: "bold"
+                  }}>
                   {actualUser.getTotalDirectUsers}
                 </Typography>
               </Container>
@@ -288,25 +304,37 @@ function Dashboard() {
                 sx={{
                   backgroundColor: "rgba(0,0,0)",
                   maxWidth: "400px",
-                  width: "45%",
-                  height: "250px",
+                  width: isMobile ? "90%" : "45%", // Ajuste de ancho en móvil
+                  height: isMobile ? "200px" : "250px", // Ajuste de altura en móvil
                   borderRadius: 3,
                   justifyContent: "center",
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                  border: "1px solid #6e5c25"
+                  border: "1px solid #6e5c25",
+                  padding: "20px",
+                  boxSizing: "border-box" // Para que el padding no afecte el ancho y alto
                 }}>
                 <img
                   src="/frametwo.png"
                   alt="frametwo"
-                  style={{ marginTop: "25px", width: "50px" }}
+                  style={{ marginTop: "25px", width: "50px", flexShrink: 0 }}
                 />
-                <Typography sx={{ fontSize: 25, marginTop: 5, color: "white" }}>
+                <Typography
+                  sx={{
+                    fontSize: isMobile ? 18 : 25, // Tamaño de fuente ajustado para móvil
+                    marginTop: 5,
+                    color: "white",
+                    flexShrink: 0
+                  }}>
                   Afiliados hoy
                 </Typography>
                 <Typography
-                  sx={{ fontSize: 40, color: "white", fontWeight: "bold" }}>
+                  sx={{
+                    fontSize: isMobile ? 30 : 40, // Tamaño de fuente ajustado para móvil
+                    color: "white",
+                    fontWeight: "bold"
+                  }}>
                   {actualUser.getTotalDirectUsersToday}
                 </Typography>
               </Container>

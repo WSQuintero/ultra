@@ -8,7 +8,8 @@ import {
   IconButton,
   Typography,
   Box,
-  Button
+  Button,
+  useMediaQuery
 } from "@mui/material"
 import EditIcon from "@mui/icons-material/Edit"
 import DeleteIcon from "@mui/icons-material/Delete"
@@ -31,6 +32,7 @@ const CoursesSection = () => {
   const location = useLocation()
   const [openDeleteModal, setOpenDeleteModal] = useState()
   const [updateState, setUpdateState] = useState(false)
+  const isMobile = useMediaQuery("(max-width:600px)")
   const [videos, setVideos] = useState([
     {
       id: 1,
@@ -276,12 +278,17 @@ const CoursesSection = () => {
                 }}>
                 <List
                   style={{
-                    maxHeight: "calc(100vh - 80px)"
+                    maxHeight: isMobile
+                      ? "calc(100vh - 200px)"
+                      : "calc(100vh - 80px)",
+                    overflowY: "auto"
                   }}>
                   {videos.map((video, index) => (
                     <ListItem
                       sx={{
-                        height: "calc(20vw * (9 / 16))",
+                        height: isMobile
+                          ? "calc(40vw * (9 / 16))"
+                          : "calc(20vw * (9 / 16))",
                         width: "97%",
                         padding: "20px",
                         fontSize: "1.2rem",
@@ -318,18 +325,18 @@ const CoursesSection = () => {
                           width: "100%",
                           height: "100%",
                           display: "flex",
-                          justifyContent: "center",
-                          alignItems: "end"
+                          flexDirection: "column", // Ajuste para móvil
+                          justifyContent: "flex-end" // Ajuste para móvil
                         }}>
                         <Typography
                           sx={{
                             backgroundColor: "rgba(0, 0, 0, 0.8)",
-                            display: "flex",
-                            height: "40px",
-                            width: "85%",
-                            fontSize: 10,
-                            padding: 1,
-                            bottom: 0
+                            height: isMobile ? "auto" : "40px", // Ajuste de altura en móvil
+                            width: isMobile ? "100%" : "85%", // Ajuste de ancho en móvil
+                            fontSize: isMobile ? "14px" : "10px", // Ajuste de tamaño de fuente en móvil
+                            padding: "1",
+                            bottom: 0,
+                            textAlign: "center" // Ajuste para móvil
                           }}>
                           {video.title}
                         </Typography>
@@ -341,14 +348,15 @@ const CoursesSection = () => {
                               justifyContent: "center",
                               alignItems: "center",
                               height: "40px",
-                              bottom: 0,
-                              marginBottom: 0.2
+                              marginBottom: "0.2",
+                              flexDirection: "row" // Ajuste para móvil
                             }}>
                             <IconButton
                               edge="end"
                               aria-label="edit"
                               sx={{ marginRight: "4px", color: "white" }}
-                              onClick={() => {
+                              onClick={(e) => {
+                                e.stopPropagation() // Prevenir que el click en el botón afecte el click en el ListItem
                                 handleEdit(video.id)
                                 handleVideoSelect(video)
                               }}>
@@ -358,8 +366,9 @@ const CoursesSection = () => {
                               edge="end"
                               aria-label="delete"
                               sx={{ marginRight: "4px", color: "white" }}
-                              onClick={(event) => {
-                                handleDelete(event, video.id, video)
+                              onClick={(e) => {
+                                e.stopPropagation() // Prevenir que el click en el botón afecte el click en el ListItem
+                                handleDelete(e, video.id, video)
                               }}>
                               <DeleteIcon />
                             </IconButton>
