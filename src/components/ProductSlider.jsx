@@ -48,7 +48,7 @@ function ProductSlider({ products }) {
                   discount: "-🔥",
                   urlImg: product.image
                 }}
-                options={JSON.parse(product.description)}
+                options={JSON.parse(product?.description)}
               />
             )}
           </div>

@@ -6,17 +6,17 @@ export default class UserService {
     this.API_URL = `${import.meta.env.VITE_API_URL}`
   }
 
-  async get({ id = null } = {}) {
+  async get({ token } = {}) {
     try {
-      if (id) {
-        const { data } = await axios.get(`${this.API_URL}/users/${id}`, {
-          headers: { Authorization: this.token }
-        })
-        return { status: true, data }
-      }
+      // if (id) {
+      //   const { data } = await axios.get(`${this.API_URL}/users/${id}`, {
+      //     headers: { Authorization: this.token }
+      //   })
+      //   return { status: true, data }
+      // }
 
       const { data } = await axios.get(`${this.API_URL}/users`, {
-        headers: { Authorization: this.token }
+        headers: { Authorization: token }
       })
 
       return { status: true, data }
@@ -25,12 +25,15 @@ export default class UserService {
     }
   }
 
-  async update({ firstName, lastName, phone }) {
+  async updateUser({ user, subrole, token }) {
     try {
       const { data } = await axios.put(
-        `${this.API_URL}/users`,
-        { firstName, lastName, phone },
-        { headers: { Authorization: this.token } }
+        `${this.API_URL}/subRoles/addUser`,
+        {
+          user: user,
+          subrole: subrole
+        },
+        { headers: { Authorization: token } }
       )
       return { status: true, data }
     } catch (error) {
@@ -38,6 +41,16 @@ export default class UserService {
     }
   }
 
+  async getRoles({ token }) {
+    try {
+      const { data } = await axios.get(`${this.API_URL}/subRoles`, {
+        headers: { Authorization: token }
+      })
+      return { status: true, data }
+    } catch (error) {
+      return { status: false, data: error }
+    }
+  }
   async resendEmail({ idUser }) {
     try {
       const { data } = await axios.put(

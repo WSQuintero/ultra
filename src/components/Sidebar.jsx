@@ -9,6 +9,8 @@ import {
   ListItemButton,
   Button
 } from "@mui/material"
+import { FaRegUser } from "react-icons/fa"
+
 import {
   DashboardRounded as DashboardIcon,
   GroupRounded as GroupIcon,
@@ -75,6 +77,17 @@ const Sidebar = () => {
       ),
       name: "Reportes",
       route: "/report"
+    })
+  }
+  if (actualUser.rol === 1) {
+    pages.splice(4, 0, {
+      icon: (
+        <>
+          <FaRegUser />
+        </>
+      ),
+      name: "Usuarios",
+      route: "/users"
     })
   }
 

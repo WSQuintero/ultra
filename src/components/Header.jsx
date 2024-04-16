@@ -29,11 +29,28 @@ function Header() {
             : "flex"
       }}>
       <Toolbar>
-        <Box sx={{ flexGrow: 1 }}>
+        <Box
+          sx={{
+            flexGrow: 1,
+            display: "flex",
+            gap: 3,
+            justifyContent: "center",
+            alignItems: "center"
+          }}>
+          <Box
+            onClick={() => setOpenSideBar(!openSidebar)}
+            sx={{ cursor: "pointer" }}>
+            <IoMenu size={40} />
+          </Box>
           <img
             src="/logo.png"
             alt="Logo"
-            style={{ maxWidth: "100%", height: "auto", cursor: "pointer" }}
+            style={{
+              maxWidth: "100%",
+              height: "80%",
+              cursor: "pointer",
+              flexShrink: 0
+            }}
             onClick={() => navigate("/")}
           />
         </Box>
@@ -44,11 +61,6 @@ function Header() {
           src="/profile.webp"
           sx={{ width: 32, height: 32, ml: 2, cursor: "pointer" }}
         /> */}
-        <Box
-          onClick={() => setOpenSideBar(!openSidebar)}
-          sx={{ cursor: "pointer" }}>
-          <IoMenu size={40} />
-        </Box>
       </Toolbar>
     </AppBar>
   )

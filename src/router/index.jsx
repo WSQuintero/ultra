@@ -19,6 +19,7 @@ import CoursesSection from "../pages/CoursesSection"
 import VideoProducts from "../pages/VideoProducts"
 import Categories from "../pages/Categories"
 import Earnings from "../pages/Earnings"
+import UserList from "../pages/UserList"
 
 const META = {
   REQUIRES_AUTH: Symbol("REQUIRES_AUTH"),
@@ -84,6 +85,10 @@ function Router() {
       element: (
         <PrivateRoute component={Categories} meta={[META.REQUIRES_AUTH]} />
       )
+    },
+    {
+      path: "/users",
+      element: <PrivateRoute component={UserList} meta={[META.REQUIRES_AUTH]} />
     },
     {
       path: "/ultralive",

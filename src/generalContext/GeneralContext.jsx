@@ -8,6 +8,7 @@ import BuyService from "../services/buy.service"
 import ProductService from "../services/products.service"
 import EarningsService from "../services/earnings.service"
 import ReportService from "../services/reports.service"
+import UserService from "../services/user.service"
 
 const MyContext = createContext()
 
@@ -24,6 +25,7 @@ function GeneralContext({ children }) {
   const $Products = useMemo(() => new ProductService(), [])
   const $Earnings = useMemo(() => new EarningsService(), [])
   const $Reports = useMemo(() => new ReportService(), [])
+  const $Users = useMemo(() => new UserService(), [])
 
   useEffect(() => {
     setActualUser(JSON.parse(localStorage?.getItem("user")) || {})
@@ -37,14 +39,15 @@ function GeneralContext({ children }) {
         openSidebar,
         setOpenSideBar,
         $Course,
-        token: $Auth.token,
+        token: $Auth?.token,
         actualUser,
         setActualUser,
         $Live,
         $Buy,
         $Products,
         $Earnings,
-        $Reports
+        $Reports,
+        $Users
       }}>
       {children}
     </MyContext.Provider>
