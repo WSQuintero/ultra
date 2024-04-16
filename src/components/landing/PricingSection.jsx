@@ -1,10 +1,19 @@
-import { Box, Button, Chip, Icon, Typography, styled } from "@mui/material"
+import {
+  Box,
+  Button,
+  Chip,
+  Icon,
+  Typography,
+  styled,
+  useMediaQuery
+} from "@mui/material"
 import { GoldButton } from "./GoldButton"
 import { CheckBox } from "@mui/icons-material"
 import BGTypography from "../shared/BGTypography"
 import InterTypography from "../shared/InterTypography"
 
 const PricingSection = () => {
+  const matches900 = useMediaQuery("(max-width:900px)")
   return (
     <Box
       id="plans-princing"
@@ -18,21 +27,24 @@ const PricingSection = () => {
         fontSize={48}
         margin={"auto"}
         marginBottom={2}>
-        Precios y Planes
+        Pricing & Plans
       </BGTypography>
       <Typography
         color="#b6b5b4"
         fontSize={18}
         margin={"auto"}
         textAlign={"center"}>
-        Tanto una prueba gratuita como un conjunto gratuito de funciones para
-        cualquiera que quiera usarlas.
-        <br /> Cuantas más órdenes realice tu empresa
+        Both a free trial and a free set of features for anyone who wants to{" "}
+        <br /> use them. The more orders your company
       </Typography>
       <Box
+        justifyContent={matches900 ? "flex-start" : "center"}
+        width={"100%"}
+        // paddingLeft={matches900 ? '400px' : 0}
+        minWidth={"450px"}
         sx={{ overflowX: "auto", display: "flex" }}
-        margin={"50px auto 0"}
-        gap={10}>
+        margin={`${matches900 ? "10px" : "50px"} auto 0`}
+        gap={matches900 ? 5 : 10}>
         {plans.map((plan, i) => (
           <PlanCard key={i} {...plan} />
         ))}
@@ -55,13 +67,14 @@ const PlanCard = ({
   benefits,
   styles
 }) => {
+  const matches500 = useMediaQuery("(max-width:500px)")
   return (
     <Box
       display={"flex"}
       flexDirection={"column"}
       sx={{
-        minWidth: "410px",
-        width: "410px",
+        minWidth: matches500 ? "360px" : "410px",
+        width: matches500 ? "360px" : "410px",
         height: "830px",
         backgroundColor: "rgba(255, 255, 255, 0.04)"
       }}
@@ -107,27 +120,6 @@ const PlanCard = ({
           <BGTypography fontSize={40} display={"inline"} lineHeight={1.4}>
             {price}
           </BGTypography>{" "}
-          {/* {originalPrice && (
-            <>
-              <BGTypography
-                color={"#FCFCFD"}
-                component="span"
-                display="inline-block"
-                fontSize={25}
-                sx={{
-                  verticalAlign: "top"
-                }}>
-                $
-              </BGTypography>
-              <BGTypography
-                component="span"
-                display="inline"
-                sx={{ textDecoration: "line-through" }}
-                fontSize={30}>
-                {originalPrice}
-              </BGTypography>
-            </>
-          )} */}
           <BGTypography display="inline" component="span" fontSize={25}>
             /mes
           </BGTypography>
@@ -168,7 +160,16 @@ const PlanCard = ({
                   src="/Ultra_files/goldcheckbox.svg"
                   style={{ width: "auto", height: "20px", marginRight: "5px" }}
                 />
-                <BGTypography marginLeft={0.5} color="white" display={"inline"}>
+                <BGTypography
+                  marginLeft={0.5}
+                  color="white"
+                  display={"inline"}
+                  sx={{
+                    fontSize: {
+                      xs: "16px",
+                      md: "18px"
+                    }
+                  }}>
                   {benefit}
                 </BGTypography>
               </Box>
@@ -232,10 +233,10 @@ const plans = [
   {
     title: "Club del fondeo 2.0",
     imageSrc: "/Ultra_files/coins.png",
-    price: 399,
+    price: 300,
     originalPrice: "-",
     chipTitle: "Despues de 3 meses",
-    chipSubtitle: "Continuar con todos los beneficios por 39.9 mensuales",
+    chipSubtitle: "Continuar con todos los beneficios por 29.9 mensuales",
     benefits: [
       "Acceso por 90 días",
       "Curso de forex",
