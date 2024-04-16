@@ -1,22 +1,23 @@
-import { useContext, useEffect, useMemo } from "react"
+import { useContext, useEffect, useMemo, useState } from "react"
 import { MaterialReactTable } from "material-react-table"
 import { MRT_Localization_ES } from "material-react-table/locales/es"
 import { Box } from "@mui/material"
 import { MyContext } from "../generalContext/GeneralContext"
 
-const PayedComissions = () => {
+const PendingComissions = () => {
   const { $Earnings, token } = useContext(MyContext)
+  const [comisions, setComisions] = useState()
   const columns = useMemo(
     () => [
       {
-        accessorKey: "ultraPayed ",
-        id: "ultraPayed ",
-        header: "Comisiones pagadas"
+        accessorKey: "ultraPending  ",
+        id: "ultraPending  ",
+        header: "Comisiones pendientes de pago"
       },
       {
         accessorKey: "ultraPayedDetail",
         id: "ultraPayedDetail",
-        header: "Detalle comisiones pagadas"
+        header: "Detalle comisiones pendientes de pago"
       },
       {
         accessorKey: "totalCommissions",
@@ -81,4 +82,4 @@ const PayedComissions = () => {
   )
 }
 
-export default PayedComissions
+export default PendingComissions

@@ -1,22 +1,23 @@
-import { useContext, useEffect, useMemo } from "react"
+import { useContext, useEffect, useMemo, useState } from "react"
 import { MaterialReactTable } from "material-react-table"
 import { MRT_Localization_ES } from "material-react-table/locales/es"
 import { Box } from "@mui/material"
 import { MyContext } from "../generalContext/GeneralContext"
 
-const PayedComissions = () => {
-  const { $Earnings, token } = useContext(MyContext)
+const ListReports = () => {
+  const { $Reports, token } = useContext(MyContext)
+  const [comisions, setComisions] = useState()
   const columns = useMemo(
     () => [
       {
-        accessorKey: "ultraPayed ",
-        id: "ultraPayed ",
-        header: "Comisiones pagadas"
+        accessorKey: "ultraPending  ",
+        id: "ultraPending  ",
+        header: "Comisiones pendientes de pago"
       },
       {
         accessorKey: "ultraPayedDetail",
         id: "ultraPayedDetail",
-        header: "Detalle comisiones pagadas"
+        header: "Detalle comisiones pendientes de pago"
       },
       {
         accessorKey: "totalCommissions",
@@ -52,7 +53,7 @@ const PayedComissions = () => {
 
   useEffect(() => {
     const getEarnings = async () => {
-      const { status, data } = await $Earnings.getEarnings(token)
+      const { status, data } = await $Reports.getReports(token)
       if (status) {
         console.log(data)
       } else {
@@ -81,4 +82,4 @@ const PayedComissions = () => {
   )
 }
 
-export default PayedComissions
+export default ListReports

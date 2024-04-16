@@ -18,6 +18,7 @@ import ValidateEmail from "../pages/ValidateEmail"
 import CoursesSection from "../pages/CoursesSection"
 import VideoProducts from "../pages/VideoProducts"
 import Categories from "../pages/Categories"
+import Earnings from "../pages/Earnings"
 
 const META = {
   REQUIRES_AUTH: Symbol("REQUIRES_AUTH"),
@@ -62,9 +63,7 @@ function Router() {
     },
     {
       path: "/earnings",
-      element: (
-        <PrivateRoute component={Withdrawals} meta={[META.REQUIRES_AUTH]} />
-      )
+      element: <PrivateRoute component={Earnings} meta={[META.REQUIRES_AUTH]} />
     },
     {
       path: "/profile",

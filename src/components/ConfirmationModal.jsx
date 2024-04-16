@@ -49,7 +49,9 @@ function ConfirmationModal({
             <GoldButton onClick={handleCancelDelete}>Cancelar</GoldButton>
           </Grid>
           <Grid item>
-            <GoldButton onClick={handleDeleteConfirmation}>Eliminar</GoldButton>
+            <GoldButton onClick={handleDeleteConfirmation}>
+              Confirmar
+            </GoldButton>
           </Grid>
         </Grid>
       </Box>
