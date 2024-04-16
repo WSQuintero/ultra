@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import PropTypes from "prop-types"
 import {
   Card,
@@ -10,6 +10,7 @@ import {
   Typography
 } from "@mui/material"
 import { MdOutlineDeleteOutline, MdOutlineEdit } from "react-icons/md"
+import { MyContext } from "../generalContext/GeneralContext"
 
 const iconContainerStyle = {
   display: "flex",
@@ -37,7 +38,7 @@ function CourseCard({
   id
 }) {
   const [isHover, setIsHover] = useState(false)
-
+  const { actualUser } = useContext(MyContext)
   const handleDeleteCategory = (event) => {
     event.stopPropagation()
     handleDelete(id)
@@ -76,25 +77,27 @@ function CourseCard({
         position: "relative"
       }}>
       <CardActionArea>
-        <Box
-          sx={{
-            position: "absolute",
-            top: 0,
-            right: 0,
-            display: "flex",
-            flexDirection: "column"
-          }}>
-          <Box sx={iconContainerStyle}>
-            <IconButton aria-label="delete" onClick={handleDeleteCategory}>
-              <MdOutlineDeleteOutline color="white" />
-            </IconButton>
+        {actualUser.rol === 1 && (
+          <Box
+            sx={{
+              position: "absolute",
+              top: 0,
+              right: 0,
+              display: "flex",
+              flexDirection: "column"
+            }}>
+            <Box sx={iconContainerStyle}>
+              <IconButton aria-label="delete" onClick={handleDeleteCategory}>
+                <MdOutlineDeleteOutline color="white" />
+              </IconButton>
+            </Box>
+            <Box sx={iconContainerStyle}>
+              <IconButton aria-label="edit" onClick={handleEditCategory}>
+                <MdOutlineEdit color="white" />
+              </IconButton>
+            </Box>
           </Box>
-          <Box sx={iconContainerStyle}>
-            <IconButton aria-label="edit" onClick={handleEditCategory}>
-              <MdOutlineEdit color="white" />
-            </IconButton>
-          </Box>
-        </Box>
+        )}
 
         <CardMedia
           component="img"
