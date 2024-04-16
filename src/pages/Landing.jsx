@@ -1,3 +1,4 @@
+import PriceCards from "../components/PriceCards"
 import MainSection from "../components/landing/MainSection"
 import TradingViewWidget from "../components/landing/LogosSection"
 import OurMissionSection from "../components/landing/OurMissionSection"
@@ -18,7 +19,7 @@ function Landing() {
       </div>
       <OurMissionSection />
       <OurServicesSection />
-      <PricingSection />
+      <PriceCards />
       <KeepUpdatedSection />
       <Footer />
       <TelegramIcon />
