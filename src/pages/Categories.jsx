@@ -4,6 +4,7 @@ import PageWrapper from "../components/PageWrapper"
 import useConfig from "../hooks/useConfig"
 import CourseCard from "../components/CourseCard"
 import CreateCourse from "../components/CreateCourse"
+import CreateCategory from "../components/CreateCategory"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
 import { MyContext } from "../generalContext/GeneralContext"
 import { GoldButton } from "../components/landing/GoldButton"
@@ -13,10 +14,11 @@ import PriceCards from "../components/PriceCards"
 import EditModal from "../components/EditModal"
 
 function Categories() {
-  const [open, setOpen] = useState(false)
   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
   const [editModalOpen, setEditModalOpen] = useState(false)
-
+  const [open, setOpen] = useState(false)
+  const [openCreateCategory, setOpenCreateCategory] = useState(false)
+  
   const [deleteCategoryId, setDeleteCategoryId] = useState(null)
   const [editCategoryId, setEditCategoryId] = useState(false)
 
@@ -83,6 +85,7 @@ function Categories() {
         data.data.map((item) => ({
           id: item.id,
           category: item.category,
+          image: item.image,
           resources: item.resources
         }))
       )
@@ -151,9 +154,9 @@ function Categories() {
   }
 
   const handleEdit = (name, id) => {
-    setEditModalOpen(true)
     setEditCategoryId(id)
     setCategoryName(name)
+    setOpenCreateCategory(true)
   }
 
   const handleCancelEdit = () => {
@@ -186,7 +189,7 @@ function Categories() {
             {actualUser.rol === 1 && (
               <Box sx={{ display: "flex", gap: 5 }}>
                 <GoldButton onClick={handleOrderCategory}>Ordenar</GoldButton>
-                <GoldButton onClick={handleCreateCategory}>
+                <GoldButton onClick={()=>setOpenCreateCategory(true)}>
                   Crear Categoría
                 </GoldButton>
               </Box>
@@ -228,7 +231,7 @@ function Categories() {
                       }}
                       key={index}>
                       <CourseCard
-                        image="/card-course.png"
+                        image={course.image}
                         title={course.category}
                         handleDelete={handleDelete}
                         handleEdit={handleEdit}
@@ -264,6 +267,18 @@ function Categories() {
             </Box>
           </Box>
           <CreateCourse open={open} onClose={onClose} />
+          <CreateCategory 
+            open={openCreateCategory}
+            id={editCategoryId}
+            categoryName={categoryName}
+            editMode={(editCategoryId?true:false)}
+            onClose={()=>{
+              getCourses();
+              setEditCategoryId("")
+              setCategoryName("")
+              setOpenCreateCategory(false);
+            }} 
+          />
           <ConfirmationModal
             deleteModalOpen={deleteModalOpen}
             handleCancelDelete={handleCancelDelete}
