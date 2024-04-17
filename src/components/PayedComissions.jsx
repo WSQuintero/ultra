@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo } from "react"
+import { useContext, useEffect, useMemo, useState } from "react"
 import { MaterialReactTable } from "material-react-table"
 import { MRT_Localization_ES } from "material-react-table/locales/es"
 import { Box } from "@mui/material"
@@ -6,6 +6,7 @@ import { MyContext } from "../generalContext/GeneralContext"
 
 const PayedComissions = () => {
   const { $Earnings, token } = useContext(MyContext)
+  const [earnings, setEarnings] = useState()
   const columns = useMemo(
     () => [
       {
@@ -55,6 +56,7 @@ const PayedComissions = () => {
       const { status, data } = await $Earnings.getEarnings(token)
       if (status) {
         console.log(data)
+        setEarnings(data)
       } else {
         console.log(data)
       }
@@ -66,7 +68,7 @@ const PayedComissions = () => {
     <div style={{ height: "100%" }}>
       <MaterialReactTable
         columns={columns}
-        data={list}
+        data={earnings}
         enableColumnFilterModes
         enableColumnOrdering
         enableRowActions

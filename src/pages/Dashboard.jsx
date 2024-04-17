@@ -77,7 +77,7 @@ function Dashboard() {
   return (
     <PageWrapper expanded>
       {actualUser?.membership_status === "Active" || actualUser?.rol === 1 ? (
-        <Box sx={{ maxheight: "100vh", overflow: "auto" }}>
+        <Box sx={{ maxheight: "100vh" }}>
           <Box
             sx={{
               padding: 5,
@@ -86,8 +86,7 @@ function Dashboard() {
               flexDirection: "column",
               justifyContent: "start",
               alignItems: "center",
-              gap: 1,
-              overflow: "auto"
+              gap: 1
             }}>
             <Typography
               variant="h2"

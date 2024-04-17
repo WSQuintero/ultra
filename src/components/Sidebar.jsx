@@ -111,11 +111,17 @@ const Sidebar = () => {
         <List>
           <Divider />
           {pages.map(({ icon, name, route }) => (
-            <ListItem button key={name} component={NavLink} to={route}>
+            <ListItem
+              button
+              key={name}
+              component={NavLink}
+              to={route}
+              sx={{ py: 1 }}>
               <ListItemButton
                 component={NavLink}
                 to={route}
                 sx={{
+                  py: 0,
                   "&.active": {
                     color: "primary.main",
                     background:
@@ -126,17 +132,22 @@ const Sidebar = () => {
                       "linear-gradient(140.75deg, #8F5F25 11.94%, #DBBB6F 61.03%, #8F5F25 113.42%)"
                   }
                 }}>
-                <ListItemIcon sx={{ color: "rgba(255, 255, 255, 0.7)" }}>
+                <ListItemIcon
+                  sx={{ color: "rgba(255, 255, 255, 0.7)", minWidth: 0 }}>
                   {icon}
                 </ListItemIcon>
                 <ListItemText
                   primary={name}
-                  sx={{ color: "rgba(255, 255, 255, 0.7)", fontSize: "12px" }}
+                  sx={{
+                    color: "rgba(255, 255, 255, 0.7)",
+                    fontSize: "10px",
+                    marginLeft: 2
+                  }}
                 />
               </ListItemButton>
             </ListItem>
           ))}
-          <ListItem sx={{ marginTop: "50px", marginLeft: "20px" }}>
+          <ListItem sx={{ marginTop: "20px", marginLeft: "20px" }}>
             <Button
               onClick={() => logout()}
               to="/"

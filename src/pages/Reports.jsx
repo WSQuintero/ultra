@@ -21,7 +21,7 @@ function Reports() {
       })
       setOpen(false)
     } else {
-      console.log(data)
+      // console.log(data)
       setAlert({
         show: true,
         message: "Error al realizar los pagos",

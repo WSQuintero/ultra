@@ -192,7 +192,7 @@ function VideoProducts() {
 
   useEffect(() => {
     setHasProducts(actualUser.getProductActiveUser.length > 0)
-    console.log(actualUser)
+    // console.log(actualUser)
   }, [])
   return (
     <PageWrapper expanded>

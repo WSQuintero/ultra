@@ -13,7 +13,7 @@ function Profile() {
 
   return (
     <PageWrapper>
-      <Box sx={{ padding: 5, display: "flex", gap: 10, width: "100%" }}>
+      <Box sx={{ display: "flex", gap: 10, width: "100%" }}>
         <PerfilCard />
       </Box>
     </PageWrapper>

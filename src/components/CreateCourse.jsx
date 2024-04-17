@@ -50,8 +50,6 @@ function CreateCourse({ id, open, onClose, editMode, video }) {
     newFormData.append("category", fragmento)
 
     if (!editMode && !id) {
-      console.log("createmode")
-
       const { status, data } = await $Course.createCourse(token, newFormData)
       if (status) {
         setAlert({ show: true, message: "Course added correctly" })
@@ -65,8 +63,6 @@ function CreateCourse({ id, open, onClose, editMode, video }) {
         setAlert({ show: true, message: "Error" })
       }
     } else {
-      console.log("editMode")
-
       const ruta = location.hash
       const fragmento = ruta.split("#")[2]
       const { status, data } = await $Course.updateCourse(

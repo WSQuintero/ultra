@@ -147,9 +147,9 @@ export default function Signin() {
 
       const { status, data } = await $Auth.validate()
 
-      if (status) {
-        console.log(data)
-      }
+      // if (status) {
+      //   console.log(data)
+      // }
     } else {
       setAlert({
         show: true,

@@ -106,7 +106,7 @@ const SuscriptionList = ({ users, openNewRol, setOpenNewRol }) => {
       const { status, data } = await $Users.getRoles({ token })
 
       if (status) {
-        console.log(data)
+        // console.log(data)
         setRoles(data)
       } else {
         console.log(data)

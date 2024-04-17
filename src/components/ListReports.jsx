@@ -54,11 +54,10 @@ const ListReports = () => {
   useEffect(() => {
     const getEarnings = async () => {
       const { status, data } = await $Reports.getReports(token)
-      if (status) {
-        console.log(data)
-      } else {
-        console.log(data)
-      }
+      // if (status) {
+      // } else {
+      //   console.log(data)
+      // }
     }
 
     getEarnings()

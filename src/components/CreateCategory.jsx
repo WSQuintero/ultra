@@ -15,7 +15,7 @@ function CreateCategory({ id, open, categoryName = "", onClose, editMode }) {
   })
   const { token } = useContext(MyContext)
   const courseService = useMemo(() => new CourseService(token), [token])
-  
+
   const handleInputChange = (event) => {
     const { name, value } = event.target
     setFormData({ ...formData, [name]: value })
@@ -35,9 +35,9 @@ function CreateCategory({ id, open, categoryName = "", onClose, editMode }) {
     }
   }
 
-  useEffect(()=>{
-    setFormData({ ...formData, name: categoryName });
-  },[categoryName])
+  useEffect(() => {
+    setFormData({ ...formData, name: categoryName })
+  }, [categoryName])
 
   const handleSubmit = async () => {
     const newFormData = new FormData()
@@ -49,23 +49,23 @@ function CreateCategory({ id, open, categoryName = "", onClose, editMode }) {
     }
 
     if (!editMode && !id) {
+      const { status, data } = await courseService.createCategory(
+        token,
+        newFormData
+      )
 
-      const { status, data } = await courseService.createCategory(token, newFormData)
-      
       if (status) {
         setAlert({ show: true, message: "Categoria creada correctamente" })
-        setFormData({image: null, name: ""});
+        setFormData({ image: null, name: "" })
         setImagePreviewUrl(null)
         onClose()
       } else {
         onClose()
-        setFormData({image: null, name: ""});
+        setFormData({ image: null, name: "" })
         setImagePreviewUrl(null)
         setAlert({ show: true, message: "Error" })
       }
     } else {
-      console.log("editMode")
-
       const { status, data } = await courseService.updateCategory(
         token,
         id,
@@ -73,12 +73,12 @@ function CreateCategory({ id, open, categoryName = "", onClose, editMode }) {
       )
       if (status) {
         setAlert({ show: true, message: "Categoria actualizada correctamente" })
-        setFormData({image: null, name: ""});
+        setFormData({ image: null, name: "" })
         setImagePreviewUrl(null)
         onClose()
       } else {
         onClose()
-        setFormData({image: null, name: ""});
+        setFormData({ image: null, name: "" })
         setImagePreviewUrl(null)
         setAlert({ show: true, message: "Error" })
       }
@@ -162,7 +162,7 @@ function CreateCategory({ id, open, categoryName = "", onClose, editMode }) {
               label="Nombre"
               variant="outlined"
               fullWidth
-              value={(formData.name||categoryName)}
+              value={formData.name || categoryName}
               sx={{ borderRadius: 5 }}
               onChange={handleInputChange}
               InputLabelProps={{
@@ -193,7 +193,7 @@ function CreateCategory({ id, open, categoryName = "", onClose, editMode }) {
                 variant="contained"
                 color="primary"
                 onClick={handleSubmit}>
-                {(!editMode?"Crear":"Actualizar")}
+                {!editMode ? "Crear" : "Actualizar"}
               </GoldButton>
             </Box>
           </Box>

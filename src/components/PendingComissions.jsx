@@ -27,35 +27,13 @@ const PendingComissions = () => {
     ],
     []
   )
-  const list = [
-    {
-      sl: 1,
-      company: "Example Company A - Type 1",
-      date_time: "2024-04-01T12:00:00",
-      timeline_complete: "Yes",
-      subscription_fee: 500
-    },
-    {
-      sl: 2,
-      company: "Example Company B - Type 2",
-      date_time: "2024-03-15T09:30:00",
-      timeline_complete: "No",
-      subscription_fee: 750
-    },
-    {
-      sl: 3,
-      company: "Example Company C - Type 3",
-      date_time: "2024-03-28T15:45:00",
-      timeline_complete: "Yes",
-      subscription_fee: 900
-    }
-  ]
 
   useEffect(() => {
     const getEarnings = async () => {
       const { status, data } = await $Earnings.getEarnings(token)
       if (status) {
-        console.log(data)
+        // console.log(data)
+        setComisions(data)
       } else {
         console.log(data)
       }
@@ -67,7 +45,7 @@ const PendingComissions = () => {
     <div style={{ height: "100%" }}>
       <MaterialReactTable
         columns={columns}
-        data={list}
+        data={comisions}
         enableColumnFilterModes
         enableColumnOrdering
         enableRowActions

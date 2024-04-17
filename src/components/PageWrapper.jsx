@@ -13,7 +13,7 @@ function PageWrapper({ sx = {}, expanded = false, empty = false, children }) {
       sx={{
         position: "relative",
         display: "flex",
-        height: "89vh",
+        height: "87vh",
         width: "100%",
         overflow: "hidden",
         justifyContent: "space-evenly"
