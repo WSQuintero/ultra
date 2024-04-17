@@ -136,12 +136,10 @@ const CoursesSection = () => {
   return (
     <PageWrapper>
       <>
-        {" "}
         <Box
           sx={{
-            backgroundColor: "black",
             width: "100%",
-            overflow: "auto"
+            height: "100%"
           }}>
           <Grid
             container
@@ -168,7 +166,6 @@ const CoursesSection = () => {
                 border: "1px solid #ab8e3a",
                 padding: 1,
 
-                overflow: "hidden",
                 marginTop: "10px",
                 marginLeft: "10px",
                 position: "relative"
@@ -272,12 +269,10 @@ const CoursesSection = () => {
             <Grid
               item
               sx={{
-                width: isMobile ? "100%" : "19vw",
+                width: isMobile ? "100%" : "auto",
                 backgroundColor: "black",
                 border: "1px solid #ab8e3a",
-                height: "calc(100vh - 130px)",
                 marginTop: 2,
-                maxHeight: "700px",
                 overflowY: "auto"
               }}>
               <List
@@ -286,16 +281,14 @@ const CoursesSection = () => {
                   justifyContent: "start",
                   flexDirection: "Column",
                   alignItems: "center",
-                  maxHeight: isMobile
-                    ? "calc(100vh - 200px)"
-                    : "calc(100vh - 80px)",
-                  overflowY: "auto"
+                  height: "650px"
+                  // overflowY: "auto"
                 }}>
                 {videos.map((video, index) => (
                   <ListItem
                     sx={{
-                      height: "300px",
-                      width: "300px",
+                      height: "200px",
+                      width: "200px",
 
                       fontSize: "1.2rem",
                       marginBottom: "10px",
