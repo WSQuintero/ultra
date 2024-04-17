@@ -214,7 +214,7 @@ function Dashboard() {
                   Comisiones totales
                 </Typography>
                 <Typography
-                  sx={{ fontSize: 40, color: "white", fontWeight: "bold" }}>
+                  sx={{ fontSize: 20, color: "white", fontWeight: "bold" }}>
                   ${actualUser.getTotalCommissions.totalCommissions}
                 </Typography>
               </Container>
@@ -235,7 +235,7 @@ function Dashboard() {
                   Total de pagos
                 </Typography>
                 <Typography
-                  sx={{ fontSize: 40, color: "white", fontWeight: "bold" }}>
+                  sx={{ fontSize: 20, color: "white", fontWeight: "bold" }}>
                   ${actualUser.getTotalCommissions.ultraPayed}
                 </Typography>
               </Container>
@@ -256,7 +256,7 @@ function Dashboard() {
                   Pagos pendientes
                 </Typography>
                 <Typography
-                  sx={{ fontSize: 40, color: "white", fontWeight: "bold" }}>
+                  sx={{ fontSize: 20, color: "white", fontWeight: "bold" }}>
                   ${actualUser.getTotalCommissions.ultraPending}
                 </Typography>
               </Container>

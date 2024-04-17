@@ -3,6 +3,14 @@ import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 
+const isValidJson = (str) => {
+  try {
+    JSON.parse(str)
+    return true
+  } catch (e) {
+    return false
+  }
+}
 function ProductSlider({ products, fromDashboard = false }) {
   const settings = {
     dots: true,
@@ -49,7 +57,13 @@ function ProductSlider({ products, fromDashboard = false }) {
                   discount: "-🔥",
                   urlImg: product.image
                 }}
-                options={JSON.parse(product?.description)}
+                options={
+                  product?.description
+                    ? isValidJson(product?.description)
+                      ? JSON.parse(product?.description)
+                      : []
+                    : []
+                }
               />
             )}
           </div>
