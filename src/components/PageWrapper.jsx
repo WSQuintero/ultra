@@ -33,13 +33,21 @@ function PageWrapper({ sx = {}, expanded = false, empty = false, children }) {
 
       <Box
         sx={{
-          position: "relative",
-          zIndex: 0,
+          backgroundColor: "rgba(0,0,0,0.8)",
+          width: "80%",
           flex: 1,
-          backgroundColor: "black",
-          width: "80%"
+          position: "relative",
+          overflow: "auto"
         }}>
-        {children}
+        <Box
+          sx={{
+            zIndex: 0,
+            flex: 1,
+            backgroundColor: "rgba(255,255,255,0,1)",
+            width: "100%"
+          }}>
+          {children}
+        </Box>
       </Box>
     </Box>
   )

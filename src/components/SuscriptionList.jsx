@@ -146,12 +146,14 @@ const SuscriptionList = ({ users, openNewRol, setOpenNewRol }) => {
         columns={columns}
         data={users}
         muiTablePaperProps={{ elevation: 0 }}
-        initialState={{ density: "compact" }}
         muiTableDetailPanelProps={{ sx: { backgroundColor: "white" } }}
         // state={{ showSkeletons: loading }}
         localization={MRT_Localization_ES}
         enablePagination={true}
-        style={{ heigth: "70%" }}
+        initialState={{
+          density: "compact",
+          pageSize: 5
+        }}
       />
       <Modal
         open={openNewRol}

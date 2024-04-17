@@ -13,8 +13,7 @@ function Header() {
     <AppBar
       position="static"
       sx={{
-        background:
-          "linear-gradient(140.75deg, #8F5F25 11.94%, #DBBB6F 61.03%, #8F5F25 113.42%)",
+        backgroundColor: "rgba(0,0,0)",
         justifyCenter: "center",
         display:
           !actualUser?.email ||

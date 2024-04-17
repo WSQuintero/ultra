@@ -72,7 +72,7 @@ const PerfilCard = () => {
       <Box
         sx={{
           padding: 2,
-          overflow: "auto",
+          // overflow: "auto",
           height: "100%",
           display: "flex",
           flexDirection: "column",
