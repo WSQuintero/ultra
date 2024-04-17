@@ -5,7 +5,7 @@ import { MyContext } from "../generalContext/GeneralContext"
 import { useLocation } from "react-router-dom"
 const initialState = {
   image: null,
-  product: "",
+  // product: "",
   title: "",
   description: "",
   url_resource: ""
@@ -45,9 +45,12 @@ function CreateCourse({ id, open, onClose, editMode, video }) {
         newFormData.append(key, formData[key])
       }
     }
+
     const ruta = location.hash
     const fragmento = ruta.split("#")[2]
+    const product = ruta.split("#")[3]
     newFormData.append("category", fragmento)
+    newFormData.append("product", Number(product))
 
     if (!editMode && !id) {
       const { status, data } = await $Course.createCourse(token, newFormData)

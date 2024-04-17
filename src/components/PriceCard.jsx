@@ -27,17 +27,17 @@ const PriceCard = ({ header, options, fromDashboard = false }) => {
     setWallet("")
   }
   const handleBuy = async () => {
-    if(!fromDashboard){
+    if (!fromDashboard) {
       const { status, data } = await $Buy.buyMembership(token, product)
-  
+
       if (status) {
         setWallet(data[0])
         setOpen(true)
       } else {
         console.log(data)
       }
-    }else{
-      window.location.href = "/signin";
+    } else {
+      window.location.href = "/signin"
     }
   }
 

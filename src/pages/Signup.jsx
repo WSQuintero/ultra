@@ -632,7 +632,7 @@ export default function Signup() {
                 size="large"
                 sx={{ mt: 2, backgroundColor: "#ab8e3a", color: "black" }}
                 fullWidth>
-                Create account
+                Crear cuenta
               </Button>
             </Box>
             <Grid>
