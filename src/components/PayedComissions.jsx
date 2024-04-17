@@ -68,7 +68,7 @@ const PayedComissions = () => {
     <div style={{ height: "100%" }}>
       <MaterialReactTable
         columns={columns}
-        data={earnings}
+        data={earnings || []}
         enableColumnFilterModes
         enableColumnOrdering
         enableRowActions

@@ -45,7 +45,7 @@ const PendingComissions = () => {
     <div style={{ height: "100%" }}>
       <MaterialReactTable
         columns={columns}
-        data={comisions}
+        data={comisions || []}
         enableColumnFilterModes
         enableColumnOrdering
         enableRowActions
