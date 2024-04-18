@@ -11,6 +11,7 @@ const isValidJson = (str) => {
     return false
   }
 }
+
 function ProductSlider({ products, fromDashboard = false }) {
   const settings = {
     dots: true,
@@ -18,25 +19,30 @@ function ProductSlider({ products, fromDashboard = false }) {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
+    centerMode: true,
+    centerPadding: 0, // Aumenta el espacio entre las tarjetas
     responsive: [
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 2
+          slidesToShow: 2,
+          centerMode: true
         }
       },
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 1
+          slidesToShow: 1,
+          centerMode: true,
+          centerPadding: "25%" // Ajusta el espacio en móvil
         }
       }
     ]
   }
 
   const sliderContainerStyle = {
-    maxWidth: "98%",
-    height: "70vh", // Ajusta esta altura según tus necesidades
+    maxWidth: "80%",
+    height: "auto",
     margin: "0 auto",
     padding: "20px"
   }
@@ -44,9 +50,10 @@ function ProductSlider({ products, fromDashboard = false }) {
   return (
     <div style={sliderContainerStyle}>
       <Slider {...settings}>
-        {products?.map((product) => (
-          <div key={product.id}>
-            {product.name !== "EXCALPER" && (
+        {products
+          ?.filter((product) => product.name !== "EXCALPER")
+          .map((product) => (
+            <div key={product.id}>
               <PriceCard
                 fromDashboard={fromDashboard}
                 header={{
@@ -65,9 +72,8 @@ function ProductSlider({ products, fromDashboard = false }) {
                     : []
                 }
               />
-            )}
-          </div>
-        ))}
+            </div>
+          ))}
       </Slider>
     </div>
   )

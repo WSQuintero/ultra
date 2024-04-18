@@ -87,7 +87,7 @@ const PriceCard = ({ header, options, fromDashboard = false }) => {
           background: "rgba(0, 0, 0, 0.1)",
           border: "2px solid #ab8e3a",
           flexShrink: 0,
-          height: "75vh"
+          height: "80vh"
         }}>
         <Box
           sx={{

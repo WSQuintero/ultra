@@ -164,7 +164,7 @@ const MainSection = () => {
               textAlign: "center",
               zIndex: 2
             }}>
-            rESGISTRAR AHORA
+            REGISTRAR AHORA
           </Button>
         </Box>
       </Box>
