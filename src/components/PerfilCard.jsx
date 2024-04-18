@@ -26,25 +26,25 @@ const PerfilCard = () => {
         borderRadius: 5,
         background: "rgba(0,0,0)",
         border: "1px solid #ab8e3a",
-        height: "80vh",
+        height: "82vh",
         flexShrink: 0,
         padding: 1
       }}>
       {/* Sección Inicial */}
       <Box sx={{ width: "100%" }}>
-        <Box
+        {/* <Box
           sx={{
-            height: 130,
+            height: 40,
             width: "100%",
             backgroundColor: "#ab8e3a",
             backgroundSize: "cover",
             alignItems: "center",
             justifyContent: "center"
           }}></Box>
-        <Divider />
+        <Divider /> */}
         <Box
           sx={{
-            height: 130,
+            height: 50,
             width: "100%",
             backgroundColor: "rgba(255,255,255,0.04)",
             display: "flex",
@@ -52,7 +52,7 @@ const PerfilCard = () => {
             justifyContent: "center",
             position: "relative"
           }}>
-          <Avatar
+          {/* <Avatar
             alt="Profile Picture"
             src="/profile.jpg"
             sx={{
@@ -62,7 +62,7 @@ const PerfilCard = () => {
               position: "absolute",
               top: -55
             }}
-          />
+          /> */}
           <Typography variant="body1" color="white">
             {`${actualUser.firstname} ${actualUser.lastname}`}
           </Typography>
@@ -71,9 +71,9 @@ const PerfilCard = () => {
 
       <Box
         sx={{
-          padding: 2,
+          padding: 1,
           // overflow: "auto",
-          height: "100%",
+          height: "80%",
           display: "flex",
           flexDirection: "column",
           justifyContent: "start"

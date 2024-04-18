@@ -23,7 +23,7 @@ function UserInfo({ label, value, icon }) {
           {icon}
         </IconButton>
       </Box>
-      <Typography sx={{ fontSize: 17 }} color="textPrimary">
+      <Typography sx={{ fontSize: 15 }} color="textPrimary">
         {value}
       </Typography>
     </Box>
