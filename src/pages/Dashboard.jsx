@@ -74,6 +74,34 @@ function Dashboard() {
   //   return <></>
   // }
 
+  const cardData = [
+    {
+      imgSrc: "/frame.png",
+      title: "Comisiones totales",
+      value: actualUser.getTotalCommissions.totalCommissions
+    },
+    {
+      imgSrc: "/frametwo.png",
+      title: "Total de pagos",
+      value: actualUser.getTotalCommissions.ultraPayed
+    },
+    {
+      imgSrc: "/frametwo.png",
+      title: "Pagos pendientes",
+      value: actualUser.getTotalCommissions.ultraPending
+    },
+    {
+      imgSrc: "/frametwo.png",
+      title: "Total de afiliados",
+      value: actualUser.getTotalDirectUsers
+    },
+    {
+      imgSrc: "/frametwo.png",
+      title: "Afiliados hoy",
+      value: actualUser.getTotalDirectUsersToday
+    }
+  ]
+
   return (
     <PageWrapper expanded>
       {actualUser?.membership_status === "Active" || actualUser?.rol === 1 ? (
@@ -146,7 +174,7 @@ function Dashboard() {
                   <ExpiredMembership setOpenPrices={setOpenPrices} />
                 )}
 
-              <Box
+              {/* <Box
                 sx={{
                   display: "flex",
                   flexShrink: 0,
@@ -169,7 +197,8 @@ function Dashboard() {
                   title="Ganancias"
                   value="Xcalper"
                 />
-              </Box>
+              </Box> */}
+
               {/* <Box
         sx={{ display: "flex", flexShrink: 0, gap: 1, width: "97%" }}>
         <PerformanceContainer />
@@ -190,153 +219,53 @@ function Dashboard() {
               sx={{
                 display: "flex",
                 flexShrink: 0,
-                gap: 4,
+                gap: 2,
                 width: "100%",
-                paddingY: 5,
                 flexWrap: "wrap",
                 justifyContent: "space-between",
                 alignItems: "center"
               }}>
-              <Container
-                sx={{
-                  backgroundColor: "rgba(0,0,0)",
-                  width: "400px",
-                  height: "250px",
-                  borderRadius: 3,
-                  border: "1px solid #6e5c25"
-                }}>
-                <img
-                  src="/frame.png"
-                  alt="frame"
-                  style={{ marginTop: "25px", width: "50px" }}
-                />
-                <Typography sx={{ fontSize: 25, marginTop: 5, color: "white" }}>
-                  Comisiones totales
-                </Typography>
-                <Typography
-                  sx={{ fontSize: 20, color: "white", fontWeight: "bold" }}>
-                  ${actualUser.getTotalCommissions.totalCommissions}
-                </Typography>
-              </Container>
-              <Container
-                sx={{
-                  backgroundColor: "rgba(0,0,0)",
-                  width: "400px",
-                  height: "250px",
-                  borderRadius: 3,
-                  border: "1px solid #6e5c25"
-                }}>
-                <img
-                  src="/frametwo.png"
-                  alt="frametwo"
-                  style={{ marginTop: "25px", width: "50px" }}
-                />
-                <Typography sx={{ fontSize: 25, marginTop: 5, color: "white" }}>
-                  Total de pagos
-                </Typography>
-                <Typography
-                  sx={{ fontSize: 20, color: "white", fontWeight: "bold" }}>
-                  ${actualUser.getTotalCommissions.ultraPayed}
-                </Typography>
-              </Container>
-              <Container
-                sx={{
-                  backgroundColor: "rgba(0,0,0)",
-                  width: "400px",
-                  height: "250px",
-                  borderRadius: 3,
-                  border: "1px solid #6e5c25"
-                }}>
-                <img
-                  src="/frametwo.png"
-                  alt="frametwo"
-                  style={{ marginTop: "25px", width: "50px" }}
-                />
-                <Typography sx={{ fontSize: 25, marginTop: 5, color: "white" }}>
-                  Pagos pendientes
-                </Typography>
-                <Typography
-                  sx={{ fontSize: 20, color: "white", fontWeight: "bold" }}>
-                  ${actualUser.getTotalCommissions.ultraPending}
-                </Typography>
-              </Container>
-
-              <Container
-                sx={{
-                  backgroundColor: "rgba(0,0,0)",
-                  maxWidth: "400px",
-                  width: isMobile ? "90%" : "45%", // Ajuste de ancho en móvil
-                  height: isMobile ? "200px" : "250px", // Ajuste de altura en móvil
-                  borderRadius: 3,
-                  justifyContent: "center",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  border: "1px solid #6e5c25",
-                  padding: "20px",
-                  boxSizing: "border-box" // Para que el padding no afecte el ancho y alto
-                }}>
-                <img
-                  src="/frametwo.png"
-                  alt="frametwo"
-                  style={{ marginTop: "25px", width: "50px", flexShrink: 0 }}
-                />
-                <Typography
+              {cardData.map((card, index) => (
+                <Container
+                  key={index}
                   sx={{
-                    fontSize: isMobile ? 18 : 25, // Tamaño de fuente ajustado para móvil
-                    marginTop: 5,
-                    color: "white",
-                    flexShrink: 0
+                    backgroundColor: "rgba(0,0,0)",
+                    maxWidth: "300px",
+                    width: isMobile ? "90%" : "32.2%",
+                    height: isMobile ? "200px" : "250px",
+                    borderRadius: 3,
+                    border: "1px solid #6e5c25",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: "20px",
+                    boxSizing: "border-box"
                   }}>
-                  Total de afiliados
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: isMobile ? 30 : 40, // Tamaño de fuente ajustado para móvil
-                    color: "white",
-                    fontWeight: "bold"
-                  }}>
-                  {actualUser.getTotalDirectUsers}
-                </Typography>
-              </Container>
-              <Container
-                sx={{
-                  backgroundColor: "rgba(0,0,0)",
-                  maxWidth: "400px",
-                  width: isMobile ? "90%" : "45%", // Ajuste de ancho en móvil
-                  height: isMobile ? "200px" : "250px", // Ajuste de altura en móvil
-                  borderRadius: 3,
-                  justifyContent: "center",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  border: "1px solid #6e5c25",
-                  padding: "20px",
-                  boxSizing: "border-box" // Para que el padding no afecte el ancho y alto
-                }}>
-                <img
-                  src="/frametwo.png"
-                  alt="frametwo"
-                  style={{ marginTop: "25px", width: "50px", flexShrink: 0 }}
-                />
-                <Typography
-                  sx={{
-                    fontSize: isMobile ? 18 : 25, // Tamaño de fuente ajustado para móvil
-                    marginTop: 5,
-                    color: "white",
-                    flexShrink: 0
-                  }}>
-                  Afiliados hoy
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: isMobile ? 30 : 40, // Tamaño de fuente ajustado para móvil
-                    color: "white",
-                    fontWeight: "bold"
-                  }}>
-                  {actualUser.getTotalDirectUsersToday}
-                </Typography>
-              </Container>
+                  <img
+                    src={card.imgSrc}
+                    alt={card.title}
+                    style={{ marginTop: "25px", width: "50px", flexShrink: 0 }}
+                  />
+                  <Typography
+                    sx={{
+                      fontSize: isMobile ? 18 : 25,
+                      marginTop: 5,
+                      color: "white",
+                      flexShrink: 0
+                    }}>
+                    {card.title}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontSize: isMobile ? 30 : 40,
+                      color: "white",
+                      fontWeight: "bold"
+                    }}>
+                    {card.value}
+                  </Typography>
+                </Container>
+              ))}
             </Box>
 
             {/* <Box
