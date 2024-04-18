@@ -25,7 +25,7 @@ function UserList() {
 
   return (
     <PageWrapper>
-      <Box sx={{ height: "60vh" }}>
+      <Box sx={{ height: "60vh", padding: 2 }}>
         {users?.length && (
           <SuscriptionList
             users={users}
