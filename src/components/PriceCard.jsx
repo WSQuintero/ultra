@@ -8,23 +8,23 @@ import {
   IconButton,
   Alert,
   Snackbar
-} from "@mui/material"
-import { useContext, useEffect, useState } from "react"
-import { MyContext } from "../generalContext/GeneralContext"
-import { GoldButton } from "./landing/GoldButton"
-import WalletAddressQR from "./WalletAddressQR"
-import { ContentCopyRounded as CopyIcon } from "@mui/icons-material"
+} from '@mui/material'
+import { useContext, useEffect, useState } from 'react'
+import { MyContext } from '../generalContext/GeneralContext'
+import { GoldButton } from './landing/GoldButton'
+import WalletAddressQR from './WalletAddressQR'
+import { ContentCopyRounded as CopyIcon } from '@mui/icons-material'
 
 const PriceCard = ({ header, options, fromDashboard = false }) => {
   const { $Buy, token, actualUser } = useContext(MyContext)
-  const [product, setProduct] = useState("")
-  const [wallet, setWallet] = useState("")
+  const [product, setProduct] = useState('')
+  const [wallet, setWallet] = useState('')
   const [open, setOpen] = useState(false)
-  const [alert, setAlert] = useState({ show: false, message: "" })
+  const [alert, setAlert] = useState({ show: false, message: '' })
 
   const handleClose = () => {
     setOpen(false)
-    setWallet("")
+    setWallet('')
   }
   const handleBuy = async () => {
     if (!fromDashboard) {
@@ -37,19 +37,19 @@ const PriceCard = ({ header, options, fromDashboard = false }) => {
         console.log(data)
       }
     } else {
-      window.location.href = "/signin"
+      window.location.href = '/signin'
     }
   }
 
   useEffect(() => {
     if (header.title) {
-      if (header.title === "PLAN90") {
+      if (header.title === 'PLAN90') {
         setProduct(4)
       }
-      if (header.title === "CLUB DE FONDEO") {
+      if (header.title === 'CLUB DE FONDEO') {
         setProduct(1)
       }
-      if (header.title === "PLAN DE FONDEO SINTETIC") {
+      if (header.title === 'PLAN DE FONDEO SINTETIC') {
         setProduct(2)
       }
     }
@@ -57,7 +57,7 @@ const PriceCard = ({ header, options, fromDashboard = false }) => {
 
   const handleCopySlug = () => {
     navigator.clipboard.writeText(wallet?.product_wallet_address)
-    setAlert({ show: true, message: "Slug added to your clipboard" })
+    setAlert({ show: true, message: 'Slug added to your clipboard' })
   }
 
   function formatDate(fechaString) {
@@ -65,8 +65,8 @@ const PriceCard = ({ header, options, fromDashboard = false }) => {
     const fecha = new Date(fechaString)
 
     // Obtener los componentes de la fecha
-    const diaSemana = fecha.toLocaleDateString("es-ES", { weekday: "long" })
-    const mes = fecha.toLocaleDateString("es-ES", { mes: "long" })
+    const diaSemana = fecha.toLocaleDateString('es-ES', { weekday: 'long' })
+    const mes = fecha.toLocaleDateString('es-ES', { mes: 'long' })
     const dia = fecha.getDate()
     const ano = fecha.getFullYear()
 
@@ -79,39 +79,49 @@ const PriceCard = ({ header, options, fromDashboard = false }) => {
     <>
       <Box
         sx={{
-          maxWidth: 300,
-          minWidth: 300,
-          width: "100%",
-          overflow: "hidden",
+          maxWidth: 320,
+          minWidth: 320,
+          width: '100%',
+          overflow: 'hidden',
           borderRadius: 5,
-          background: "rgba(0, 0, 0, 0.1)",
-          border: "2px solid #ab8e3a",
+          background: 'rgba(0, 0, 0, 0.1)',
+          border: '2px solid #ab8e3a',
           flexShrink: 0,
-          height: "80vh"
+          height: '80vh',
+          '&::-webkit-scrollbar': {
+            width: '12px',
+            backgroundColor: 'black'
+          },
+          '&::-webkit-scrollbar-thumb': {
+            backgroundColor: 'black',
+            borderRadius: '10px'
+          },
+          scrollbarWidth: 'thin',
+          scrollbarColor: 'black black'
         }}>
         <Box
           sx={{
-            width: "100%",
-            backgroundColor: "#13141a",
-            backgroundSize: "cover",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: 2
+            width: '100%',
+            backgroundColor: '#13141a',
+            backgroundSize: 'cover',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 1
           }}>
           <div
             style={{
-              display: "flex",
-              justifyContent: "space-between",
-              position: "relative"
+              display: 'flex',
+              justifyContent: 'center',
+              position: 'relative'
             }}>
             {/* <Typography sx={{ color: "white" }}>{header?.title}</Typography> */}
             <img
               src={header?.urlImg}
               alt={header.title}
-              style={{ width: "200px", height: "100px", objectFit: "contain" }}
+              style={{ width: '200px', height: '100px', objectFit: 'contain' }}
             />
-            <div style={{ display: "flex", gap: 4 }}>
-              <Typography sx={{ color: "white" }}>{header?.price}</Typography>
+            <div style={{ display: 'flex' }}>
+              <Typography sx={{ color: 'white' }}>{header?.price}</Typography>
               {/* <Typography sx={{ textDecoration: "line-through" }}>
                 {header?.realPrice}
               </Typography> */}
@@ -120,24 +130,24 @@ const PriceCard = ({ header, options, fromDashboard = false }) => {
 
           <div
             style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center"
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center'
             }}>
             <Typography sx={{ fontSize: 13 }}>{header?.description}</Typography>
-            <div style={{ display: "flex", gap: 4, marginTop: "10px" }}>
+            {/* <div style={{ display: 'flex', gap: 4, marginTop: '10px' }}>
               <Typography
                 sx={{
-                  width: "auto",
+                  width: 'auto',
                   padding: 1,
                   borderRadius: 10,
-                  backgroundColor: "#f45170",
+                  backgroundColor: '#f45170',
                   fontSize: 12,
-                  color: "white"
+                  color: 'white'
                 }}>
                 {header.discount}
               </Typography>
-            </div>
+            </div> */}
           </div>
 
           <div style={{ marginTop: 5 }}>
@@ -148,35 +158,45 @@ const PriceCard = ({ header, options, fromDashboard = false }) => {
         <Box
           sx={{
             paddingBottom: 4,
-            overflow: "auto",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "start",
-            height: "80%"
+            overflow: 'auto',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'start',
+            height: '50%',
+            '&::-webkit-scrollbar': {
+              width: '12px',
+              backgroundColor: 'black'
+            },
+            '&::-webkit-scrollbar-thumb': {
+              backgroundColor: 'black',
+              borderRadius: '10px'
+            },
+            scrollbarWidth: 'thin',
+            scrollbarColor: 'black #ab8e3a'
           }}>
           {/* Sección 2 */}
           {options?.map((option, index) => (
             <Box
               sx={{
-                borderBottom: "1px solid white",
+                borderBottom: '1px solid white',
                 padding: 1
               }}
               key={index}>
               <Box
                 sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between"
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between'
                 }}>
-                <Typography variant="body2" color="white" sx={{ fontSize: 13 }}>
+                <Typography variant='body2' color='white' sx={{ fontSize: 13 }}>
                   {option.title}
                 </Typography>
 
-                <Typography variant="body2" color="white" sx={{ fontSize: 13 }}>
+                <Typography variant='body2' color='white' sx={{ fontSize: 13 }}>
                   {option.price}
                 </Typography>
               </Box>
-              <Typography sx={{ fontSize: 10 }} color="textPrimary">
+              <Typography sx={{ fontSize: 10 }} color='textPrimary'>
                 {option.subtitle}
               </Typography>
             </Box>
@@ -185,131 +205,131 @@ const PriceCard = ({ header, options, fromDashboard = false }) => {
         <Modal
           open={open}
           onClose={handleClose}
-          aria-labelledby="payment-modal-title"
-          aria-describedby="payment-modal-description">
+          aria-labelledby='payment-modal-title'
+          aria-describedby='payment-modal-description'>
           <Box
             sx={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              bgcolor: "black",
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              bgcolor: 'black',
               borderRadius: 5,
               padding: 4,
-              textAlign: "center",
-              width: "60%",
-              border: "2px solid #ab8e3a"
+              textAlign: 'center',
+              width: '60%',
+              border: '2px solid #ab8e3a'
             }}>
-            <img src="/logo.png" alt="" />
+            <img src='/logo.png' alt='' />
             <Typography
-              variant="h5"
-              id="payment-modal-title"
-              sx={{ color: "rgba(255,255,255,0.7)" }}>
+              variant='h5'
+              id='payment-modal-title'
+              sx={{ color: 'rgba(255,255,255,0.7)' }}>
               Tu orden de pago.
             </Typography>
             <Typography
-              id="payment-modal-title"
-              sx={{ color: "rgba(255,255,255,0.6)", marginTop: 2 }}>
+              id='payment-modal-title'
+              sx={{ color: 'rgba(255,255,255,0.6)', marginTop: 2 }}>
               Escanea el código QR en la app de pago.
             </Typography>
             <Box
               sx={{
-                display: "flex",
+                display: 'flex',
                 gap: 10,
-                width: "100%",
+                width: '100%',
                 marginTop: 1,
-                justifyContent: "space-around"
+                justifyContent: 'space-around'
               }}>
-              <Box sx={{ width: "60%" }}>
+              <Box sx={{ width: '60%' }}>
                 <Box
                   sx={{
-                    textAlign: "Left",
-                    backgroundColor: "#ab8e3a",
+                    textAlign: 'Left',
+                    backgroundColor: '#ab8e3a',
                     borderRadius: 2,
                     marginTop: 2,
                     padding: 1
                   }}>
-                  <Typography sx={{ color: "white" }}>
-                    Correo electrónico:{"  "}
-                    <span style={{ color: "black", fontSize: "16px" }}>
+                  <Typography sx={{ color: 'white' }}>
+                    Correo electrónico:{'  '}
+                    <span style={{ color: 'black', fontSize: '16px' }}>
                       {actualUser?.email}
                     </span>
                   </Typography>
-                  <Typography sx={{ color: "white" }}>
-                    Teléfono:{"  "}
-                    <span style={{ color: "black", fontSize: "16px" }}>
+                  <Typography sx={{ color: 'white' }}>
+                    Teléfono:{'  '}
+                    <span style={{ color: 'black', fontSize: '16px' }}>
                       {actualUser?.cellphone}
                     </span>
                   </Typography>
-                  <Typography sx={{ color: "white" }}>
-                    Fecha:{"  "}
+                  <Typography sx={{ color: 'white' }}>
+                    Fecha:{'  '}
                     <span
                       style={{
-                        color: "black",
-                        fontSize: "16px"
+                        color: 'black',
+                        fontSize: '16px'
                       }}>{`${formatDate(new Date())}`}</span>
                   </Typography>
                 </Box>
                 <Box
                   sx={{
-                    display: "flex",
-                    width: "100%",
-                    borderTop: "1px solid #ab8e3a",
-                    borderBottom: "1px solid #ab8e3a",
+                    display: 'flex',
+                    width: '100%',
+                    borderTop: '1px solid #ab8e3a',
+                    borderBottom: '1px solid #ab8e3a',
                     marginTop: 2,
                     padding: 1,
-                    justifyContent: "space-between"
+                    justifyContent: 'space-between'
                   }}>
                   <Box
                     sx={{
                       padding: 1,
-                      width: "60%",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "start"
+                      width: '60%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'start'
                     }}>
-                    <Typography sx={{ color: "white" }}>Suscripción</Typography>
+                    <Typography sx={{ color: 'white' }}>Suscripción</Typography>
                     <Typography
                       sx={{
-                        color: "rgba(255,255,255,0.7)",
-                        width: "100%",
-                        textAlign: "start"
+                        color: 'rgba(255,255,255,0.7)',
+                        width: '100%',
+                        textAlign: 'start'
                       }}>
-                      <span style={{ color: "#ab8e3a", fontSize: "13px" }}>
+                      <span style={{ color: '#ab8e3a', fontSize: '13px' }}>
                         {header.title}
                       </span>
                     </Typography>
                   </Box>
                   <Box sx={{ padding: 1 }}>
-                    <Typography sx={{ color: "white", fontSize: "15px" }}>
+                    <Typography sx={{ color: 'white', fontSize: '15px' }}>
                       Precio (USDT)
                     </Typography>
                     <Typography
-                      sx={{ color: "rgba(255,255,255,0.7)", fontSize: "12px" }}>
+                      sx={{ color: 'rgba(255,255,255,0.7)', fontSize: '12px' }}>
                       ${wallet?.amount_usdt - 2}
                     </Typography>
                   </Box>
                   <Box sx={{ padding: 1 }}>
-                    <Typography sx={{ color: "white", fontSize: "15px" }}>
+                    <Typography sx={{ color: 'white', fontSize: '15px' }}>
                       Comisión (USDT)
                     </Typography>
                     <Typography
-                      sx={{ color: "rgba(255,255,255,0.7)", fontSize: "12px" }}>
+                      sx={{ color: 'rgba(255,255,255,0.7)', fontSize: '12px' }}>
                       $2
                     </Typography>
                   </Box>
                 </Box>
                 <Box sx={{ marginTop: 2 }}>
-                  <Typography sx={{ color: "#ab8e3a" }}>
+                  <Typography sx={{ color: '#ab8e3a' }}>
                     Total:
-                    <span style={{ color: "white" }}>
-                      {" "}
+                    <span style={{ color: 'white' }}>
+                      {' '}
                       ${wallet?.amount_usdt}
                     </span>
                   </Typography>
                 </Box>
               </Box>
-              <Box sx={{ width: "40%" }}>
+              <Box sx={{ width: '40%' }}>
                 <WalletAddressQR address={wallet.product_wallet_address} />
               </Box>
             </Box>
@@ -321,38 +341,38 @@ const PriceCard = ({ header, options, fromDashboard = false }) => {
           </Typography> */}
             <Grid
               container
-              justifyContent="center"
+              justifyContent='center'
               sx={{
                 zIndex: 50000,
                 marginTop: 2
               }}>
               <TextField
                 style={{
-                  backgroundColor: "#ffffff22",
-                  backdropFilter: "blur(8px)"
+                  backgroundColor: '#ffffff22',
+                  backdropFilter: 'blur(8px)'
                 }}
                 sx={{
-                  width: "70%",
-                  "& input:disabled": {
-                    "-webkit-text-fill-color": "white",
-                    color: "white !important"
+                  width: '70%',
+                  '& input:disabled': {
+                    '-webkit-text-fill-color': 'white',
+                    color: 'white !important'
                   },
-                  "& fieldset": {
-                    border: "1px solid white !important"
+                  '& fieldset': {
+                    border: '1px solid white !important'
                   }
                 }}
-                size="large"
-                color="secondary"
+                size='large'
+                color='secondary'
                 value={wallet?.product_wallet_address}
                 disabled
                 InputProps={{
                   endAdornment: (
-                    <InputAdornment position="end">
+                    <InputAdornment position='end'>
                       <IconButton
-                        aria-label="copy slug"
+                        aria-label='copy slug'
                         onClick={handleCopySlug}
-                        sx={{ color: "white" }}>
-                        <CopyIcon color="inherit" />
+                        sx={{ color: 'white' }}>
+                        <CopyIcon color='inherit' />
                       </IconButton>
                     </InputAdornment>
                   )
@@ -366,9 +386,9 @@ const PriceCard = ({ header, options, fromDashboard = false }) => {
         open={alert.show}
         sx={{ zIndex: 1000 }}
         autoHideDuration={3000}
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
-        onClose={() => setAlert({ show: false, message: "" })}>
-        <Alert severity="success" sx={{ width: "100%" }}>
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        onClose={() => setAlert({ show: false, message: '' })}>
+        <Alert severity='success' sx={{ width: '100%' }}>
           {alert.message}
         </Alert>
       </Snackbar>

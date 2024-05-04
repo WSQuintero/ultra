@@ -38,39 +38,7 @@ function PriceCards({ fromDashboard = false }) {
           Para acceder a esta sección debes comprar una Membresía:
         </Typography>
       )}
-      {/* <Box
-        style={{
-          display: "flex",
-          justifyContent: "space-around",
-          gap: 20
-        }}>
-        {products?.map((product) => (
-          <PriceCard
-            key={product.id}
-            header={{
-              title: product.name,
-              price: `$${product.amount_usdt} USDT`,
-              realPrice: `$${product.amount_usdt} USDT`,
-              description: "Todos los cursos ahora solo por",
-              discount: "-🔥",
-              urlImg: product.image
-            }}
-            options={JSON.parse(product.description)}
-          />
-        ))}
 
-        <PriceCard
-          header={{
-            title: "Club del fondeo 2.0",
-            price: "$399 usd",
-            realPrice: "$399/mes",
-            description: "Todos los cursos ahora solo por",
-            discount: "- 🔥",
-            urlImg: "/CLUB DEL FONDEO 2.0-01.png"
-          }}
-          options={planFondeo}
-        />
-      </Box> */}
       <ProductSlider products={products} fromDashboard={fromDashboard} />
     </Box>
   )

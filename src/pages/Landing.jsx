@@ -8,6 +8,7 @@ import KeepUpdatedSection from "../components/landing/KeepUpdatedSection"
 import { Navbar } from "../components/landing/Navbar"
 import { TelegramIcon } from "../components/landing/TelegramFixIIcon"
 import { Footer } from "../components/landing/Footer"
+import { Box } from "@mui/material"
 
 function Landing() {
   return (
@@ -19,7 +20,11 @@ function Landing() {
       </div>
       <OurMissionSection />
       <OurServicesSection />
-      <PriceCards fromDashboard={true} />
+      <Box sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
+        <Box sx={{ width: "80%" }}>
+          <PriceCards fromDashboard={true} />
+        </Box>
+      </Box>
       <KeepUpdatedSection />
       <Footer />
       <TelegramIcon />

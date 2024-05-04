@@ -1,7 +1,11 @@
-import PriceCard from "./PriceCard"
-import Slider from "react-slick"
-import "slick-carousel/slick/slick.css"
-import "slick-carousel/slick/slick-theme.css"
+import PriceCard from './PriceCard'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
+import { Swiper, SwiperSlide } from 'swiper/react'
+// import { Pagination } from "swiper/modules"
+import 'swiper/css'
+import 'swiper/css/pagination'
 
 const isValidJson = (str) => {
   try {
@@ -34,47 +38,57 @@ function ProductSlider({ products, fromDashboard = false }) {
         settings: {
           slidesToShow: 1,
           centerMode: true,
-          centerPadding: "25%" // Ajusta el espacio en móvil
+          centerPadding: '25%' // Ajusta el espacio en móvil
         }
       }
     ]
   }
 
   const sliderContainerStyle = {
-    maxWidth: "80%",
-    height: "auto",
-    margin: "0 auto",
-    padding: "20px"
+    width: '100%',
+    height: 'auto',
+    margin: '0 auto',
+    padding: '20px'
   }
 
   return (
     <div style={sliderContainerStyle}>
-      <Slider {...settings}>
+      <Swiper
+        slidesPerView={3}
+        spaceBetween={30}
+        pagination={{
+          clickable: true
+        }}
+        // modules={[Pagination]}
+        className='mySwiper'>
+        {/* <Slider {...settings}> */}
         {products
-          ?.filter((product) => product.name !== "EXCALPER")
+          ?.filter((product) => product.name !== 'EXCALPER')
           .map((product) => (
-            <div key={product.id}>
-              <PriceCard
-                fromDashboard={fromDashboard}
-                header={{
-                  title: product.name,
-                  price: `$${product.amount_usdt} USDT`,
-                  realPrice: `$${product.amount_usdt} USDT`,
-                  description: "Todos los cursos ahora solo por",
-                  discount: "-🔥",
-                  urlImg: product.image
-                }}
-                options={
-                  product?.description
-                    ? isValidJson(product?.description)
-                      ? JSON.parse(product?.description)
+            <SwiperSlide key={product.id}>
+              <div>
+                <PriceCard
+                  fromDashboard={fromDashboard}
+                  header={{
+                    title: product.name,
+                    price: `$${product.amount_usdt} USDT`,
+                    realPrice: `$${product.amount_usdt} USDT`,
+                    description: 'Todos los cursos ahora solo por',
+                    discount: '-🔥',
+                    urlImg: product.image
+                  }}
+                  options={
+                    product?.description
+                      ? isValidJson(product?.description)
+                        ? JSON.parse(product?.description)
+                        : []
                       : []
-                    : []
-                }
-              />
-            </div>
+                  }
+                />
+              </div>
+            </SwiperSlide>
           ))}
-      </Slider>
+      </Swiper>
     </div>
   )
 }
